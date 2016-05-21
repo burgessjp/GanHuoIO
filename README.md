@@ -1,4 +1,13 @@
 
+
+App运行的动态图
+
+![](http://upload-images.jianshu.io/upload_images/623504-272e96a7ee176af9.gif?imageMogr2/auto-orient/strip)
+
+
+![](http://upload-images.jianshu.io/upload_images/623504-43c90c49394c2b3d.gif?imageMogr2/auto-orient/strip)
+
+
 使用到的开源库：
 
 
@@ -29,10 +38,3 @@ de.hdodenhof:circleimageview:1.3.0
 com.google.code.gson:gson:2.2.4
 
 com.zhy:okhttputils:2.4.1
-
-
-
-![](http://upload-images.jianshu.io/upload_images/623504-272e96a7ee176af9.gif?imageMogr2/auto-orient/strip)
-
-
-![](http://upload-images.jianshu.io/upload_images/623504-43c90c49394c2b3d.gif?imageMogr2/auto-orient/strip)

@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "ren.solid.ganhuoio"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile project(':library')
+    //RxAndroid
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+    // compile 'org.sufficientlysecure:html-textview:1.5'
+    compile files('libs/Bmob_Push_V0.8beta_20160420.jar')
+    compile files('libs/BmobSDK_V3.4.7_0518.jar')
+    compile files('libs/okhttp-3.2.0.jar')
+    compile files('libs/okio-1.7.0.jar')
+    compile files('libs/weiboSDKCore_3.1.4.jar')
+
+    compile 'com.github.paolorotolo:appintro:3.4.0'
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
+}

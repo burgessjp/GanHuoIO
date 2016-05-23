@@ -18,7 +18,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.SplashActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,16 +37,15 @@
             android:name=".ui.activity.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="ren.solid.library.activity.ViewPicActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="ren.solid.library.activity.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:screenOrientation="portrait">
 
-        </activity>
     </application>
 
 </manifest>

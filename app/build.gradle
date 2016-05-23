@@ -8,8 +8,8 @@ android {
         applicationId "ren.solid.ganhuoio"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 101
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -23,9 +23,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':library')
-    //RxAndroid
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'io.reactivex:rxjava:1.1.5'
+
     // compile 'org.sufficientlysecure:html-textview:1.5'
     compile files('libs/Bmob_Push_V0.8beta_20160420.jar')
     compile files('libs/BmobSDK_V3.4.7_0518.jar')

@@ -4,12 +4,11 @@ package ren.solid.ganhuoio.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaRouter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,36 +29,25 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WeiboAuthListener;
-import com.sina.weibo.sdk.auth.sso.SsoHandler;
-import com.sina.weibo.sdk.exception.WeiboException;
 
-import java.security.spec.MGF1ParameterSpec;
 import java.util.List;
 
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.constant.Apis;
-import ren.solid.ganhuoio.constant.Constants;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
-import ren.solid.ganhuoio.rx.RxBus;
+import ren.solid.library.rx.RxBus;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
 import ren.solid.ganhuoio.ui.view.ICollectView;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.activity.base.BaseActivity;
-import ren.solid.library.fragment.WebViewFragment;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
-import ren.solid.library.utils.ToastUtils;
 import ren.solid.library.utils.ViewUtils;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -79,28 +67,41 @@ public class MainActivity extends BaseActivity implements ICollectView {
     private ProfileDrawerItem mProfileDrawerItem;
     private AccountHeader mProfileHeader;
 
+    private int mCurFragmentIndex = 1;
+
     @Override
     protected int setLayoutResourceID() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         mFragmentManager = getSupportFragmentManager();
         mCurrentFragment = (BaseFragment) mFragmentManager.findFragmentById(R.id.frame_content);
-        Observable observable = RxBus.getInstance().register(this);
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
-            @Override
-            public void call(String msg) {
-                Logger.i(CategoryFragment.class, msg);
-                if ("Login".equals(msg)) {
-                    updateProfile();
-                    mPresenter.getCollect();
-                } else if ("CollectChange".equals(msg)) {
-                    mPresenter.getCollect();
-                }
+        if (mCurrentFragment == null) {
+            mCurrentFragment = ViewUtils.createFragment(RecentlyFragment.class);
+            mFragmentManager.beginTransaction().add(R.id.frame_content, mCurrentFragment).commit();
+        }
+        FragmentTransaction trans = mFragmentManager.beginTransaction();
+        if (null != savedInstanceState) {
+            List<Fragment> fragments = mFragmentManager.getFragments();
+            for (int i = 0; i < fragments.size(); i++) {
+                trans.hide(fragments.get(i));
             }
-        });
+        }
+        trans.show(mCurrentFragment).commitAllowingStateLoss();
+
+    }
+
+    @Override
+    protected void handleRxMsg(String msg) {
+        Logger.i(this, msg);
+        if ("Login".equals(msg)) {
+            updateProfile();
+            mPresenter.getCollect();
+        } else if ("CollectChange".equals(msg)) {
+            mPresenter.getCollect();
+        }
     }
 
     @Override
@@ -108,11 +109,8 @@ public class MainActivity extends BaseActivity implements ICollectView {
         mToolbar = $(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setUpDrawer();
-        if (mCurrentFragment == null) {
-            mCurrentFragment = ViewUtils.createFragment(RecentlyFragment.class);
-            mFragmentManager.beginTransaction().add(R.id.frame_content, mCurrentFragment).commit();
-            getSupportActionBar().setTitle(getResources().getString(R.string.main_home));
-        }
+        getSupportActionBar().setTitle(getResources().getString(R.string.main_home));
+
     }
 
     @Override
@@ -197,15 +195,18 @@ public class MainActivity extends BaseActivity implements ICollectView {
 
         switch (position) {
             case 1:
+                mCurFragmentIndex = 1;
                 mToolbar.setTitle(getResources().getString(R.string.main_home));
                 clazz = RecentlyFragment.class;
                 break;
             case 2:
+                mCurFragmentIndex = 2;
                 mSortMenu.setVisible(true);
                 mToolbar.setTitle(getResources().getString(R.string.main_category));
                 clazz = CategoryFragment.class;
                 break;
             case 3:
+                mCurFragmentIndex = 3;
                 mToolbar.setTitle(getResources().getString(R.string.main_collect));
                 clazz = CollectFragment.class;
                 break;
@@ -214,7 +215,7 @@ public class MainActivity extends BaseActivity implements ICollectView {
 //                clazz = OfflineFragment.class;
 //                break;
             case 6:
-                SystemShareUtils.shareText(MainActivity.this, "http://fir.im/ganhuoio");
+                SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                 break;
 
             case 8:

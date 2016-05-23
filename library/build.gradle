@@ -45,6 +45,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.zhy:okhttputils:2.4.1'
 
+    //RxAndroid
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+
 
 
 

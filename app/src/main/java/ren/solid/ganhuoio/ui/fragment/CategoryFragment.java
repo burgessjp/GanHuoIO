@@ -9,7 +9,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.presenter.ICategoryPresenter;
 import ren.solid.ganhuoio.presenter.impl.CategoryPresenterImpl;
-import ren.solid.ganhuoio.rx.RxBus;
+import ren.solid.library.rx.RxBus;
 import ren.solid.ganhuoio.ui.adapter.GanHuoPagerAdapter;
 import ren.solid.ganhuoio.ui.view.ICategoryView;
 import ren.solid.library.fragment.base.BaseFragment;
@@ -36,17 +36,11 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
     }
 
     @Override
-    protected void init() {
-        Observable observable = RxBus.getInstance().register(this);
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
-            @Override
-            public void call(String msg) {
-                Logger.i(CategoryFragment.class, msg);
-                if (msg.equals("SortChange")) {
-                    mAdapter.addAll(Apis.getGanHuoCateGory());
-                }
-            }
-        });
+    protected void handleRxMsg(String msg) {
+        Logger.i(this, msg);
+        if (msg.equals("SortChange")) {
+            mAdapter.addAll(Apis.getGanHuoCateGory());
+        }
     }
 
     @Override
@@ -65,7 +59,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
             public void run() {
                 mIHomePresenter.getAdapterData();
             }
-        },200);
+        }, 200);
 
     }
 
@@ -98,6 +92,6 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unregister(this);
+
     }
 }

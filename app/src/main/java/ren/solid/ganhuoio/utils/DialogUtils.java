@@ -11,7 +11,7 @@ import android.widget.PopupWindow;
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.ganhuoio.rx.RxBus;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.ViewUtils;
 
@@ -34,7 +34,7 @@ public class DialogUtils {
 
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(ViewUtils.dp2px(context, 5));
-        drawable.setColor(0xe0000000);
+        // drawable.setColor(0xe0000000);
         popupWindow.setBackgroundDrawable(drawable);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
@@ -52,6 +52,18 @@ public class DialogUtils {
             public void onClick(View v) {
                 SnackBarUtils.makeShort(view, "离线下载").info();
                 popupWindow.dismiss();
+            }
+        });
+        popupView.findViewById(R.id.tv_share_sina).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SinaWeiboShare share = new SinaWeiboShare(context);
+                share.setTextObj(bean.getDesc() + "\n" + "【干货IO下载地址:\n" +
+                        "    http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
+                share.setWebpageObj("来自干货IO的分享", bean.getUrl(), bean.getDesc());
+                share.sendMultiMessage();
+                popupWindow.dismiss();
+
             }
         });
         popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, location[0] - width, location[1] - height);

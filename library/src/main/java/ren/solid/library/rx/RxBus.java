@@ -1,5 +1,6 @@
-package ren.solid.ganhuoio.rx;
+package ren.solid.library.rx;
 
+import android.database.DatabaseUtils;
 import android.support.annotation.NonNull;
 
 import java.util.HashMap;

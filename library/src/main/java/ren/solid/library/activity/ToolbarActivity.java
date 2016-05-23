@@ -1,5 +1,6 @@
 package ren.solid.library.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,7 +27,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     protected boolean mIsHidden = false;
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         mFragmentManager = getSupportFragmentManager();
     }
 

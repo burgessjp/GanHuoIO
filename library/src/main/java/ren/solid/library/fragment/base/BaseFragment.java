@@ -8,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ren.solid.library.rx.RxBus;
 import ren.solid.skinloader.base.SkinBaseFragment;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -20,6 +24,7 @@ public abstract class BaseFragment extends SkinBaseFragment {
     private View mContentView;
     private Context mContext;
     private ProgressDialog mProgressDialog;
+    private Observable mObservable;
 
     @Nullable
     @Override
@@ -28,10 +33,22 @@ public abstract class BaseFragment extends SkinBaseFragment {
         mContext = getContext();
         mProgressDialog = new ProgressDialog(getMContext());
         mProgressDialog.setCanceledOnTouchOutside(false);
+
+        mObservable = RxBus.getInstance().register(this);
+        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String msg) {
+                handleRxMsg(msg);
+            }
+        });
         init();
         setUpView();
         setUpData();
         return mContentView;
+    }
+
+    protected void handleRxMsg(String msg) {
+
     }
 
     protected abstract int setLayoutResourceID();
@@ -63,5 +80,11 @@ public abstract class BaseFragment extends SkinBaseFragment {
 
     protected ProgressDialog getProgressDialog() {
         return mProgressDialog;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RxBus.getInstance().unregister(this);
     }
 }

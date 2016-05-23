@@ -38,7 +38,7 @@ public class SplashActivity extends AppIntro {
             }, 2000);
 
         } else {
-            AppUtils.setFirstRun(false);
+
             int color = getResources().getColor(R.color.colorPrimary);
 
             addSlide(AppIntroFragment.newInstance("最新", "能及时查看gank.io发布的最新信息", R.drawable.display1, color));

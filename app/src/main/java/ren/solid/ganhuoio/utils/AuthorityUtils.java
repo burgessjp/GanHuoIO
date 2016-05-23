@@ -2,6 +2,8 @@ package ren.solid.ganhuoio.utils;
 
 import android.content.Context;
 
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.model.bean.WeiboBean;
 import ren.solid.library.utils.PrefUtils;
@@ -104,6 +106,36 @@ public class AuthorityUtils {
 
     public static long getExpiresIn() {
         return PrefUtils.getLong(getContext(), "expires_in", 0);
+    }
+
+
+    /**
+     * 从 SharedPreferences 读取 Token 信息。
+     *
+     * @return 返回 Token 对象
+     */
+    public static Oauth2AccessToken readOauth2AccessToken() {
+
+        Oauth2AccessToken token = new Oauth2AccessToken();
+        token.setUid(getUid());
+        token.setToken(getAccessToken());
+        token.setRefreshToken(getRefreshToken());
+        token.setExpiresTime(getExpiresIn());
+
+        return token;
+    }
+
+    /**
+     * 保存 Token 对象到 SharedPreferences。
+     *
+     * @param token   Token 对象
+     */
+    public static void writeAccessToken(Oauth2AccessToken token) {
+
+        setUid(token.getUid());
+        setAccessToken(token.getToken());
+        setRefreshToken(token.getRefreshToken());
+        setExpiresIn(token.getExpiresTime());
     }
 
 }

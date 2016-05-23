@@ -5,7 +5,11 @@ import android.content.res.TypedArray;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import ren.solid.library.fragment.base.BaseFragment;
@@ -51,6 +55,15 @@ public class ViewUtils {
 
     public static BaseFragment createFragment(Class<?> clazz) {
         return createFragment(clazz, true);
+    }
+
+    public static List<BaseFragment> getFragments() {
+        Iterator<BaseFragment> ita = fragmentList.values().iterator();
+        List<BaseFragment> list = new ArrayList<>();
+        while (ita.hasNext()) {
+            list.add(ita.next());
+        }
+        return list;
     }
 
 

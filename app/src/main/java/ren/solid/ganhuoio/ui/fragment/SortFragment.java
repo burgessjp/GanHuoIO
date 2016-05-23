@@ -12,7 +12,7 @@ import java.util.List;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
-import ren.solid.ganhuoio.rx.RxBus;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.CommonUtils;
@@ -74,7 +74,7 @@ public class SortFragment extends BaseFragment {
             public void run() {
                 showTips();
             }
-        },100);
+        }, 100);
     }
 
 
@@ -101,11 +101,10 @@ public class SortFragment extends BaseFragment {
 
         @Override
         public void onItemMove(int fromPosition, int toPosition) {
-            if (fromPosition != 0&&toPosition!=0) {
+            if (fromPosition != 0 && toPosition != 0) {
                 Collections.swap(mBeans, fromPosition, toPosition);
                 notifyItemMoved(fromPosition, toPosition);
                 saveCategoryString();
-               // getMContext().sendBroadcast(new Intent("SortChange"));
                 RxBus.getInstance().post("SortChange");
             } else {
                 SnackBarUtils.makeLong(mRecyclerView, "第一个条目不允许拖动").info();

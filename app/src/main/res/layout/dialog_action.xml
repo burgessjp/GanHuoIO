@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     android:padding="10dp">
 
     <Button
@@ -17,12 +18,12 @@
         android:paddingTop="8dp"
         android:text="离线下载"
         android:visibility="gone"
-        android:textColor="@color/md_grey_700"
+        android:textColor="@color/white"
         android:textSize="16sp" />
 
     <Button
         android:id="@+id/tv_collect"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:paddingBottom="8dp"
@@ -30,6 +31,18 @@
         android:paddingRight="14dp"
         android:paddingTop="8dp"
         android:text="收藏"
-        android:textColor="@color/md_grey_700"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+    <Button
+        android:id="@+id/tv_share_sina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingBottom="8dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingTop="8dp"
+        android:text="分享到新浪微博"
+        android:textColor="@color/white"
         android:textSize="16sp" />
 </LinearLayout>

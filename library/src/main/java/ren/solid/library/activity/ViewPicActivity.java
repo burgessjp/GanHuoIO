@@ -29,8 +29,8 @@ public class ViewPicActivity extends ToolbarActivity {
     private ViewPicFragment mFragment;
 
     @Override
-    protected void init() {
-        super.init();
+    protected void init(Bundle savedInstanceState) {
+        super.init(savedInstanceState);
         mUrlList = getIntent().getExtras().getStringArrayList(IMG_URLS);
 
     }

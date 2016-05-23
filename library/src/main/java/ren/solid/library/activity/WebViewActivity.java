@@ -1,5 +1,6 @@
 package ren.solid.library.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
@@ -39,7 +40,7 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         mUrl = getIntent().getExtras().getString(WEB_URL);
         mTitle = getIntent().getExtras().getString(TITLE);
         mFragmentManager = getSupportFragmentManager();

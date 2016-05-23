@@ -18,11 +18,12 @@ import java.util.Map;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Constants;
 import ren.solid.ganhuoio.model.bean.WeiboBean;
-import ren.solid.ganhuoio.rx.RxBus;
+import ren.solid.library.rx.RxBus;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
+import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -117,12 +118,18 @@ public class LoginActivity extends AppCompatActivity {
                     AuthorityUtils.setUserName(result.getName());
                     AuthorityUtils.login(result);
                     if (AppUtils.isFirstRun()) {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Logger.i("isFirst");
+                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        AppUtils.setFirstRun(false);
+                    } else {
+                        Logger.i("not isFirst");
+                        RxBus.getInstance().post("Login");
                     }
                     finish();
-                    RxBus.getInstance().post("Login");
+
                 }
             }
+
             @Override
             public void onError(Exception e) {
 

@@ -108,6 +108,7 @@ public class SplashActivity extends AppIntro {
                     public void onClick(MaterialDialog dialog, DialogAction which) {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         finish();
+                        AppUtils.setFirstRun(false);
                     }
                 });
 

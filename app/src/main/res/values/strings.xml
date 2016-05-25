@@ -12,6 +12,12 @@
     <string name="main_setting">设置</string>
     <string name="main_exit">注销账户</string>
 
+    <string name="feedback_dialog_title">您宝贵的反馈建议</string>
+    <string name="feedback_input_hint">反馈建议</string>
+    <string name="feedback_input_prefill"></string>
+    <string name="feedback_success">提交成功</string>
+    <string name="feedback_failed">提交失败</string>
+
 
     <string name="no_login">未登录</string>
      <string name="about_msg">此应用是基于gank.io提供的api实现，能查看最新信息，也能对信息进行分类排序，还可对感兴趣的信息收藏，妈妈再也不用担心我看到gank上的好东西而忘记了，后面会提供离线缓存，在部分页面上参考了

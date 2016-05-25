@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +33,12 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.List;
 
+import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.model.bean.bomb.FeedBack;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
+import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.library.rx.RxBus;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
@@ -47,9 +51,8 @@ import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
+import ren.solid.library.utils.ToastUtils;
 import ren.solid.library.utils.ViewUtils;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity implements ICollectView {
 
@@ -67,7 +70,6 @@ public class MainActivity extends BaseActivity implements ICollectView {
     private ProfileDrawerItem mProfileDrawerItem;
     private AccountHeader mProfileHeader;
 
-    private int mCurFragmentIndex = 1;
 
     @Override
     protected int setLayoutResourceID() {
@@ -195,18 +197,15 @@ public class MainActivity extends BaseActivity implements ICollectView {
 
         switch (position) {
             case 1:
-                mCurFragmentIndex = 1;
                 mToolbar.setTitle(getResources().getString(R.string.main_home));
                 clazz = RecentlyFragment.class;
                 break;
             case 2:
-                mCurFragmentIndex = 2;
                 mSortMenu.setVisible(true);
                 mToolbar.setTitle(getResources().getString(R.string.main_category));
                 clazz = CategoryFragment.class;
                 break;
             case 3:
-                mCurFragmentIndex = 3;
                 mToolbar.setTitle(getResources().getString(R.string.main_collect));
                 clazz = CollectFragment.class;
                 break;
@@ -217,10 +216,11 @@ public class MainActivity extends BaseActivity implements ICollectView {
             case 6:
                 SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                 break;
-
+            case 7:
+                AppUtils.feedBack(this, mToolbar);
+                break;
             case 8:
                 logOut();
-
                 break;
             default:
 
@@ -229,6 +229,7 @@ public class MainActivity extends BaseActivity implements ICollectView {
 
         return clazz;
     }
+
 
     private void logOut() {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)

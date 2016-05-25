@@ -60,6 +60,7 @@ public class SplashActivity extends AppIntro {
             setZoomAnimation();
             setDoneText("立即开启");
             setSkipText("跳过");
+            AppUtils.setFirstRun(false);
         }
 
     }

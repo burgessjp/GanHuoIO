@@ -15,8 +15,6 @@ import ren.solid.library.utils.PrefUtils;
  */
 public class AuthorityUtils {
 
-    private static final String DEFAULT_NAME = "none";
-    private static String mUserName = "SOLID";
 
 
     private static Context getContext() {

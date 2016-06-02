@@ -3,6 +3,7 @@ package ren.solid.ganhuoio.ui.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,11 +17,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.utils.AppUtils;
+import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
@@ -28,6 +33,8 @@ import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.DateUtils;
+import ren.solid.library.utils.Logger;
+import ren.solid.library.utils.StringStyleUtils;
 
 /**
  * Created by _SOLID
@@ -105,23 +112,28 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
                 holder.setText(R.id.tv_time, DateUtils.friendlyTime(date));
                 holder.setText(R.id.tv_tag, bean.getType());
                 holder.setText(R.id.tv_desc, bean.getDesc());
-
                 holder.setImage(R.id.iv_source, AppUtils.getResourseIDByUrl(bean.getUrl()));
-//                BmobQuery<CollectTable> query = new BmobQuery<>();
-//                query.addWhereEqualTo("username", AuthorityUtils.getUserName());
-//                query.addWhereEqualTo("url", bean.getUrl());
-//                query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
-//                    @Override
-//                    public void onSuccess(List<CollectTable> list) {
-//                        // if (list.size() > 0)
-//                        // holder.getView(R.id.iv_collected).setVisibility(View.VISIBLE);
-//                    }
-//
-//                    @Override
-//                    public void onError(int i, String s) {
-//                        Logger.i("onError:" + s + " code:" + i);
-//                    }
-//                });
+
+
+                BmobQuery<CollectTable> query = new BmobQuery<>();
+                query.addWhereEqualTo("username", AuthorityUtils.getUserName());
+                query.addWhereEqualTo("url", bean.getUrl());
+                query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
+                    @Override
+                    public void onSuccess(List<CollectTable> list) {
+                        if (list.size() > 0) {
+                            final SpannableStringBuilder builder = new SpannableStringBuilder(bean.getDesc());
+                            builder.append(StringStyleUtils.format(getMContext(), "(已收藏)", R.style.CollectedAppearance));
+                            CharSequence descText = builder.subSequence(0, builder.length());
+                            holder.setText(R.id.tv_desc,descText);
+                        }
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        Logger.i("onError:" + s + " code:" + i);
+                    }
+                });
 
             }
 

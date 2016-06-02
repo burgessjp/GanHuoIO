@@ -1,5 +1,6 @@
 package ren.solid.library.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -7,11 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.ViewPicFragment;
+import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -64,15 +69,28 @@ public class ViewPicActivity extends ToolbarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
+        final int id = item.getItemId();
+//        RxPermissions.getInstance(getApplication())
+//                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .subscribe(new Action1<Boolean>() {
+//                    @Override
+//                    public void call(Boolean granted) {
+//                        if (granted) {
+//                            if (id == R.id.action_save) {
+//                                mFragment.downloadPicture(0);
+//                            } else if (id == R.id.action_share) {
+//                                mFragment.downloadPicture(1);
+//                            }
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "无读写权限", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
         if (id == R.id.action_save) {
             mFragment.downloadPicture(0);
-            return true;
         } else if (id == R.id.action_share) {
             mFragment.downloadPicture(1);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

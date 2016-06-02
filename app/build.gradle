@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.getkeepsafe.dexcount'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -7,9 +9,9 @@ android {
     defaultConfig {
         applicationId "ren.solid.ganhuoio"
         minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 102
-        versionName "1.0.2"
+        targetSdkVersion 22
+        versionCode 103
+        versionName "1.0.3"
     }
     buildTypes {
         release {

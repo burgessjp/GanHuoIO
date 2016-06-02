@@ -5,7 +5,7 @@ update:
 - 1.0.1  修复登录异常
 - 1.0.0  发布
 
-App下载地址：
+App下载地址
 
 下载地址1:[Fir.im](http://fir.im/ganhuoio)
 

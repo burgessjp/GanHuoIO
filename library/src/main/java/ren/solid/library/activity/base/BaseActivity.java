@@ -2,13 +2,13 @@ package ren.solid.library.activity.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.view.View;
 
-import ren.solid.library.rx.RxBus;
+import ren.solid.library.rx.RxBusExt;
 import ren.solid.skinloader.base.SkinBaseActivity;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Subscription;
 import rx.functions.Action1;
 
 /**
@@ -18,18 +18,18 @@ import rx.functions.Action1;
  */
 public abstract class BaseActivity extends SkinBaseActivity {
 
-    private Observable mObservable;
+    private Subscription mSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mObservable = RxBus.getInstance().register(this);
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+        mSubscription = RxBusExt.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
             @Override
-            public void call(String msg) {
-                handleRxMsg(msg);
+            public void call(String s) {
+                handleRxMsg(s);
             }
         });
+
         init(savedInstanceState);
         setContentView(setLayoutResourceID());
         setUpView();
@@ -75,6 +75,17 @@ public abstract class BaseActivity extends SkinBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unregister(this);
+        mSubscription.unsubscribe();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 1:
+
+                break;
+        }
     }
 }

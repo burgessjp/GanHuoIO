@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ren.solid.library.rx.RxBus;
+import ren.solid.library.rx.RxBusExt;
 import ren.solid.skinloader.base.SkinBaseFragment;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Subscription;
 import rx.functions.Action1;
 
 /**
@@ -24,7 +24,7 @@ public abstract class BaseFragment extends SkinBaseFragment {
     private View mContentView;
     private Context mContext;
     private ProgressDialog mProgressDialog;
-    private Observable mObservable;
+    private Subscription mSubscription;
 
     @Nullable
     @Override
@@ -34,11 +34,10 @@ public abstract class BaseFragment extends SkinBaseFragment {
         mProgressDialog = new ProgressDialog(getMContext());
         mProgressDialog.setCanceledOnTouchOutside(false);
 
-        mObservable = RxBus.getInstance().register(this);
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+        mSubscription = RxBusExt.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
             @Override
-            public void call(String msg) {
-                handleRxMsg(msg);
+            public void call(String s) {
+                handleRxMsg(s);
             }
         });
         init();
@@ -85,6 +84,6 @@ public abstract class BaseFragment extends SkinBaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unregister(this);
+        mSubscription.unsubscribe();
     }
 }

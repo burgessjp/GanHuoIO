@@ -12,6 +12,7 @@ import java.util.List;
 
 import ren.solid.ganhuoio.ui.fragment.GanHuoListFragment;
 import ren.solid.ganhuoio.ui.fragment.ImagesFragmant;
+import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ViewUtils;
 
 /**
@@ -23,6 +24,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
 
     private static String TAG = "GanHuoPagerAdapter";
     private static List<String> mTitles;
+    private int mChildCount = 0;
 
     public GanHuoPagerAdapter(FragmentManager fm, List<String> titles) {
         super(fm);
@@ -49,6 +51,22 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        mChildCount = getCount();
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        Logger.i("getItemPosition:"+mChildCount);
+        if (mChildCount > 0) {
+            mChildCount--;
+            return POSITION_NONE;
+        }
+        return super.getItemPosition(object);
+    }
+
+    @Override
     public int getCount() {
         return mTitles.size();
     }
@@ -61,7 +79,6 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
         // super.restoreState(state, loader);
-        //重写这个方法是为了防止在restoreState的时候导致应用崩溃，这样做虽然不太好，但是目前我也只能想到这种方法了
-        Log.i(TAG, "restoreState");
+        Logger.i(TAG, "restoreState");
     }
 }

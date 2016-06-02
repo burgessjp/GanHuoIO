@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,13 +32,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.List;
 
-import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.ganhuoio.model.bean.bomb.FeedBack;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
+import ren.solid.ganhuoio.ui.fragment.RxOperatorsSearchFragment;
 import ren.solid.ganhuoio.utils.AppUtils;
-import ren.solid.library.rx.RxBus;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
@@ -51,14 +48,12 @@ import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
-import ren.solid.library.utils.ToastUtils;
 import ren.solid.library.utils.ViewUtils;
 
 public class MainActivity extends BaseActivity implements ICollectView {
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
-
 
     private FragmentManager mFragmentManager;
     private BaseFragment mCurrentFragment;
@@ -149,6 +144,9 @@ public class MainActivity extends BaseActivity implements ICollectView {
         mItemCollect = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_collect)).withIcon(GoogleMaterial.Icon.gmd_calendar).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700));
         // PrimaryDrawerItem itemOffline = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_offline)).withIcon(GoogleMaterial.Icon.gmd_nature_people).withBadge("0").withBadgeStyle(new BadgeStyle().withTextColor(Color.GRAY));
 
+        PrimaryDrawerItem itemRxSearch = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_rx_search)).withIcon(GoogleMaterial.Icon.gmd_search);
+
+
         SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingUtils.onlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
@@ -168,6 +166,7 @@ public class MainActivity extends BaseActivity implements ICollectView {
                         itemCategory,
                         mItemCollect,
                         //  itemOffline,//放到下一个版本中
+                        itemRxSearch,
                         new DividerDrawerItem(),
                         itemSwitch,
                         itemShare,
@@ -209,17 +208,17 @@ public class MainActivity extends BaseActivity implements ICollectView {
                 mToolbar.setTitle(getResources().getString(R.string.main_collect));
                 clazz = CollectFragment.class;
                 break;
-//            case 4:
-//                mToolbar.setTitle(getResources().getString(R.string.main_offline));
-//                clazz = OfflineFragment.class;
-//                break;
-            case 6:
-                SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
+            case 4:
+                mToolbar.setTitle(getResources().getString(R.string.main_rx_search));
+                clazz = RxOperatorsSearchFragment.class;
                 break;
             case 7:
-                AppUtils.feedBack(this, mToolbar);
+                SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                 break;
             case 8:
+                AppUtils.feedBack(this, mToolbar);
+                break;
+            case 9:
                 logOut();
                 break;
             default:
@@ -326,7 +325,6 @@ public class MainActivity extends BaseActivity implements ICollectView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unregister(this);
     }
 
 

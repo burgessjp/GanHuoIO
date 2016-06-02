@@ -21,13 +21,13 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iv_collected"
-                android:layout_width="15dp"
+                android:id="@+id/iv_source"
+                android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/collected" />
+                android:src="@drawable/web" />
 
 
             <LinearLayout
@@ -66,15 +66,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_load_img" />
+                    android:src="@drawable/default_load_img"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="3dp">
+                    android:padding="2dp">
 
 
                     <TextView

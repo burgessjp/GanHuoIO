@@ -10,23 +10,17 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindCallback;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
-import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.ganhuoio.utils.AuthorityUtils;
+import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
@@ -34,7 +28,6 @@ import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.DateUtils;
-import ren.solid.library.utils.Logger;
 
 /**
  * Created by _SOLID
@@ -78,10 +71,26 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
         return new SolidRVBaseAdapter<GanHuoDataBean>(getMContext(), new ArrayList<GanHuoDataBean>()) {
             @Override
             protected void onBindDataToView(final SolidCommonViewHolder holder, final GanHuoDataBean bean, int position) {
-                holder.getView(R.id.tv_desc).setVisibility(View.GONE);
                 holder.getView(R.id.iv_img).setVisibility(View.GONE);
                 holder.getView(R.id.tv_tag).setVisibility(View.GONE);
+                holder.getView(R.id.iv_source).setVisibility(View.VISIBLE);
                 holder.getView(R.id.iv_action).setVisibility(View.VISIBLE);
+                holder.getView(R.id.tv_desc).setVisibility(View.VISIBLE);
+
+
+                if (isImage(bean.getUrl())) {
+                    holder.getView(R.id.tv_desc).setVisibility(View.GONE);
+                    holder.getView(R.id.iv_action).setVisibility(View.GONE);//如果是图片则隐藏Action
+                    holder.getView(R.id.iv_img).setVisibility(View.VISIBLE);
+                    holder.getView(R.id.iv_source).setVisibility(View.GONE);
+                    ImageView imageView = holder.getView(R.id.iv_img);
+                    HttpClientManager.displayImage(imageView, bean.getUrl());
+                }
+                if (mType.equals("all")) {
+                    holder.getView(R.id.tv_tag).setVisibility(View.VISIBLE);
+                }
+
+
                 holder.getView(R.id.iv_action).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -89,43 +98,30 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
                     }
                 });
 
-                if (isImage(bean.getUrl())) {
-                    holder.getView(R.id.iv_action).setVisibility(View.GONE);//如果是图片则隐藏Action
-                    holder.getView(R.id.iv_img).setVisibility(View.VISIBLE);
-                    ImageView imageView = holder.getView(R.id.iv_img);
-                    HttpClientManager.displayImage(imageView, bean.getUrl());
-                } else {
-                    holder.getView(R.id.tv_desc).setVisibility(View.VISIBLE);
-                    holder.setText(R.id.tv_desc, bean.getDesc());
-                }
-                if (mType.equals("all")) {
-                    holder.getView(R.id.tv_tag).setVisibility(View.VISIBLE);
-                }
 
                 String date = bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
                 holder.setText(R.id.tv_source, bean.getSource());
                 holder.setText(R.id.tv_people, "by " + bean.getWho());
                 holder.setText(R.id.tv_time, DateUtils.friendlyTime(date));
                 holder.setText(R.id.tv_tag, bean.getType());
+                holder.setText(R.id.tv_desc, bean.getDesc());
 
-
-                holder.getView(R.id.iv_collected).setVisibility(View.GONE);
-
-                BmobQuery<CollectTable> query = new BmobQuery<>();
-                query.addWhereEqualTo("username", AuthorityUtils.getUserName());
-                query.addWhereEqualTo("url", bean.getUrl());
-                query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
-                    @Override
-                    public void onSuccess(List<CollectTable> list) {
-                        if (list.size() > 0)
-                            holder.getView(R.id.iv_collected).setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Logger.i("onError:" + s + " code:" + i);
-                    }
-                });
+                holder.setImage(R.id.iv_source, AppUtils.getResourseIDByUrl(bean.getUrl()));
+//                BmobQuery<CollectTable> query = new BmobQuery<>();
+//                query.addWhereEqualTo("username", AuthorityUtils.getUserName());
+//                query.addWhereEqualTo("url", bean.getUrl());
+//                query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
+//                    @Override
+//                    public void onSuccess(List<CollectTable> list) {
+//                        // if (list.size() > 0)
+//                        // holder.getView(R.id.iv_collected).setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onError(int i, String s) {
+//                        Logger.i("onError:" + s + " code:" + i);
+//                    }
+//                });
 
             }
 
@@ -161,4 +157,6 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
     protected RecyclerView.LayoutManager setLayoutManager() {
         return new LinearLayoutManager(getMContext());
     }
+
+
 }

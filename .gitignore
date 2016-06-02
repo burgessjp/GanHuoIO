@@ -5,6 +5,5 @@
 .DS_Store
 /build
 /captures
-/app/*.apk
+*.apk
 GanHuoIO.iml
-src/main/java/ren/solid/ganhuoio/ui/widget/

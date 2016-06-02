@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
+import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.ui.fragment.StartFragment;
 import ren.solid.ganhuoio.utils.AppUtils;

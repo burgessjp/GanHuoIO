@@ -32,6 +32,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.List;
 
+import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity implements ICollectView {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        BmobUpdateAgent.update(this);
         mFragmentManager = getSupportFragmentManager();
         mCurrentFragment = (BaseFragment) mFragmentManager.findFragmentById(R.id.frame_content);
         if (mCurrentFragment == null) {

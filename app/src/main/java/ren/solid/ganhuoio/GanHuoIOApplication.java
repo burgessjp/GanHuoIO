@@ -8,7 +8,10 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.library.SolidApplication;
 
 /**
@@ -22,6 +25,11 @@ public class GanHuoIOApplication extends SolidApplication {
         super.onCreate();
         Bmob.initialize(this, "caed915330178bff62bfd281b627c77f");
 
+        BmobUpdateAgent.initAppVersion(this);
+        // 使用推送服务时的初始化操作
+        BmobInstallation.getCurrentInstallation(this).save();
+        // 启动推送服务
+        BmobPush.startWork(this);
 
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override

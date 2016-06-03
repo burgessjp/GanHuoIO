@@ -1,16 +1,19 @@
 package ren.solid.ganhuoio.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.FeedBack;
+import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
 
@@ -27,6 +30,14 @@ public class AppUtils {
 
     public static void setFirstRun(boolean isFirstRun) {
         PrefUtils.putBoolean(GanHuoIOApplication.getInstance(), "isFirstRun", isFirstRun);
+    }
+
+    public static boolean shakePicture() {
+        return PrefUtils.getBoolean(SolidApplication.getInstance(), "shakePicture", true);
+    }
+
+    public static void setShakePicture(boolean isEnable) {
+        PrefUtils.putBoolean(SolidApplication.getInstance(), "shakePicture", isEnable);
     }
 
 
@@ -58,6 +69,27 @@ public class AppUtils {
                 }).show();
     }
 
+    public static void logOut(final Activity activity) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(activity)
+                .title("提示")
+                .content("确定注销吗？")
+                .positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                        AuthorityUtils.logout();
+                        activity.finish();
+                    }
+                }).negativeText("取消").onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+
+                    }
+                });
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
+    }
+
     public static int getResourseIDByUrl(String url) {
         int resId = R.drawable.web;
         if (url.contains("csdn.net")) {
@@ -76,7 +108,7 @@ public class AppUtils {
             resId = R.drawable.youku;
         } else if (url.contains("weibo.com")) {
             resId = R.drawable.weibo;
-        }else if (url.contains("weixin.qq")) {
+        } else if (url.contains("weixin.qq")) {
             resId = R.drawable.weixin;
         }
 

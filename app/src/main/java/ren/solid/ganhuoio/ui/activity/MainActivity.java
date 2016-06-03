@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -36,22 +34,22 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
-import ren.solid.ganhuoio.ui.fragment.RxOperatorsSearchFragment;
-import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
+import ren.solid.ganhuoio.ui.fragment.RxOperatorsSearchFragment;
 import ren.solid.ganhuoio.ui.view.ICollectView;
+import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
-import ren.solid.library.activity.base.BaseActivity;
+import ren.solid.ganhuoio.utils.ShakePictureUtils;
+import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SettingUtils;
-import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
 
-public class MainActivity extends BaseActivity implements ICollectView {
+public class MainActivity extends BaseMainActivity implements ICollectView {
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
@@ -66,6 +64,8 @@ public class MainActivity extends BaseActivity implements ICollectView {
     private ProfileDrawerItem mProfileDrawerItem;
     private AccountHeader mProfileHeader;
 
+    //摇一摇相关
+    private ShakePictureUtils mShakePictureUtils;
 
     @Override
     protected int setLayoutResourceID() {
@@ -90,6 +90,8 @@ public class MainActivity extends BaseActivity implements ICollectView {
         }
         trans.show(mCurrentFragment).commitAllowingStateLoss();
 
+        //初始化摇一摇
+        mShakePictureUtils = new ShakePictureUtils(this);
     }
 
     @Override
@@ -155,6 +157,15 @@ public class MainActivity extends BaseActivity implements ICollectView {
                 SettingUtils.setOnlyWifiLoadImage(isChecked);
             }
         }).withSelectable(false);
+
+        SwitchDrawerItem itemShake = new SwitchDrawerItem().withName(getResources().getString(R.string.main_shake_picture)).withIcon(GoogleMaterial.Icon.gmd_vibration).withChecked(AppUtils.shakePicture()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
+                AppUtils.setShakePicture(isChecked);
+            }
+        }).withSelectable(false);
+
+
         PrimaryDrawerItem itemShare = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_share)).withIcon(GoogleMaterial.Icon.gmd_share).withSelectable(false);
         PrimaryDrawerItem itemFeedback = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_feedback)).withIcon(GoogleMaterial.Icon.gmd_coffee).withSelectable(false);
         PrimaryDrawerItem itemExit = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_exit)).withIcon(GoogleMaterial.Icon.gmd_grid_off).withSelectable(false);
@@ -171,6 +182,7 @@ public class MainActivity extends BaseActivity implements ICollectView {
                         itemRxSearch,
                         new DividerDrawerItem(),
                         itemSwitch,
+                        itemShake,
                         itemShare,
                         itemFeedback,
                         itemExit
@@ -214,14 +226,14 @@ public class MainActivity extends BaseActivity implements ICollectView {
                 mToolbar.setTitle(getResources().getString(R.string.main_rx_search));
                 clazz = RxOperatorsSearchFragment.class;
                 break;
-            case 7:
+            case 8:
                 SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                 break;
-            case 8:
+            case 9:
                 AppUtils.feedBack(this, mToolbar);
                 break;
-            case 9:
-                logOut();
+            case 10:
+                AppUtils.logOut(this);
                 break;
             default:
 
@@ -231,27 +243,6 @@ public class MainActivity extends BaseActivity implements ICollectView {
         return clazz;
     }
 
-
-    private void logOut() {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                .title("提示")
-                .content("确定注销吗？")
-                .positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog dialog, DialogAction which) {
-                        AuthorityUtils.logout();
-                        finish();
-                    }
-                }).negativeText("取消").onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog dialog, DialogAction which) {
-
-                    }
-                });
-
-        MaterialDialog dialog = builder.build();
-        dialog.show();
-    }
 
     //切换Fragment
     private void switchFragment(Class<?> clazz) {
@@ -325,27 +316,25 @@ public class MainActivity extends BaseActivity implements ICollectView {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
-    private long lastBackKeyDownTick = 0;
-    public static final long MAX_DOUBLE_BACK_DURATION = 1500;
-
-    @Override
-    public void onBackPressed() {
+    protected void beforeOnBackPressed() {
         if (mDrawer.isDrawerOpen()) {//当前抽屉是打开的，则关闭
             mDrawer.closeDrawer();
             return;
         }
-        long currentTick = System.currentTimeMillis();
-        if (currentTick - lastBackKeyDownTick > MAX_DOUBLE_BACK_DURATION) {
-            SnackBarUtils.makeShort(mToolbar, "再按一次退出").success();
-            lastBackKeyDownTick = currentTick;
-        } else {
-            finish();
-            System.exit(0);
-        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mShakePictureUtils.registerSensor();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mShakePictureUtils.unRegisterSensor();
+    }
+
+
 }

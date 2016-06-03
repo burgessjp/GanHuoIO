@@ -8,6 +8,7 @@
     <string name="main_offline">离线缓存</string>
     <string name="main_rx_search">Rx操作符查询</string>
     <string name="main_only_wifi">仅WIFI加载图片</string>
+    <string name="main_shake_picture">图片摇一摇</string>
     <string name="main_share">分享</string>
     <string name="main_feedback">反馈</string>
     <string name="main_setting">设置</string>

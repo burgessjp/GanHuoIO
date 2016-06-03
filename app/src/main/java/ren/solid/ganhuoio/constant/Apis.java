@@ -43,14 +43,14 @@ public class Apis {
         public static String GanHuoDates = "http://gank.io/api/day/history";
         /**
          * 获取特定日期网站数据
-         * <p/>
+         * <p>
          * http://gank.io/api/history/content/day/2016/05/11
          */
         public static String GanHuoContent = "http://gank.io/api/history/content/day/";
 
         /**
          * http://gank.io/api/data/福利/10/1
-         * <p/>
+         * <p>
          * 数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
          */
         public static String GanHuoData = "http://gank.io/api/data/";
@@ -59,5 +59,11 @@ public class Apis {
          * 每日数据： http://gank.io/api/day/年/月/日
          */
         public static String GanHuoDataByDay = "http://gank.io/api/day/";
+
+
+        /**
+         * 随机图片
+         */
+        public static String RandomPicture = "http://lelouchcrgallery.tk/rand";
     }
 }

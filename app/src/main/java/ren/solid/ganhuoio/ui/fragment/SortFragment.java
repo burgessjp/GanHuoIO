@@ -14,7 +14,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.rx.RxBusExt;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.CommonUtils;
 import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
@@ -105,7 +105,7 @@ public class SortFragment extends BaseFragment {
                 Collections.swap(mBeans, fromPosition, toPosition);
                 notifyItemMoved(fromPosition, toPosition);
                 saveCategoryString();
-                RxBusExt.getInstance().post("SortChange");
+                RxBus.getInstance().post("SortChange");
             } else {
                 SnackBarUtils.makeLong(mRecyclerView, "第一个条目不允许拖动").info();
             }

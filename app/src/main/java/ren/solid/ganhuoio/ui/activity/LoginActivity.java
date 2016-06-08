@@ -22,7 +22,7 @@ import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
-import ren.solid.library.rx.RxBusExt;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
 
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                         AppUtils.setFirstRun(false);
                     } else {
                         Logger.i("not isFirst");
-                        RxBusExt.getInstance().post("Login");
+                        RxBus.getInstance().post("Login");
                     }
                     finish();
 

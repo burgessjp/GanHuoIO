@@ -26,8 +26,8 @@ public class ShakePictureUtils implements SensorEventListener {
 
     // 两次检测的时间间隔
     private static final int UPTATE_INTERVAL_TIME = 100;
-    // 速度阈值，当摇晃速度达到这值后产生作用
-    private static final int SPEED_THRESHOLD = 4000;
+    // 加速度变化阈值，当摇晃速度达到这值后产生作用
+    private static final int SPEED_THRESHOLD = 2000;
 
     private Context mContext;
     private SensorManager mSensorManager = null;
@@ -90,9 +90,9 @@ public class ShakePictureUtils implements SensorEventListener {
 
         double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ
                 * deltaZ)
-                / timeInterval*10000;
+                / timeInterval * 10000;
         Logger.i("speed:" + speed);
-        if (speed > SPEED_THRESHOLD&&AppUtils.shakePicture()) {
+        if (speed > SPEED_THRESHOLD && AppUtils.shakePicture()) {
             //在这里可以提供一个回调
             mVibrator.vibrate(300);
             requestPicture();
@@ -113,6 +113,10 @@ public class ShakePictureUtils implements SensorEventListener {
     }
 
     public void unRegisterSensor() {
+
+        lastX = 0;
+        lastY = 0;
+        lastZ = 0;
         mSensorManager.unregisterListener(this);
     }
 

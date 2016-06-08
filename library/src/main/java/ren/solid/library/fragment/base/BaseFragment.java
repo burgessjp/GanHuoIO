@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ren.solid.library.rx.RxBusExt;
+import ren.solid.library.rx.RxBus;
 import ren.solid.skinloader.base.SkinBaseFragment;
-import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -34,7 +33,7 @@ public abstract class BaseFragment extends SkinBaseFragment {
         mProgressDialog = new ProgressDialog(getMContext());
         mProgressDialog.setCanceledOnTouchOutside(false);
 
-        mSubscription = RxBusExt.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
+        mSubscription = RxBus.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {
                 handleRxMsg(s);

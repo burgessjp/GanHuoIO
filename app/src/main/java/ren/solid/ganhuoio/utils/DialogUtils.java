@@ -11,7 +11,7 @@ import android.widget.PopupWindow;
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.library.rx.RxBusExt;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.ViewUtils;
 
@@ -76,7 +76,7 @@ public class DialogUtils {
                 @Override
                 public void onSuccess() {
                     SnackBarUtils.makeShort(view, "收藏成功").info();
-                    RxBusExt.getInstance().post("CollectChange");
+                    RxBus.getInstance().post("CollectChange");
                 }
 
                 @Override

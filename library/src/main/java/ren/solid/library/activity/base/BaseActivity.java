@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import ren.solid.library.rx.RxBusExt;
+import ren.solid.library.rx.RxBus;
 import ren.solid.skinloader.base.SkinBaseActivity;
-import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -23,7 +22,7 @@ public abstract class BaseActivity extends SkinBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSubscription = RxBusExt.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
+        mSubscription = RxBus.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {
                 handleRxMsg(s);

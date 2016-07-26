@@ -14,6 +14,11 @@ import java.util.List;
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
 import ren.solid.library.utils.StringUtils;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -96,20 +101,38 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
     protected void onDataSuccessReceived(final String result) {
         Log.i(TAG, "onDataSuccessReceived");
         if (!StringUtils.isNullOrEmpty(result)) {
-            new AsyncTask<Void, Void, List<T>>() {
-                @Override
-                protected List<T> doInBackground(Void... params) {
-                    final List<T> list = parseData(result);
-                    return list;
-                }
+//            new AsyncTask<Void, Void, List<T>>() {
+//                @Override
+//                protected List<T> doInBackground(Void... params) {
+//                    final List<T> list = parseData(result);
+//                    return list;
+//                }
+//
+//                @Override
+//                protected void onPostExecute(List<T> list) {
+//                    mAdapter.addAll(list, mCurrentAction == ACTION_REFRESH);
+//                    if (mCurrentAction != ACTION_PRE_LOAD) loadComplete();
+//                    showNormal();
+//                }
+//            }.execute();
 
-                @Override
-                protected void onPostExecute(List<T> list) {
-                    mAdapter.addAll(list, mCurrentAction == ACTION_REFRESH);
-                    if (mCurrentAction != ACTION_PRE_LOAD) loadComplete();
-                    showNormal();
-                }
-            }.execute();
+            Observable
+                    .create(new Observable.OnSubscribe<List<T>>() {
+                        @Override
+                        public void call(Subscriber<? super List<T>> subscriber) {
+                            List<T> list = parseData(result);
+                            subscriber.onNext(list);
+                            subscriber.onCompleted();
+                        }
+                    }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                    .subscribe(new Action1<List<T>>() {
+                        @Override
+                        public void call(List<T> list) {
+                            mAdapter.addAll(list, mCurrentAction == ACTION_REFRESH);
+                            if (mCurrentAction != ACTION_PRE_LOAD) loadComplete();
+                            showNormal();
+                        }
+                    });
 
         } else {
             if (!(mCurrentAction == ACTION_PRE_LOAD))

@@ -13,6 +13,11 @@ import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.NetworkUtils;
 import ren.solid.library.utils.StringUtils;
 import ren.solid.library.utils.ToastUtils;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by _SOLID
@@ -54,9 +59,24 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     protected void loadData() {
         final String reqUrl = getUrl(mCurrentPageIndex);
         if (!NetworkUtils.isNetworkConnected(getMContext()) && mCurrentAction == ACTION_REFRESH) {//no network
-            String result = obtainOfflineData(getUrl(1));
-            onDataSuccessReceived(result);
-            ToastUtils.getInstance().showToast(getString(R.string.no_network));
+            Observable
+                    .create(new Observable.OnSubscribe<String>() {
+                        @Override
+                        public void call(Subscriber<? super String> subscriber) {
+                            String result = obtainOfflineData(getUrl(1));
+                            subscriber.onNext(result);
+                            subscriber.onCompleted();
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String result) {
+                            onDataSuccessReceived(result);
+                            ToastUtils.getInstance().showToast(getString(R.string.no_network));
+                        }
+                    });
+
         } else {
             HttpClientManager.getData(reqUrl, new StringHttpCallBack() {
                 @Override

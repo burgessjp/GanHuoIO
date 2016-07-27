@@ -4,12 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ren.solid.library.rx.RxBus;
-import ren.solid.skinloader.base.SkinBaseFragment;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -18,7 +18,7 @@ import rx.functions.Action1;
  * Date:2016/3/30
  * Time:11:30
  */
-public abstract class BaseFragment extends SkinBaseFragment {
+public abstract class BaseFragment extends Fragment {
 
     private View mContentView;
     private Context mContext;

@@ -3,10 +3,10 @@ package ren.solid.library.activity.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import ren.solid.library.rx.RxBus;
-import ren.solid.skinloader.base.SkinBaseActivity;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -15,7 +15,7 @@ import rx.functions.Action1;
  * Date:2016/3/30
  * Time:9:40
  */
-public abstract class BaseActivity extends SkinBaseActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private Subscription mSubscription;
 

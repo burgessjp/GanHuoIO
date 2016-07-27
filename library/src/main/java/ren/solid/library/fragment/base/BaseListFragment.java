@@ -27,9 +27,9 @@ import rx.schedulers.Schedulers;
 public abstract class BaseListFragment<T> extends BaseFragment {
 
 
-    protected static final int ACTION_REFRESH = 1;
-    protected static final int ACTION_LOAD_MORE = 2;
-    protected static final int ACTION_PRE_LOAD = 3;
+    protected static final int ACTION_REFRESH = 1;//刷新
+    protected static final int ACTION_LOAD_MORE = 2;//加载更多
+    protected static final int ACTION_PRE_LOAD = 3;//预加载数据
 
     protected SolidRVBaseAdapter<T> mAdapter;
 
@@ -50,6 +50,12 @@ public abstract class BaseListFragment<T> extends BaseFragment {
      */
     protected abstract String getUrl(int mCurrentPageIndex);
 
+    /**
+     * Parse the response data
+     *
+     * @param result
+     * @return
+     */
     protected abstract List<T> parseData(String result);
 
 
@@ -59,42 +65,48 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     protected void loadData() {
         final String reqUrl = getUrl(mCurrentPageIndex);
         if (!NetworkUtils.isNetworkConnected(getMContext()) && mCurrentAction == ACTION_REFRESH) {//no network
-            Observable
-                    .create(new Observable.OnSubscribe<String>() {
-                        @Override
-                        public void call(Subscriber<? super String> subscriber) {
-                            String result = obtainOfflineData(getUrl(1));
-                            subscriber.onNext(result);
-                            subscriber.onCompleted();
-                        }
-                    })
-                    .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
-                    .subscribe(new Action1<String>() {
-                        @Override
-                        public void call(String result) {
-                            onDataSuccessReceived(result);
-                            ToastUtils.getInstance().showToast(getString(R.string.no_network));
-                        }
-                    });
+            loadDataFromLocal();
+            ToastUtils.getInstance().showToast(getString(R.string.no_network));
 
         } else {
-            HttpClientManager.getData(reqUrl, new StringHttpCallBack() {
-                @Override
-                public void onSuccess(String result) {
-                    if (mCurrentAction == ACTION_REFRESH) {//store the first page data
-                        storeOfflineData(getUrl(1), result);
-                    }
-                    onDataSuccessReceived(result);
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    {
-                        onDataErrorReceived();
-                    }
-                }
-            });
+            loadDataFromNetWork(reqUrl);
         }
+    }
+
+    private void loadDataFromNetWork(String reqUrl) {
+        HttpClientManager.getData(reqUrl, new StringHttpCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                if (mCurrentAction == ACTION_REFRESH) {//store the first page data
+                    storeOfflineData(getUrl(1), result);
+                }
+                onDataSuccessReceived(result);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                onDataErrorReceived();
+            }
+        });
+    }
+
+    private void loadDataFromLocal() {
+        Observable
+                .create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        String result = obtainOfflineData(getUrl(1));
+                        subscriber.onNext(result);
+                        subscriber.onCompleted();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String result) {
+                        onDataSuccessReceived(result);
+                    }
+                });
     }
 
     protected void switchActionAndLoadData(int action) {
@@ -110,7 +122,7 @@ public abstract class BaseListFragment<T> extends BaseFragment {
                 loadData();
                 break;
             case ACTION_PRE_LOAD:
-                onDataSuccessReceived(obtainOfflineData(getUrl(1)));
+                loadDataFromLocal();
                 break;
         }
 

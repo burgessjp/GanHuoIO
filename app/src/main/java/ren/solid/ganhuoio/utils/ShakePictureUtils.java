@@ -84,14 +84,14 @@ public class ShakePictureUtils implements SensorEventListener {
         lastZ = z;
 
 
-        Logger.i("values[0] = " + values[0]);
-        Logger.i("values[1] = " + values[1]);
-        Logger.i("values[2] = " + values[2]);
+//        Logger.i("values[0] = " + values[0]);
+//        Logger.i("values[1] = " + values[1]);
+//        Logger.i("values[2] = " + values[2]);
 
         double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ
                 * deltaZ)
                 / timeInterval * 10000;
-        Logger.i("speed:" + speed);
+        //Logger.i("speed:" + speed);
         if (speed > SPEED_THRESHOLD && AppUtils.shakePicture()) {
             //在这里可以提供一个回调
             mVibrator.vibrate(300);

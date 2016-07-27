@@ -17,6 +17,7 @@ import ren.solid.ganhuoio.ui.view.IRecentlyView;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SnackBarUtils;
+import ren.solid.library.widget.StatusView;
 
 /**
  * Created by _SOLID
@@ -30,10 +31,7 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-
-    private LinearLayout mLLLoadingWarp;
-    private Button mBtnReload;
-    private LinearLayout mLLReloadWarp;
+    private StatusView mStatusView;
 
     @Override
     protected int setLayoutResourceID() {
@@ -44,11 +42,8 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
     protected void setUpView() {
         mTabLayout = $(R.id.tab_layout);
         mViewPager = $(R.id.viewpager);
-        mLLReloadWarp = $(ren.solid.library.R.id.ll_reload_wrap);
-        mLLLoadingWarp = $(ren.solid.library.R.id.ll_loading);
-        mBtnReload = $(ren.solid.library.R.id.btn_reload);
-
-        mBtnReload.setOnClickListener(new View.OnClickListener() {
+        mStatusView = $(R.id.status_view);
+        mStatusView.setOnRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.getRecentlyDate();
@@ -60,6 +55,7 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
     protected void setUpData() {
         mPresenter = new RecentlyPresenterImpl(this);
         mPresenter.getRecentlyDate();
+        mStatusView.showLoading();
     }
 
     @Override
@@ -75,21 +71,18 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
 
     @Override
     public void showLoading() {
-        mLLReloadWarp.setVisibility(View.GONE);
-        mLLLoadingWarp.setVisibility(View.VISIBLE);
+        mStatusView.showLoading();
 
     }
 
     @Override
     public void hideLoading() {
-        mLLReloadWarp.setVisibility(View.GONE);
-        mLLLoadingWarp.setVisibility(View.GONE);
+        mStatusView.showContent();
     }
 
     @Override
     public void showError(String errMsg) {
-        mLLReloadWarp.setVisibility(View.VISIBLE);
-        mLLLoadingWarp.setVisibility(View.GONE);
+        mStatusView.showError();
 
         SnackBarUtils.makeShort(mViewPager, "哇哇哇，网络遇到问题了...").danger();
     }

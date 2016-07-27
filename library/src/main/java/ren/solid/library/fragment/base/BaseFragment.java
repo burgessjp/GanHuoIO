@@ -83,6 +83,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mSubscription.unsubscribe();
+        if (mSubscription != null && mSubscription.isUnsubscribed())
+            mSubscription.unsubscribe();
     }
 }

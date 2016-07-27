@@ -1,10 +1,7 @@
 package ren.solid.library.fragment;
 
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -14,10 +11,10 @@ import java.util.List;
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
 import ren.solid.library.utils.StringUtils;
+import ren.solid.library.widget.StatusView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 
@@ -33,10 +30,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
     private static String TAG = "XRecyclerViewFragment";
 
     private XRecyclerView mRecyclerView;
-    private LinearLayout mLLReloadWarp;
-    private LinearLayout mLLLoadingWarp;
-    private Button mBtnReload;
-
+    private StatusView mStatusView;
 
     @Override
     protected int setLayoutResourceID() {
@@ -46,9 +40,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
     @Override
     protected void setUpView() {
 
-        mLLReloadWarp = $(R.id.ll_reload_wrap);
-        mLLLoadingWarp = $(R.id.ll_loading);
-        mBtnReload = $(R.id.btn_reload);
+        mStatusView = $(R.id.status_view);
         mRecyclerView = $(R.id.recyclerview);
 
         mRecyclerView.setLayoutManager(setLayoutManager());
@@ -67,10 +59,9 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
             }
         });
 
-        mBtnReload.setOnClickListener(new View.OnClickListener() {
+        mStatusView.setOnRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLoading();
                 switchActionAndLoadData(ACTION_REFRESH);
             }
         });
@@ -85,15 +76,14 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
 
     @Override
     protected void setUpData() {
-        //pre_loading data(if have cache)
-        switchActionAndLoadData(ACTION_PRE_LOAD);
-        mRecyclerView.setRefreshing(true);
+        mStatusView.showLoading();
+        loadData();
     }
 
     @Override
     protected void onDataErrorReceived() {
         Log.i(TAG, "onDataErrorReceived");
-        showError();
+        mStatusView.showError();
         loadComplete();
     }
 
@@ -101,21 +91,6 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
     protected void onDataSuccessReceived(final String result) {
         Log.i(TAG, "onDataSuccessReceived");
         if (!StringUtils.isNullOrEmpty(result)) {
-//            new AsyncTask<Void, Void, List<T>>() {
-//                @Override
-//                protected List<T> doInBackground(Void... params) {
-//                    final List<T> list = parseData(result);
-//                    return list;
-//                }
-//
-//                @Override
-//                protected void onPostExecute(List<T> list) {
-//                    mAdapter.addAll(list, mCurrentAction == ACTION_REFRESH);
-//                    if (mCurrentAction != ACTION_PRE_LOAD) loadComplete();
-//                    showNormal();
-//                }
-//            }.execute();
-
             Observable
                     .create(new Observable.OnSubscribe<List<T>>() {
                         @Override
@@ -125,12 +100,22 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
                             subscriber.onCompleted();
                         }
                     }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
-                    .subscribe(new Action1<List<T>>() {
+                    .subscribe(new Subscriber<List<T>>() {
                         @Override
-                        public void call(List<T> list) {
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            mStatusView.showError();
+                        }
+
+                        @Override
+                        public void onNext(List<T> list) {
                             mAdapter.addAll(list, mCurrentAction == ACTION_REFRESH);
                             if (mCurrentAction != ACTION_PRE_LOAD) loadComplete();
-                            showNormal();
+                            mStatusView.showContent();
                         }
                     });
 
@@ -146,21 +131,6 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
             mRecyclerView.refreshComplete();
         if (mCurrentAction == ACTION_LOAD_MORE)
             mRecyclerView.loadMoreComplete();
-    }
-
-    private void showNormal() {
-        mLLReloadWarp.setVisibility(View.GONE);
-        mLLLoadingWarp.setVisibility(View.GONE);
-    }
-
-    private void showLoading() {
-        mLLReloadWarp.setVisibility(View.GONE);
-        mLLLoadingWarp.setVisibility(View.VISIBLE);
-    }
-
-    private void showError() {
-        mLLReloadWarp.setVisibility(View.VISIBLE);
-        mLLLoadingWarp.setVisibility(View.GONE);
     }
 
 

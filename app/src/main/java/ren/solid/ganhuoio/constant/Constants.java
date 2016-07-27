@@ -10,9 +10,9 @@ public class Constants {
 
     // 新浪微博信息
     //For Debug
-    public static String SINA_APP_KEY = "1446282162";
+    //public static String SINA_APP_KEY = "1446282162";
     //For Release
-    //public static String SINA_APP_KEY = "437628447";
+    public static String SINA_APP_KEY = "437628447";
 
     public static String SINA_REDIRECT_URL = "http://fir.im/ganhuoio";
     public static String SINA_SCOPE = "email,direct_messages_read,direct_messages_write,"

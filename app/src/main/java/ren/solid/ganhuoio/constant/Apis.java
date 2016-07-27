@@ -37,28 +37,24 @@ public class Apis {
     }
 
     public static class Urls {
+
+        public  static  String gankIoBaseUrl="http://gank.io/api/";
         /**
          * 获取发布过干货的日期
          */
         public static String GanHuoDates = "http://gank.io/api/day/history";
-        /**
-         * 获取特定日期网站数据
-         * <p>
-         * http://gank.io/api/history/content/day/2016/05/11
-         */
-        public static String GanHuoContent = "http://gank.io/api/history/content/day/";
 
         /**
          * http://gank.io/api/data/福利/10/1
          * <p>
          * 数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
          */
-        public static String GanHuoData = "http://gank.io/api/data/";
+        public static String GanHuoData = "data/";
 
         /**
          * 每日数据： http://gank.io/api/day/年/月/日
          */
-        public static String GanHuoDataByDay = "http://gank.io/api/day/";
+        public static String GanHuoDataByDay = "day/";
 
 
         /**

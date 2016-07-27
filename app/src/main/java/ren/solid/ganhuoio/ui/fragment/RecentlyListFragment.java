@@ -41,7 +41,7 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     @Override
     protected String getUrl(int mCurrentPageIndex) {
         date = getArguments().getString(DATE_STRING).replace('-', '/');
-        String url = Apis.Urls.GanHuoDataByDay + date;
+        String url =Apis.Urls.GanHuoDataByDay + date;
         Logger.i(this, "url:" + url);
         return url;
     }

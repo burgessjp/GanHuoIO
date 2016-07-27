@@ -68,7 +68,7 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
     @Override
     protected String getUrl(int mCurrentPageIndex) {
         mType = getArguments().getString("type");
-        String url = Apis.Urls.GanHuoData + mType + "/10/" + mCurrentPageIndex;
+        String url = Apis.Urls.GanHuoData+ mType + "/10/" + mCurrentPageIndex;
         Log.i(TAG, url);
         return url;
     }

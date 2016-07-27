@@ -1,19 +1,19 @@
 package ren.solid.library.fragment.base;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import ren.solid.library.R;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
-import ren.solid.library.http.HttpClientManager;
-import ren.solid.library.http.callback.adapter.StringHttpCallBack;
-import ren.solid.library.http.retrofit.factory.ServiceFactory;
-import ren.solid.library.http.retrofit.service.BaseService;
+import ren.solid.library.rx.retrofit.HttpSubscriber;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.func.RetryWhenNetworkException;
+import ren.solid.library.rx.retrofit.func.StringFunc;
+import ren.solid.library.rx.retrofit.service.BaseService;
 import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.NetworkUtils;
 import ren.solid.library.utils.StringUtils;
@@ -79,35 +79,24 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     }
 
     private void loadDataFromNetWork(String reqUrl) {
-
         BaseService service = ServiceFactory.getInstance().createService(BaseService.class, BaseService.baseUrl);
-
         service.loadString(reqUrl)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<ResponseBody>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .compose(TransformUtils.<ResponseBody>defaultSchedulers())
+                .map(new StringFunc())
+                .retryWhen(new RetryWhenNetworkException())
+                .subscribe(new HttpSubscriber<String>() {
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        super.onError(e);
                         onDataErrorReceived();
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-                        try {
-                            String result = responseBody.string();
-                            if (mCurrentAction == ACTION_REFRESH) {//store the first page data
-                                storeOfflineData(getUrl(1), result);
-                            }
-                            onDataSuccessReceived(result);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    public void onNext(String result) {
+                        if (mCurrentAction == ACTION_REFRESH) {//store the first page data
+                            storeOfflineData(getUrl(1), result);
                         }
+                        onDataSuccessReceived(result);
                     }
                 });
 

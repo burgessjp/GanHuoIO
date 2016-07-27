@@ -4,15 +4,10 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.ResponseBody;
-import ren.solid.ganhuoio.api.GankIoService;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
-import ren.solid.library.http.retrofit.HttpResult;
-import ren.solid.library.http.retrofit.factory.ServiceFactory;
-import ren.solid.library.http.retrofit.service.BaseService;
-import rx.Observable;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.service.BaseService;
 import rx.Subscriber;
 
 /**

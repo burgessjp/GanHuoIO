@@ -1,4 +1,4 @@
-package ren.solid.library.http.retrofit.factory;
+package ren.solid.library.rx.retrofit.factory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

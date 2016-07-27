@@ -1,4 +1,4 @@
-package ren.solid.library.http.retrofit;
+package ren.solid.library.rx.retrofit;
 
 import com.google.gson.annotations.SerializedName;
 

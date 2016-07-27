@@ -1,7 +1,6 @@
-package ren.solid.library.http.retrofit.service;
+package ren.solid.library.rx.retrofit.service;
 
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;

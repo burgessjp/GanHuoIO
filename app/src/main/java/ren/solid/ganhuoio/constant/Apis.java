@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ren.solid.ganhuoio.GanHuoIOApplication;
-import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.PrefUtils;
 
 /**
@@ -38,28 +37,28 @@ public class Apis {
 
     public static class Urls {
 
-        public  static  String gankIoBaseUrl="http://gank.io/api/";
+        public static String GanHuoBaseUrl = "http://www.gank.io/api/";
         /**
          * 获取发布过干货的日期
          */
-        public static String GanHuoDates = "http://gank.io/api/day/history";
+        public static String GanHuoDates = "http://www.gank.io/api/day/history";
 
         /**
          * http://gank.io/api/data/福利/10/1
          * <p>
          * 数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
          */
-        public static String GanHuoData = "data/";
+        public static String GanHuoData = GanHuoBaseUrl + "data/";
 
         /**
          * 每日数据： http://gank.io/api/day/年/月/日
          */
-        public static String GanHuoDataByDay = "day/";
+        public static String GanHuoDataByDay = GanHuoBaseUrl + "day/";
 
 
         /**
          * 随机图片
          */
-        public static String RandomPicture = "http://lelouchcrgallery.tk/rand";
+        public static String RandomPicture = "http://www.lelouchcrgallery.tk/rand";
     }
 }

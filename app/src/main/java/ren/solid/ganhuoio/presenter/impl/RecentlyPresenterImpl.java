@@ -6,7 +6,10 @@ import ren.solid.ganhuoio.model.IRecentlyModel;
 import ren.solid.ganhuoio.model.impl.RecentlyModelImpl;
 import ren.solid.ganhuoio.presenter.IRecentlyPresenter;
 import ren.solid.ganhuoio.ui.view.IRecentlyView;
-import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
+import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.library.rx.retrofit.HttpResultSubscriber;
+import ren.solid.library.rx.retrofit.func.ResultFunc;
+import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -26,12 +29,7 @@ public class RecentlyPresenterImpl implements IRecentlyPresenter {
     @Override
     public void getRecentlyDate() {
         view.showLoading();
-        model.loadRecentlyDate(new JsonHttpCallBack<List<String>>() {
-            @Override
-            public String getDataName() {
-                return "results";
-            }
-
+        model.loadRecentlyDate().subscribe(new HttpResultSubscriber<List<String>>() {
             @Override
             public void onSuccess(List<String> stringList) {
                 view.hideLoading();
@@ -40,7 +38,7 @@ public class RecentlyPresenterImpl implements IRecentlyPresenter {
             }
 
             @Override
-            public void onError(Exception e) {
+            public void _onError(Throwable e) {
                 view.hideLoading();
                 view.showError(e.getMessage());
             }

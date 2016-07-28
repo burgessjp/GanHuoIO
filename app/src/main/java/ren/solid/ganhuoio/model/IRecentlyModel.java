@@ -1,6 +1,9 @@
 package ren.solid.ganhuoio.model;
 
-import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
+import java.util.List;
+
+import ren.solid.library.rx.retrofit.HttpResult;
+import rx.Observable;
 
 /**
  * Created by _SOLID
@@ -9,5 +12,5 @@ import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
  */
 public interface IRecentlyModel {
 
-    void loadRecentlyDate(JsonHttpCallBack callBack);
+    Observable<HttpResult<List<String>>> loadRecentlyDate();
 }

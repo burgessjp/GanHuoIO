@@ -1,7 +1,5 @@
 package ren.solid.library.rx.retrofit;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by _SOLID
  * Date:2016/7/27
@@ -10,7 +8,8 @@ import com.google.gson.annotations.SerializedName;
 public class HttpResult<T> {
 
     public boolean error;
-    @SerializedName(value = "results", alternate = {"result"})
+    //@SerializedName(value = "results", alternate = {"result"})
     public T results;
+
 
 }

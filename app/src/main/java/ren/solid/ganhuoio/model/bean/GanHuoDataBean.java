@@ -1,6 +1,8 @@
 package ren.solid.ganhuoio.model.bean;
 
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -8,7 +10,7 @@ import cn.bmob.v3.BmobObject;
  * Date:2016/5/16
  * Time:16:41
  */
-public class GanHuoDataBean {
+public class GanHuoDataBean implements Serializable {
 
     private String _id;
     private String createdAt;

@@ -1,10 +1,7 @@
 package ren.solid.library.rx.retrofit.func;
 
-import android.util.Log;
-
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -18,17 +15,22 @@ import rx.functions.Func2;
  * Time:21:38
  */
 public class RetryWhenNetworkException implements Func1<Observable<? extends Throwable>, Observable<?>> {
-    private int count = 3;
-    private long delay = 3000;
+    private int count = 3;//retry count
+    private long delay = 3000;//delay time
 
     public RetryWhenNetworkException() {
 
+    }
+
+    public RetryWhenNetworkException(int count) {
+        this.count = count;
     }
 
     public RetryWhenNetworkException(int count, long delay) {
         this.count = count;
         this.delay = delay;
     }
+
     @Override
     public Observable<?> call(Observable<? extends Throwable> observable) {
         return observable

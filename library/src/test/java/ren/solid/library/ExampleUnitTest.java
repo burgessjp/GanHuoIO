@@ -10,6 +10,11 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+
+        String baseUrl = "http://gank.io/api/";
+        String url = "http://gank.io/api/day/history/2016/07/26";
+
+
+        assertEquals("day/history", url.substring(baseUrl.length()));
     }
 }

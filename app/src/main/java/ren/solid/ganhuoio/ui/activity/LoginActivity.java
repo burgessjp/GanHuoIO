@@ -114,31 +114,6 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<>();
         params.put("access_token", AuthorityUtils.getAccessToken());
         params.put("uid", AuthorityUtils.getUid());
-//
-//        HttpClientManager.getData(Constants.SINA_USER_INFO_URL, params, new JsonHttpCallBack<WeiboBean>() {
-//            @Override
-//            public void onSuccess(WeiboBean result) {
-//                if (result != null) {
-//                    AuthorityUtils.setUserName(result.getName());
-//                    AuthorityUtils.login(result);
-//                    if (AppUtils.isFirstRun()) {
-//                        Logger.i("isFirst");
-//                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                        AppUtils.setFirstRun(false);
-//                    } else {
-//                        Logger.i("not isFirst");
-//                        RxBus.getInstance().post("Login");
-//                    }
-//                    finish();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//
-//            }
-//        });
 
         SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class, "https://api.weibo.com/2/");
         service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(TransformUtils.<WeiboBean>defaultSchedulers())

@@ -22,6 +22,6 @@ public class RecentlyModelImpl implements IRecentlyModel {
     public Observable<HttpResult<List<String>>> loadRecentlyDate() {
         Type t = new TypeToken<HttpResult<List<String>>>() {
         }.getType();
-        return ObservableProvider.getInstance().loadResult(Apis.Urls.GanHuoDates, t);
+        return ObservableProvider.getDefault().loadResult(Apis.Urls.GanHuoDates, t);
     }
 }

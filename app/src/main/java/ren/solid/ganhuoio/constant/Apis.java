@@ -59,6 +59,6 @@ public class Apis {
         /**
          * 随机图片
          */
-        public static String RandomPicture = "http://www.lelouchcrgallery.tk/rand";
+        public static String RandomPicture = "http://lelouchcrgallery.tk/rand";
     }
 }

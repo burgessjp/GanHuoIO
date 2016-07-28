@@ -74,7 +74,7 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     }
 
     private void loadDataFromNetWork(String reqUrl) {
-        ObservableProvider.getInstance().loadString(reqUrl)
+        ObservableProvider.getDefault().loadString(reqUrl)
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {

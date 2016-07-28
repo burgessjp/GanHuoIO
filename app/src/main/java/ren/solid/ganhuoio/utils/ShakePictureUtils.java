@@ -9,13 +9,18 @@ import android.hardware.SensorManager;
 import android.os.Vibrator;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.api.PictureService;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.bean.RandomPictureBean;
 import ren.solid.ganhuoio.ui.dialog.PictureDialog;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
+import ren.solid.library.rx.retrofit.ObservableProvider;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
+import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -122,7 +127,8 @@ public class ShakePictureUtils implements SensorEventListener {
 
 
     private void requestPicture() {
-        HttpClientManager.getData(Apis.Urls.RandomPicture, new JsonHttpCallBack<RandomPictureBean>() {
+        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class, "http://lelouchcrgallery.tk/");
+        pictureService.getRandomPicture("rand").compose(TransformUtils.<RandomPictureBean>defaultSchedulers()).subscribe(new Subscriber<RandomPictureBean>() {
             @Override
             public void onStart() {
                 unRegisterSensor();
@@ -130,14 +136,19 @@ public class ShakePictureUtils implements SensorEventListener {
             }
 
             @Override
-            public void onSuccess(RandomPictureBean result) {
-                mPictureDialog.setPicture(result.getP_ori());
+            public void onCompleted() {
             }
 
             @Override
-            public void onError(Exception e) {
+            public void onError(Throwable e) {
                 registerSensor();
             }
+
+            @Override
+            public void onNext(RandomPictureBean result) {
+                mPictureDialog.setPicture(result.getP_ori());
+            }
         });
+
     }
 }

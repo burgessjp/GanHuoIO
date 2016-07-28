@@ -3,19 +3,12 @@ package ren.solid.ganhuoio;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.ResponseBody;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
-import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.ganhuoio.api.PictureService;
+import ren.solid.ganhuoio.constant.Apis;
+import ren.solid.ganhuoio.model.bean.RandomPictureBean;
+import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.rx.retrofit.service.BaseService;
-import ren.solid.library.utils.json.JsonUtils;
+import ren.solid.library.utils.ToastUtils;
 import rx.Subscriber;
 
 /**
@@ -26,16 +19,28 @@ import rx.Subscriber;
 public class AndroidTest extends AndroidTestCase {
 
     public void testRetrofit() {
-//        Log.e("testRetrofit", "testRetrofit");
-//        Gson gson = new Gson();
-//        HttpResult s = gson.fromJson(data, new TypeToken<HttpResult>() {
-//        }.getType());
-//
-//        JsonUtils<ArrayList<GanHuoDataBean>> jsonUtils = new JsonUtils<>();
-//        jsonUtils.setDataName("results");
-//        List<GanHuoDataBean> s1 = jsonUtils.parseData(data1);
-//
-//        assertEquals(s, s1);
+        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class, "http://lelouchcrgallery.tk/");
+        pictureService.getRandomPicture("rand").subscribe(new Subscriber<RandomPictureBean>() {
+            @Override
+            public void onStart() {
+                Log.e("AndroidTest", "onStart");
+            }
+
+            @Override
+            public void onCompleted() {
+                Log.e("AndroidTest", "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("AndroidTest", "onError:" + e);
+            }
+
+            @Override
+            public void onNext(RandomPictureBean result) {
+                Log.e("AndroidTest", "onNext:" + result.getP_mid());
+            }
+        });
     }
 
 

@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.api.SinaApiService;
 import ren.solid.ganhuoio.constant.Constants;
 import ren.solid.ganhuoio.model.bean.WeiboBean;
 import ren.solid.ganhuoio.utils.AppUtils;
@@ -23,8 +24,11 @@ import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
 import ren.solid.library.rx.RxBus;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
+import rx.Subscriber;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -110,31 +114,63 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<>();
         params.put("access_token", AuthorityUtils.getAccessToken());
         params.put("uid", AuthorityUtils.getUid());
+//
+//        HttpClientManager.getData(Constants.SINA_USER_INFO_URL, params, new JsonHttpCallBack<WeiboBean>() {
+//            @Override
+//            public void onSuccess(WeiboBean result) {
+//                if (result != null) {
+//                    AuthorityUtils.setUserName(result.getName());
+//                    AuthorityUtils.login(result);
+//                    if (AppUtils.isFirstRun()) {
+//                        Logger.i("isFirst");
+//                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        AppUtils.setFirstRun(false);
+//                    } else {
+//                        Logger.i("not isFirst");
+//                        RxBus.getInstance().post("Login");
+//                    }
+//                    finish();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Exception e) {
+//
+//            }
+//        });
 
-        HttpClientManager.getData(Constants.SINA_USER_INFO_URL, params, new JsonHttpCallBack<WeiboBean>() {
-            @Override
-            public void onSuccess(WeiboBean result) {
-                if (result != null) {
-                    AuthorityUtils.setUserName(result.getName());
-                    AuthorityUtils.login(result);
-                    if (AppUtils.isFirstRun()) {
-                        Logger.i("isFirst");
-                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        AppUtils.setFirstRun(false);
-                    } else {
-                        Logger.i("not isFirst");
-                        RxBus.getInstance().post("Login");
+        SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class, "https://api.weibo.com/2/");
+        service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(TransformUtils.<WeiboBean>defaultSchedulers())
+                .subscribe(new Subscriber<WeiboBean>() {
+                    @Override
+                    public void onCompleted() {
+
                     }
-                    finish();
 
-                }
-            }
+                    @Override
+                    public void onError(Throwable e) {
 
-            @Override
-            public void onError(Exception e) {
+                    }
 
-            }
-        });
+                    @Override
+                    public void onNext(WeiboBean result) {
+                        if (result != null) {
+                            AuthorityUtils.setUserName(result.getName());
+                            AuthorityUtils.login(result);
+                            if (AppUtils.isFirstRun()) {
+                                Logger.i("isFirst");
+                                LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                AppUtils.setFirstRun(false);
+                            } else {
+                                Logger.i("not isFirst");
+                                RxBus.getInstance().post("Login");
+                            }
+                            finish();
+
+                        }
+                    }
+                });
     }
 
     @Override

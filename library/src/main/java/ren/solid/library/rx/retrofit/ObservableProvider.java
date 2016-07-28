@@ -1,13 +1,9 @@
 
 package ren.solid.library.rx.retrofit;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
@@ -16,7 +12,6 @@ import ren.solid.library.rx.retrofit.func.StringFunc;
 import ren.solid.library.rx.retrofit.service.BaseService;
 import rx.Observable;
 import rx.functions.Func1;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by _SOLID

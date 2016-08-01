@@ -9,6 +9,7 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.func.ResultFunc;
 import ren.solid.library.rx.retrofit.func.RetryWhenNetworkException;
 import ren.solid.library.rx.retrofit.func.StringFunc;
 import ren.solid.library.rx.retrofit.service.BaseService;
@@ -64,14 +65,7 @@ public class ObservableProvider {
                 .map(new StringFunc());
     }
 
-    public <T> Observable<HttpResult<T>> loadResult(String url, final Type type) {
-        return loadString(url).map(new Func1<String, HttpResult<T>>() {
-            @Override
-            public HttpResult<T> call(String s) {
-                Gson gson = new Gson();
-                HttpResult<T> httpResult = gson.fromJson(s, type);
-                return httpResult;
-            }
-        });
+    public <T> Observable<HttpResult<T>> loadResult(String url) {
+        return loadString(url).map(new ResultFunc<T>());
     }
 }

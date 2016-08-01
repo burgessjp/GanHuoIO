@@ -1,8 +1,5 @@
 package ren.solid.ganhuoio.model.impl;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 import ren.solid.ganhuoio.constant.Apis;
@@ -20,8 +17,6 @@ public class RecentlyModelImpl implements IRecentlyModel {
 
     @Override
     public Observable<HttpResult<List<String>>> loadRecentlyDate() {
-        Type t = new TypeToken<HttpResult<List<String>>>() {
-        }.getType();
-        return ObservableProvider.getDefault().loadResult(Apis.Urls.GanHuoDates, t);
+        return ObservableProvider.getDefault().loadResult(Apis.Urls.GanHuoDates);
     }
 }

@@ -6,10 +6,7 @@ import ren.solid.ganhuoio.model.IRecentlyModel;
 import ren.solid.ganhuoio.model.impl.RecentlyModelImpl;
 import ren.solid.ganhuoio.presenter.IRecentlyPresenter;
 import ren.solid.ganhuoio.ui.view.IRecentlyView;
-import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.HttpResultSubscriber;
-import ren.solid.library.rx.retrofit.func.ResultFunc;
-import rx.Subscriber;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 
 /**
  * Created by _SOLID

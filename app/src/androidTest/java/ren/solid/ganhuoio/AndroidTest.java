@@ -3,12 +3,21 @@ package ren.solid.ganhuoio;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import okhttp3.ResponseBody;
 import ren.solid.ganhuoio.api.PictureService;
-import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.bean.RandomPictureBean;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.SolidApplication;
+import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.utils.ToastUtils;
+import ren.solid.library.rx.retrofit.service.BaseService;
+import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
+import ren.solid.library.utils.FileUtils;
 import rx.Subscriber;
 
 /**
@@ -18,8 +27,27 @@ import rx.Subscriber;
  */
 public class AndroidTest extends AndroidTestCase {
 
+    String TAG = "AndroidTest";
+
+    public void testDownLoad() {
+        String url = "https://codeload.github.com/burgessjp/GanHuoIO/zip/master";
+        BaseService downLoadService = ServiceFactory.getInstance().createService(BaseService.class);
+        downLoadService.download(url).subscribe(new DownLoadSubscribe("gankio.zip") {
+            @Override
+            public void onCompleted(File file) {
+                Log.e(TAG, "下载完成：" + file.getAbsolutePath());
+            }
+
+            @Override
+            public void onProgress(double progress, long downloadSize, long totalSize) {
+                Log.e(TAG, "progress:" + progress + " downloadSize:" + downloadSize + " totalSize:" + totalSize);
+            }
+        });
+    }
+
+
     public void testRetrofit() {
-        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class, "http://lelouchcrgallery.tk/");
+        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class);
         pictureService.getRandomPicture("rand").subscribe(new Subscriber<RandomPictureBean>() {
             @Override
             public void onStart() {

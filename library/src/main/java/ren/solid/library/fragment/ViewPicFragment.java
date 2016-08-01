@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.io.File;
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import ren.solid.library.R;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.fragment.base.BaseFragment;
@@ -18,6 +19,10 @@ import ren.solid.library.http.ImageLoader;
 import ren.solid.library.http.callback.adapter.FileHttpCallBack;
 import ren.solid.library.http.callback.adapter.StringHttpCallBack;
 import ren.solid.library.http.request.ImageRequest;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.service.BaseService;
+import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SnackBarUtils;
@@ -118,26 +123,53 @@ public class ViewPicFragment extends BaseFragment {
         mSavePath = FileUtils.getSaveImagePath(getMContext()) + File.separator + FileUtils.getFileName(mUrlList.get(0));
         Logger.i(this, mSavePath);
 
-        HttpHelper.getProvider().download(mUrlList.get(0), mSavePath, new FileHttpCallBack() {
-            @Override
-            public void onSuccess(String filePath) {
-                if (action == 0) {
-                    SnackBarUtils.makeLong(mViewPager, "已保存至:" + filePath).warning();
-                } else {
-                    SystemShareUtils.shareImage(getMContext(), Uri.parse(filePath));
-                }
-            }
+//        HttpHelper.getProvider().download(mUrlList.get(0), mSavePath, new FileHttpCallBack() {
+//            @Override
+//            public void onSuccess(String filePath) {
+//                if (action == 0) {
+//                    SnackBarUtils.makeLong(mViewPager, "已保存至:" + filePath).warning();
+//                } else {
+//                    SystemShareUtils.shareImage(getMContext(), Uri.parse(filePath));
+//                }
+//            }
+//
+//            @Override
+//            public void onProgress(long totalBytes, long downloadedBytes, int progress) {
+//                Logger.i(this, "totalBytes:" + totalBytes + " downloadedBytes:" + downloadedBytes + " progress:" + progress);
+//            }
+//
+//            @Override
+//            public void onError(Exception e) {
+//                if (action == 0)
+//                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e.getMessage()).danger();
+//            }
+//        });
 
-            @Override
-            public void onProgress(long totalBytes, long downloadedBytes, int progress) {
-                Logger.i(this, "totalBytes:" + totalBytes + " downloadedBytes:" + downloadedBytes + " progress:" + progress);
-            }
+        ServiceFactory.getInstance()
+                .createService(BaseService.class)
+                .download(mUrlList.get(0))
+                .compose(TransformUtils.<ResponseBody>all_io())
+                .subscribe(new DownLoadSubscribe(FileUtils.getFileName(mUrlList.get(0))) {
+                    @Override
+                    public void onCompleted(File file) {
+                        if (action == 0) {
+                            SnackBarUtils.makeLong(mViewPager, "已保存至:" + file.getAbsolutePath()).warning();
+                        } else {
+                            SystemShareUtils.shareImage(getMContext(), Uri.parse(file.getAbsolutePath()));
+                        }
+                    }
 
-            @Override
-            public void onError(Exception e) {
-                if (action == 0)
-                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e.getMessage()).danger();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        if (action == 0)
+                            SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
+                    }
+
+                    @Override
+                    public void onProgress(double progress, long downloadByte, long totalByte) {
+                        Logger.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
+
+                    }
+                });
     }
 }

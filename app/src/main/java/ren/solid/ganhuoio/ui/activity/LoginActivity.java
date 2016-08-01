@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("access_token", AuthorityUtils.getAccessToken());
         params.put("uid", AuthorityUtils.getUid());
 
-        SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class, "https://api.weibo.com/2/");
+        SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class);
         service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(TransformUtils.<WeiboBean>defaultSchedulers())
                 .subscribe(new Subscriber<WeiboBean>() {
                     @Override

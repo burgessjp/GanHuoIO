@@ -7,7 +7,6 @@ import java.util.List;
 
 import ren.solid.library.R;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
-import ren.solid.library.rx.retrofit.HttpResultSubscriber;
 import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.NetworkUtils;

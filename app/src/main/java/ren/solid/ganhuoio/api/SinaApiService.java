@@ -11,6 +11,7 @@ import rx.Observable;
  * Time:17:50
  */
 public interface SinaApiService {
+    String BASE_URL="https://api.weibo.com/2/";
     @GET("users/show.json")
     Observable<WeiboBean> getUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
 }

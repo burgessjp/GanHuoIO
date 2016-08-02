@@ -1,5 +1,8 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -48,14 +51,20 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
 
     @Override
     public void onNext(final ResponseBody responseBody) {
-        writeResponseBodyToDisk(responseBody);
 
     }
 
     public abstract void onProgress(double progress, long downloadByte, long totalByte);
 
 
-    private boolean writeResponseBodyToDisk(ResponseBody body) {
+    public File getFile() {
+        return mFile;
+    }
+
+    Handler handler = new Handler(Looper.getMainLooper());
+    long fileSizeDownloaded = 0;
+    long fileSize = 0;
+    public boolean writeResponseBodyToDisk(ResponseBody body) {
         try {
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -63,11 +72,11 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
             try {
                 byte[] fileReader = new byte[4096];
 
-                long fileSize = body.contentLength();
-                long fileSizeDownloaded = 0;
+                fileSize = body.contentLength();
+
 
                 inputStream = body.byteStream();
-                outputStream = new FileOutputStream(mFile);
+                outputStream = new FileOutputStream(getFile());
 
                 while (true) {
                     int read = inputStream.read(fileReader);
@@ -79,15 +88,26 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
                     outputStream.write(fileReader, 0, read);
 
                     fileSizeDownloaded += read;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            onProgress(fileSizeDownloaded * 1.0f / fileSize, fileSizeDownloaded, fileSize);
 
-                    onProgress(fileSizeDownloaded * 1.0f / fileSize, fileSizeDownloaded, fileSize);
+                        }
+                    });
                 }
 
                 outputStream.flush();
 
                 return true;
-            } catch (IOException e) {
-                onError(e);
+            } catch (final IOException e) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onError(e);
+                    }
+                });
+
                 return false;
             } finally {
                 if (inputStream != null) {
@@ -98,9 +118,16 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
                     outputStream.close();
                 }
             }
-        } catch (IOException e) {
-            onError(e);
+        } catch (final IOException e) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    onError(e);
+                }
+            });
             return false;
         }
     }
+
+
 }

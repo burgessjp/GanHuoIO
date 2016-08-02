@@ -19,6 +19,7 @@ import ren.solid.library.http.ImageLoader;
 import ren.solid.library.http.callback.adapter.FileHttpCallBack;
 import ren.solid.library.http.callback.adapter.StringHttpCallBack;
 import ren.solid.library.http.request.ImageRequest;
+import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.service.BaseService;
@@ -144,32 +145,30 @@ public class ViewPicFragment extends BaseFragment {
 //                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e.getMessage()).danger();
 //            }
 //        });
+        ObservableProvider.getDefault().download(mUrlList.get(0),new DownLoadSubscribe(FileUtils.getFileName(mUrlList.get(0))) {
+            @Override
+            public void onCompleted(File file) {
+                //Log.i("ThreadInfo", "onCompleted:" + Thread.currentThread().getName());
+                if (action == 0) {
+                    SnackBarUtils.makeLong(mViewPager, "已保存至:" + file.getAbsolutePath()).warning();
+                } else {
+                    SystemShareUtils.shareImage(getMContext(), Uri.parse(file.getAbsolutePath()));
+                }
+            }
 
-        ServiceFactory.getInstance()
-                .createService(BaseService.class)
-                .download(mUrlList.get(0))
-                .compose(TransformUtils.<ResponseBody>all_io())
-                .subscribe(new DownLoadSubscribe(FileUtils.getFileName(mUrlList.get(0))) {
-                    @Override
-                    public void onCompleted(File file) {
-                        if (action == 0) {
-                            SnackBarUtils.makeLong(mViewPager, "已保存至:" + file.getAbsolutePath()).warning();
-                        } else {
-                            SystemShareUtils.shareImage(getMContext(), Uri.parse(file.getAbsolutePath()));
-                        }
-                    }
+            @Override
+            public void onError(Throwable e) {
+                //Log.i("ThreadInfo", "onError:" + Thread.currentThread().getName());
+                if (action == 0)
+                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        if (action == 0)
-                            SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
-                    }
+            @Override
+            public void onProgress(double progress, long downloadByte, long totalByte) {
+               // Log.i("ThreadInfo", "onProgress:" + Thread.currentThread().getName());
+                Logger.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
 
-                    @Override
-                    public void onProgress(double progress, long downloadByte, long totalByte) {
-                        Logger.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
-
-                    }
-                });
+            }
+        });
     }
 }

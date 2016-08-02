@@ -41,7 +41,7 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     @Override
     protected String getUrl(int mCurrentPageIndex) {
         date = getArguments().getString(DATE_STRING).replace('-', '/');
-        String url =Apis.Urls.GanHuoDataByDay + date;
+        String url = Apis.Urls.GanHuoDataByDay + date;
         Logger.i(this, "url:" + url);
         return url;
     }
@@ -63,6 +63,7 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
             if (recentlyBean.getAndroid() != null) list.addAll(recentlyBean.getAndroid());
             if (recentlyBean.getIOS() != null) list.addAll(recentlyBean.getIOS());
             if (recentlyBean.get瞎推荐() != null) list.addAll(recentlyBean.get瞎推荐());
+            if (recentlyBean.get福利() != null) addHeadImage(recentlyBean.get福利().get(0).getUrl());
 
         } catch (JSONException e) {
             e.printStackTrace();

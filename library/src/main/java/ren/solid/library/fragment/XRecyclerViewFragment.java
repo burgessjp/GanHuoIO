@@ -1,7 +1,10 @@
 package ren.solid.library.fragment;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -10,6 +13,7 @@ import java.util.List;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
+import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.StringUtils;
 import ren.solid.library.widget.StatusView;
 import rx.Observable;
@@ -73,6 +77,28 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
         return true;
     }
 
+    boolean isAddHead = false;
+    ImageView img_head;
+
+    protected void addHeadImage(final String url) {
+        if (img_head == null) {
+            img_head = new ImageView(getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.gravity = Gravity.CENTER;
+            img_head.setLayoutParams(layoutParams);
+        }
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isAddHead)
+                    mRecyclerView.addHeaderView(img_head);
+                isAddHead = true;
+                HttpClientManager.displayImage(img_head, url);
+            }
+        });
+
+
+    }
 
     @Override
     protected void setUpData() {
@@ -108,6 +134,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
 
                         @Override
                         public void onError(Throwable e) {
+                            e.printStackTrace();
                             mStatusView.showError();
                         }
 

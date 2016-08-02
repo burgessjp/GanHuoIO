@@ -92,6 +92,9 @@ public class ServiceFactory {
         //    }
         //});
         // httpClientBuilder.addInterceptor(new CacheControlInterceptor());
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        httpClientBuilder.addInterceptor(logging);
         return httpClientBuilder.build();
     }
 

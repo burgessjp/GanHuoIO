@@ -60,7 +60,7 @@ public class ObservableProvider {
         return loadString(url).map(new ResultFunc<T>());
     }
 
-
+    //这样做破坏了链式结构，有点不妥
     public void download(String url, final DownLoadSubscribe subscribe) {
         mBaseService
                 .download(url)
@@ -88,6 +88,7 @@ public class ObservableProvider {
                         //do nothing
                     }
                 });
+
     }
 
 

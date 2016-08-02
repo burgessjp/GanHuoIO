@@ -123,29 +123,7 @@ public class ViewPicFragment extends BaseFragment {
     public void downloadPicture(final int action) {
         mSavePath = FileUtils.getSaveImagePath(getMContext()) + File.separator + FileUtils.getFileName(mUrlList.get(0));
         Logger.i(this, mSavePath);
-
-//        HttpHelper.getProvider().download(mUrlList.get(0), mSavePath, new FileHttpCallBack() {
-//            @Override
-//            public void onSuccess(String filePath) {
-//                if (action == 0) {
-//                    SnackBarUtils.makeLong(mViewPager, "已保存至:" + filePath).warning();
-//                } else {
-//                    SystemShareUtils.shareImage(getMContext(), Uri.parse(filePath));
-//                }
-//            }
-//
-//            @Override
-//            public void onProgress(long totalBytes, long downloadedBytes, int progress) {
-//                Logger.i(this, "totalBytes:" + totalBytes + " downloadedBytes:" + downloadedBytes + " progress:" + progress);
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//                if (action == 0)
-//                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e.getMessage()).danger();
-//            }
-//        });
-        ObservableProvider.getDefault().download(mUrlList.get(0),new DownLoadSubscribe(FileUtils.getFileName(mUrlList.get(0))) {
+        ObservableProvider.getDefault().download(mUrlList.get(0),new DownLoadSubscribe(FileUtils.getSaveImagePath(getMContext()),FileUtils.getFileName(mUrlList.get(0))) {
             @Override
             public void onCompleted(File file) {
                 //Log.i("ThreadInfo", "onCompleted:" + Thread.currentThread().getName());

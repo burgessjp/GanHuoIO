@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.model.bean.GanHuoRecentlyWrapper;
 import ren.solid.ganhuoio.presenter.IRecentlyPresenter;
 import ren.solid.ganhuoio.presenter.impl.RecentlyPresenterImpl;
 import ren.solid.ganhuoio.ui.activity.MainActivity;
@@ -59,10 +60,10 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
     }
 
     @Override
-    public void setDateList(List<String> dateList) {
-        mPageAdapter = new GanHuoRecentlyPageAdapter(getChildFragmentManager(), dateList);
+    public void setDateList(GanHuoRecentlyWrapper wrapper) {
+        mPageAdapter = new GanHuoRecentlyPageAdapter(getChildFragmentManager(), wrapper.dateList,wrapper.titleList);
         mViewPager.setAdapter(mPageAdapter);
-        for (int i = 0; i < dateList.size(); i++) {
+        for (int i = 0; i < wrapper.dateList.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab());
         }
         mTabLayout.setupWithViewPager(mViewPager);

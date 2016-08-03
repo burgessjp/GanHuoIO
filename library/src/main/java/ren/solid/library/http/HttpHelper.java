@@ -8,6 +8,7 @@ import ren.solid.library.http.provider.base.IHttpProvider;
  * Date:2016/5/13
  * Time:11:19
  */
+@Deprecated
 public class HttpHelper {
 
     private static volatile IHttpProvider mProvider;

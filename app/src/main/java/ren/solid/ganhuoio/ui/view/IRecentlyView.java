@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.ui.view;
 
-import java.util.List;
+import ren.solid.ganhuoio.model.bean.GanHuoRecentlyWrapper;
 
 /**
  * Created by _SOLID
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface IRecentlyView extends IBaseView {
 
-    void setDateList(List<String> dateList);
+    void setDateList(GanHuoRecentlyWrapper wrapper);
 }

@@ -5,12 +5,10 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ren.solid.ganhuoio.ui.fragment.GanHuoListFragment;
+import ren.solid.ganhuoio.ui.fragment.CategoryListFragment;
 import ren.solid.ganhuoio.ui.fragment.ImagesFragmant;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ViewUtils;
@@ -40,7 +38,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
         if (!"福利".equals(mTitles.get(position))) {
-            fragment = ViewUtils.createFragment(GanHuoListFragment.class, false);
+            fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
             Bundle bundle = new Bundle();
             bundle.putString("type", mTitles.get(position));
             fragment.setArguments(bundle);

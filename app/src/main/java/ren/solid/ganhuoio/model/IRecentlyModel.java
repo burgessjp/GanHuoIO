@@ -2,6 +2,7 @@ package ren.solid.ganhuoio.model;
 
 import java.util.List;
 
+import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
 import ren.solid.library.rx.retrofit.HttpResult;
 import rx.Observable;
 
@@ -13,4 +14,5 @@ import rx.Observable;
 public interface IRecentlyModel {
 
     Observable<HttpResult<List<String>>> loadRecentlyDate();
+    Observable<HttpResult<List<GanHuoTitleBean>>> loadRecentlyTitle();
 }

@@ -1,10 +1,14 @@
 package ren.solid.library.fragment;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -15,6 +19,7 @@ import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
 import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.StringUtils;
+import ren.solid.library.utils.ViewUtils;
 import ren.solid.library.widget.StatusView;
 import rx.Observable;
 import rx.Subscriber;
@@ -79,25 +84,36 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
 
     boolean isAddHead = false;
     ImageView img_head;
+    TextView txt_head;
 
-    protected void addHeadImage(final String url) {
+    protected void addHeadTextAndImage(final String title, final String url) {
         if (img_head == null) {
             img_head = new ImageView(getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER;
             img_head.setLayoutParams(layoutParams);
+
+            txt_head = new TextView(getContext());
+            txt_head.setTextSize(ViewUtils.dp2px(getContext(), 6));
+            txt_head.setTextColor(Color.BLACK);
+            txt_head.getPaint().setFakeBoldText(true);
+            ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            int margin = ViewUtils.dp2px(getContext(), 10);
+            marginLayoutParams.setMargins(margin, margin, margin, margin);
+            txt_head.setLayoutParams(marginLayoutParams);
         }
         mRecyclerView.post(new Runnable() {
             @Override
             public void run() {
-                if (!isAddHead)
+                if (!isAddHead) {
+                    mRecyclerView.addHeaderView(txt_head);
                     mRecyclerView.addHeaderView(img_head);
+                }
                 isAddHead = true;
+                txt_head.setText(title);
                 HttpClientManager.displayImage(img_head, url);
             }
         });
-
-
     }
 
     @Override

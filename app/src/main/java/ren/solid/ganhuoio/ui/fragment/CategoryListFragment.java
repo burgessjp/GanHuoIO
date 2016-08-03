@@ -41,15 +41,15 @@ import ren.solid.library.utils.StringStyleUtils;
  * Date:2016/4/19
  * Time:10:57
  */
-public class GanHuoListFragment extends XRecyclerViewFragment {
+public class CategoryListFragment extends XRecyclerViewFragment {
 
-    private static String TAG = "GanHuoListFragment";
+    private static String TAG = "CategoryListFragment";
     private String mType;
 
     @Override
     protected List parseData(String result) {
-        List<GanHuoDataBean> list = null;
-        JSONObject jsonObject = null;
+        List<GanHuoDataBean> list;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(result);
             Gson gson = new Gson();
@@ -68,7 +68,7 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
     @Override
     protected String getUrl(int mCurrentPageIndex) {
         mType = getArguments().getString("type");
-        String url = Apis.Urls.GanHuoData+ mType + "/10/" + mCurrentPageIndex;
+        String url = Apis.Urls.GanHuoData + mType + "/10/" + mCurrentPageIndex;
         Log.i(TAG, url);
         return url;
     }
@@ -78,6 +78,7 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
         return new SolidRVBaseAdapter<GanHuoDataBean>(getMContext(), new ArrayList<GanHuoDataBean>()) {
             @Override
             protected void onBindDataToView(final SolidCommonViewHolder holder, final GanHuoDataBean bean, int position) {
+
                 holder.getView(R.id.iv_img).setVisibility(View.GONE);
                 holder.getView(R.id.tv_tag).setVisibility(View.GONE);
                 holder.getView(R.id.iv_source).setVisibility(View.VISIBLE);
@@ -125,7 +126,7 @@ public class GanHuoListFragment extends XRecyclerViewFragment {
                             final SpannableStringBuilder builder = new SpannableStringBuilder(bean.getDesc());
                             builder.append(StringStyleUtils.format(getMContext(), "(已收藏)", R.style.CollectedAppearance));
                             CharSequence descText = builder.subSequence(0, builder.length());
-                            holder.setText(R.id.tv_desc,descText);
+                            holder.setText(R.id.tv_desc, descText);
                         }
                     }
 

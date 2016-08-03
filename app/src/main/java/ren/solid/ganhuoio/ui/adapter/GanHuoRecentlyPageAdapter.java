@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import ren.solid.ganhuoio.ui.fragment.GanHuoListFragment;
+import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
 import ren.solid.ganhuoio.ui.fragment.RecentlyListFragment;
 import ren.solid.library.utils.ViewUtils;
 
@@ -20,10 +20,12 @@ import ren.solid.library.utils.ViewUtils;
 public class GanHuoRecentlyPageAdapter extends FragmentStatePagerAdapter {
 
     private List<String> mDateString;
+    private List<GanHuoTitleBean> mTitleList;
 
-    public GanHuoRecentlyPageAdapter(FragmentManager fm, List<String> dateString) {
+    public GanHuoRecentlyPageAdapter(FragmentManager fm, List<String> dateString, List<GanHuoTitleBean> titleList) {
         super(fm);
         mDateString = dateString;
+        mTitleList = titleList;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class GanHuoRecentlyPageAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = ViewUtils.createFragment(RecentlyListFragment.class, false);
         Bundle bundle = new Bundle();
         bundle.putString(RecentlyListFragment.DATE_STRING, mDateString.get(position));
+        bundle.putString(RecentlyListFragment.TITLE, mTitleList.get(position).getTitle());
         fragment.setArguments(bundle);
         return fragment;
     }

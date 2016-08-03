@@ -2,10 +2,14 @@ package ren.solid.ganhuoio.model.impl;
 
 import java.util.List;
 
+import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.IRecentlyModel;
+import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.ObservableProvider;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import rx.Observable;
 
 /**
@@ -17,6 +21,15 @@ public class RecentlyModelImpl implements IRecentlyModel {
 
     @Override
     public Observable<HttpResult<List<String>>> loadRecentlyDate() {
-        return ObservableProvider.getDefault().loadResult(Apis.Urls.GanHuoDates);
+
+        GankService gankService = ServiceFactory.getInstance().createService(GankService.class);
+        return gankService.getRecentlyDate();
+    }
+
+    @Override
+    public Observable<HttpResult<List<GanHuoTitleBean>>> loadRecentlyTitle() {
+        GankService gankService = ServiceFactory.getInstance().createService(GankService.class);
+        return gankService.getTitles();
+
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
@@ -26,16 +27,18 @@ import ren.solid.ganhuoio.constant.Constants;
  * Date:2016/5/23
  * Time:15:34
  */
-public class SinaWeiboShare {
+public class SinaWeiBoShare {
 
 
     private final Context mContext;
 
-    private WebpageObject mWebpageObject = null;
+    private WebpageObject mWebPageObject = null;
     private TextObject mTextObject = null;
+    private ImageObject mImageObject = null;
 
-    public SinaWeiboShare(Context context) {
+    public SinaWeiBoShare(Context context) {
         this.mContext = context;
+        setImageObj();
     }
 
     /**
@@ -59,12 +62,12 @@ public class SinaWeiboShare {
             weiboMessage.textObject = mTextObject;
         }
 
-        //weiboMessage.imageObject = getImageObj();
+        weiboMessage.imageObject = mImageObject;
 
 
         // 用户可以分享其它媒体资源（网页、音乐、视频、声音中的一种）
-        if (mWebpageObject != null) {
-            weiboMessage.mediaObject = mWebpageObject;
+        if (mWebPageObject != null) {
+            weiboMessage.mediaObject = mWebPageObject;
         }
 //        if (hasMusic) {
 //            weiboMessage.mediaObject = getMusicObj();
@@ -103,6 +106,7 @@ public class SinaWeiboShare {
             @Override
             public void onCancel() {
             }
+
         });
     }
 
@@ -121,7 +125,7 @@ public class SinaWeiboShare {
         mediaObject.setThumbImage(bitmap);
         mediaObject.actionUrl = url;
         mediaObject.defaultText = "Webpage 默认文案";
-        mWebpageObject = mediaObject;
+        mWebPageObject = mediaObject;
     }
 
     /**
@@ -135,16 +139,16 @@ public class SinaWeiboShare {
         mTextObject = textObject;
     }
 
-//    /**
-//     * 创建图片消息对象。
-//     *
-//     * @return 图片消息对象。
-//     */
-//    private void getImageObj() {
-//        ImageObject imageObject = new ImageObject();
-//        //设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
-//        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.logo);
-//        imageObject.setImageObject(bitmap);
-//        =imageObject;
-//    }
+    /**
+     * 创建图片消息对象。
+     *
+     * @return 图片消息对象。
+     */
+    private void setImageObj() {
+        ImageObject imageObject = new ImageObject();
+        //设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.logo);
+        imageObject.setImageObject(bitmap);
+        mImageObject = imageObject;
+    }
 }

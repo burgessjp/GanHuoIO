@@ -1,13 +1,17 @@
 package ren.solid.ganhuoio.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,12 +39,20 @@ import ren.solid.library.utils.StringStyleUtils;
 public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> {
 
     public static final String DATE_STRING = "dateString";
+    public static final String TITLE = "fragment_index";
 
     private String date;
+    private String title = "";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        date = getArguments().getString(DATE_STRING).replace('-', '/');
+        title = getArguments().getString(TITLE);
+    }
 
     @Override
     protected String getUrl(int mCurrentPageIndex) {
-        date = getArguments().getString(DATE_STRING).replace('-', '/');
         String url = Apis.Urls.GanHuoDataByDay + date;
         Logger.i(this, "url:" + url);
         return url;
@@ -63,7 +75,8 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
             if (recentlyBean.getAndroid() != null) list.addAll(recentlyBean.getAndroid());
             if (recentlyBean.getIOS() != null) list.addAll(recentlyBean.getIOS());
             if (recentlyBean.get瞎推荐() != null) list.addAll(recentlyBean.get瞎推荐());
-            if (recentlyBean.get福利() != null) addHeadImage(recentlyBean.get福利().get(0).getUrl());
+            if (recentlyBean.get福利() != null)
+                addHeadTextAndImage(title, recentlyBean.get福利().get(0).getUrl());
 
         } catch (JSONException e) {
             e.printStackTrace();

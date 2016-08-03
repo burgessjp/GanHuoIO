@@ -1,6 +1,7 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
 import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.library.utils.Logger;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
@@ -18,6 +19,7 @@ public abstract class HttpResultSubscriber<T> extends Subscriber<HttpResult<T>> 
 
     @Override
     public void onError(Throwable e) {
+        Logger.e(this,e.getMessage());
         e.printStackTrace();
         //在这里做全局的错误处理
         if (e instanceof HttpException) {

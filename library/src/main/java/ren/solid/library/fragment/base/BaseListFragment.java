@@ -119,7 +119,6 @@ public abstract class BaseListFragment<T> extends BaseFragment {
         mCurrentAction = action;
         switch (mCurrentAction) {
             case ACTION_REFRESH:
-                //mAdapter.clear();
                 mCurrentPageIndex = 1;
                 loadData();
                 break;

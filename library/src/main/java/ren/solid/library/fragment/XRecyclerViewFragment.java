@@ -13,13 +13,16 @@ import android.widget.TextView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
 import ren.solid.library.http.HttpClientManager;
+import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.utils.StringUtils;
 import ren.solid.library.utils.ViewUtils;
+import ren.solid.library.utils.json.JsonConvert;
 import ren.solid.library.widget.StatusView;
 import rx.Observable;
 import rx.Subscriber;
@@ -31,7 +34,7 @@ import rx.schedulers.Schedulers;
  * Created by _SOLID
  * Date:2016/4/18
  * Time:17:36
- * <p>
+ * <p/>
  * common fragment for list data display ,and you can extends this fragment for everywhere you want to display list data
  */
 public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
@@ -141,7 +144,8 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
                             subscriber.onNext(list);
                             subscriber.onCompleted();
                         }
-                    }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                    })
+                    .compose(TransformUtils.<List<T>>defaultSchedulers())
                     .subscribe(new Subscriber<List<T>>() {
                         @Override
                         public void onCompleted() {

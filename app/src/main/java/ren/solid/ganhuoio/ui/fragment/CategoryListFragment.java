@@ -35,30 +35,25 @@ import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.json.JsonConvert;
 
 /**
  * Created by _SOLID
  * Date:2016/4/19
  * Time:10:57
  */
-public class CategoryListFragment extends XRecyclerViewFragment {
+public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> {
 
-    private static String TAG = "CategoryListFragment";
     private String mType;
 
     @Override
-    protected List parseData(String result) {
+    protected List<GanHuoDataBean> parseData(String result) {
         List<GanHuoDataBean> list;
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject(result);
-            Gson gson = new Gson();
-            list = gson.fromJson(
-                    jsonObject.getString("results"),
-                    new TypeToken<List<GanHuoDataBean>>() {
-                    }.getType());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        JsonConvert<List<GanHuoDataBean>> jsonConvert = new JsonConvert<List<GanHuoDataBean>>() {
+        };
+        jsonConvert.setDataName("results");
+        list = jsonConvert.parseData(result);
+        if (list == null) {
             list = new ArrayList<>();
         }
         return list;
@@ -69,7 +64,6 @@ public class CategoryListFragment extends XRecyclerViewFragment {
     protected String getUrl(int mCurrentPageIndex) {
         mType = getArguments().getString("type");
         String url = Apis.Urls.GanHuoData + mType + "/10/" + mCurrentPageIndex;
-        Log.i(TAG, url);
         return url;
     }
 
@@ -114,28 +108,7 @@ public class CategoryListFragment extends XRecyclerViewFragment {
                 holder.setText(R.id.tv_tag, bean.getType());
                 holder.setText(R.id.tv_desc, bean.getDesc());
                 holder.setImage(R.id.iv_source, AppUtils.getResourseIDByUrl(bean.getUrl()));
-
-
-                BmobQuery<CollectTable> query = new BmobQuery<>();
-                query.addWhereEqualTo("username", AuthorityUtils.getUserName());
-                query.addWhereEqualTo("url", bean.getUrl());
-                query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
-                    @Override
-                    public void onSuccess(List<CollectTable> list) {
-                        if (list.size() > 0) {
-                            final SpannableStringBuilder builder = new SpannableStringBuilder(bean.getDesc());
-                            builder.append(StringStyleUtils.format(getMContext(), "(已收藏)", R.style.CollectedAppearance));
-                            CharSequence descText = builder.subSequence(0, builder.length());
-                            holder.setText(R.id.tv_desc, descText);
-                        }
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Logger.i("onError:" + s + " code:" + i);
-                    }
-                });
-
+                isCollected(holder, bean);
             }
 
             @Override
@@ -160,6 +133,28 @@ public class CategoryListFragment extends XRecyclerViewFragment {
                 }
             }
         };
+    }
+
+    private void isCollected(final SolidRVBaseAdapter<GanHuoDataBean>.SolidCommonViewHolder holder, final GanHuoDataBean bean) {
+        BmobQuery<CollectTable> query = new BmobQuery<>();
+        query.addWhereEqualTo("username", AuthorityUtils.getUserName());
+        query.addWhereEqualTo("url", bean.getUrl());
+        query.findObjects(GanHuoIOApplication.getInstance(), new FindListener<CollectTable>() {
+            @Override
+            public void onSuccess(List<CollectTable> list) {
+                if (list.size() > 0) {
+                    final SpannableStringBuilder builder = new SpannableStringBuilder(bean.getDesc());
+                    builder.append(StringStyleUtils.format(getMContext(), "(已收藏)", R.style.CollectedAppearance));
+                    CharSequence descText = builder.subSequence(0, builder.length());
+                    holder.setText(R.id.tv_desc, descText);
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Logger.e("onError:" + s + " code:" + i);
+            }
+        });
     }
 
     public boolean isImage(String url) {

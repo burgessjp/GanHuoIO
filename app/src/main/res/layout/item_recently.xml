@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
     android:orientation="vertical">
 
     <TextView
@@ -21,39 +22,34 @@
         tools:text="Category"
         tools:visibility="visible" />
 
-    <com.andexert.library.RippleView
+
+    <LinearLayout
+        android:id="@+id/ll_gank_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:rv_color="#c2c0c0"
-        app:rv_type="rectangle">
+        android:paddingBottom="8dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        tools:background="@color/md_amber_100">
 
-        <LinearLayout
-            android:id="@+id/ll_gank_parent"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="●" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="6dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp"
-            tools:background="@color/md_amber_100">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="●" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="6dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_grey_900"
-                android:textSize="14sp"
-                tools:text="文字" />
-        </LinearLayout>
-    </com.andexert.library.RippleView>
+            android:textColor="@color/md_grey_900"
+            android:textSize="14sp"
+            tools:text="文字" />
+    </LinearLayout>
 </LinearLayout>

@@ -20,7 +20,7 @@ public class JsonConvert<T> extends AbsConvert<T> {
     private String mDataName = null;
 
     @Override
-    public  T parseData(String result) {
+    public T parseData(String result) {
         T t = null;
         try {
             Type trueType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];

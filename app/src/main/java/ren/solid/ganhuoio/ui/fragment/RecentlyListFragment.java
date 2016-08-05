@@ -30,6 +30,7 @@ import ren.solid.library.fragment.XRecyclerViewFragment;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.json.JsonConvert;
 
 /**
  * Created by _SOLID
@@ -61,25 +62,17 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     protected List<GanHuoDataBean> parseData(String result) {
         GanHuoRecentlyBean recentlyBean;
         List<GanHuoDataBean> list = new ArrayList<>();
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject(result);
-            Gson gson = new Gson();
-            recentlyBean = gson.fromJson(
-                    jsonObject.getString("results"),
-                    new TypeToken<GanHuoRecentlyBean>() {
-                    }.getType());
-
+        JsonConvert<GanHuoRecentlyBean> jsonConvert = new JsonConvert<GanHuoRecentlyBean>() {
+        };
+        jsonConvert.setDataName("results");
+        recentlyBean = jsonConvert.parseData(result);
+        if (recentlyBean != null) {
             if (recentlyBean.get休息视频() != null) list.addAll(recentlyBean.get休息视频());
             if (recentlyBean.getAndroid() != null) list.addAll(recentlyBean.getAndroid());
             if (recentlyBean.getIOS() != null) list.addAll(recentlyBean.getIOS());
             if (recentlyBean.get瞎推荐() != null) list.addAll(recentlyBean.get瞎推荐());
             if (recentlyBean.get福利() != null)
                 addHeadTextAndImage(title, recentlyBean.get福利().get(0).getUrl());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            list = new ArrayList<>();
         }
         return list;
     }

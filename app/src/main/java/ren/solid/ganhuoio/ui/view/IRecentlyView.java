@@ -9,5 +9,5 @@ import ren.solid.ganhuoio.model.bean.GanHuoRecentlyWrapper;
  */
 public interface IRecentlyView extends IBaseView {
 
-    void setDateList(GanHuoRecentlyWrapper wrapper);
+    void setDate(GanHuoRecentlyWrapper wrapper);
 }

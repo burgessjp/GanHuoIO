@@ -36,7 +36,7 @@ public class RecentlyPresenterImpl implements IRecentlyPresenter {
 //            public void onSuccess(List<String> stringList) {
 //                view.hideLoading();
 //                if (stringList != null && stringList.size() > 5)
-//                    view.setDateList(stringList.subList(0, 5));
+//                    view.setDate(stringList.subList(0, 5));
 //            }
 //
 //            @Override
@@ -69,7 +69,7 @@ public class RecentlyPresenterImpl implements IRecentlyPresenter {
                     @Override
                     public void onSuccess(GanHuoRecentlyWrapper ganHuoRecentlyWrapper) {
                         view.hideLoading();
-                        view.setDateList(ganHuoRecentlyWrapper);
+                        view.setDate(ganHuoRecentlyWrapper);
                     }
 
                     @Override

@@ -31,7 +31,7 @@ import rx.schedulers.Schedulers;
  * Created by _SOLID
  * Date:2016/4/18
  * Time:17:36
- * <p/>
+ * <p>
  * common fragment for list data display ,and you can extends this fragment for everywhere you want to display list data
  */
 public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
@@ -174,6 +174,10 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
             mRecyclerView.refreshComplete();
         if (mCurrentAction == ACTION_LOAD_MORE)
             mRecyclerView.loadMoreComplete();
+    }
+
+    protected int getHeadViewCount() {
+        return 3;
     }
 
 

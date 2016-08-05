@@ -16,6 +16,7 @@ import ren.solid.ganhuoio.model.bean.bomb.FeedBack;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
+import ren.solid.library.utils.SystemUtils;
 
 /**
  * Created by _SOLID
@@ -54,6 +55,9 @@ public class AppUtils {
                         }
                         FeedBack feedBack = new FeedBack();
                         feedBack.setContent(input.toString());
+                        feedBack.setAppVersion(SystemUtils.getAppVersion(context));
+                        feedBack.setDeviceName(SystemUtils.getDeviceName());
+                        feedBack.setSystemVersion(SystemUtils.getSystemVersion());
                         feedBack.save(context, new SaveListener() {
                             @Override
                             public void onSuccess() {

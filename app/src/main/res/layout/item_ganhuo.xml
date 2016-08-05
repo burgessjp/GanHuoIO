@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    app:rv_type="rectangle"
+    app:rv_color="#c2c0c0">
 
 
     <android.support.v7.widget.CardView
+        app:cardCornerRadius="3dp"
+        app:cardElevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="0dp">
+        android:layout_margin="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,11 +46,11 @@
 
                     <TextView
                         android:id="@+id/tv_desc"
+                        tools:text="基于material design support的开源学习项目项目"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="18sp"
-                        tools:text="基于material design support的开源学习项目项目" />
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/iv_action"
@@ -80,32 +81,32 @@
 
                     <TextView
                         android:id="@+id/tv_source"
+                        tools:text="web"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="6dp"
                         android:textSize="12sp"
-                        android:visibility="gone"
-                        tools:text="web" />
+                        android:visibility="gone" />
 
 
                     <TextView
                         android:id="@+id/tv_people"
+                        tools:text="Andrew Liu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="6dp"
-                        android:textSize="12sp"
-                        tools:text="Andrew Liu" />
+                        android:textSize="12sp" />
 
 
                     <TextView
                         android:id="@+id/tv_time"
+                        tools:text="2016-04-18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
-                        android:textSize="12sp"
-                        tools:text="2016-04-18" />
+                        android:textSize="12sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -115,16 +116,16 @@
 
                     <TextView
                         android:id="@+id/tv_tag"
+                        tools:text="Android"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="12sp"
-                        tools:text="Android" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
 
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</com.andexert.library.RippleView>

@@ -54,15 +54,14 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     @Override
     protected String getUrl(int mCurrentPageIndex) {
         String url = Apis.Urls.GanHuoDataByDay + date;
-        Logger.i(this, "url:" + url);
         return url;
     }
 
     @Override
     protected List<GanHuoDataBean> parseData(String result) {
-        GanHuoRecentlyBean recentlyBean = null;
+        GanHuoRecentlyBean recentlyBean;
         List<GanHuoDataBean> list = new ArrayList<>();
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(result);
             Gson gson = new Gson();
@@ -115,13 +114,13 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
 
             @Override
             protected void onItemClick(int position) {
-                String url = mBeans.get(position - 1).getUrl();
+                String url = mBeans.get(position - getHeadViewCount()).getUrl();
                 ArrayList<String> images = new ArrayList<String>();
                 images.add(url);
                 if (!isImage(url)) {
                     Intent intent = new Intent(getMContext(), WebViewActivity.class);
                     intent.putExtra(WebViewActivity.WEB_URL, url);
-                    intent.putExtra(WebViewActivity.TITLE, mBeans.get(position - 1).getDesc());
+                    intent.putExtra(WebViewActivity.TITLE, mBeans.get(position - getHeadViewCount()).getDesc());
                     getMContext().startActivity(intent);
                 } else {
                     Intent intent = new Intent(getMContext(), ViewPicActivity.class);

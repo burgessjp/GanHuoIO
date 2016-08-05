@@ -43,6 +43,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
     protected void setUpView() {
         mTabLayout = $(R.id.tab_layout);
         mViewPager = $(R.id.viewpager);
+        mViewPager.setOffscreenPageLimit(5);
     }
 
     @Override

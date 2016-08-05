@@ -53,5 +53,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp:logging-interceptor:2.6.0'
 
+    compile 'com.umeng.analytics:analytics:latest.integration'
 
 }

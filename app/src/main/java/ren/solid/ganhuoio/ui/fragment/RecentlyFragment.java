@@ -60,7 +60,7 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
     }
 
     @Override
-    public void setDateList(GanHuoRecentlyWrapper wrapper) {
+    public void setDate(GanHuoRecentlyWrapper wrapper) {
         mPageAdapter = new GanHuoRecentlyPageAdapter(getChildFragmentManager(), wrapper.dateList,wrapper.titleList);
         mViewPager.setAdapter(mPageAdapter);
         for (int i = 0; i < wrapper.dateList.size(); i++) {

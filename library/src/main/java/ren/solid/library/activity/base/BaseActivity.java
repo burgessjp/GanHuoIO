@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import ren.solid.library.rx.RxBus;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -86,5 +88,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

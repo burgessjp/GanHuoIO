@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!--Bomb推送所需的权限-->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -22,6 +23,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57a2b1be67e58ec1850025c5"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Tencent" />
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">

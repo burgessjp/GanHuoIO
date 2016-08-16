@@ -4,20 +4,12 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-import okhttp3.ResponseBody;
 import ren.solid.ganhuoio.api.PictureService;
 import ren.solid.ganhuoio.model.bean.RandomPictureBean;
-import ren.solid.library.SolidApplication;
-import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.rx.retrofit.service.BaseService;
+import ren.solid.library.rx.retrofit.service.CommonService;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
-import ren.solid.library.utils.FileUtils;
 import rx.Subscriber;
 
 /**
@@ -31,7 +23,7 @@ public class AndroidTest extends AndroidTestCase {
 
     public void testDownLoad() {
         String url = "https://codeload.github.com/burgessjp/GanHuoIO/zip/master";
-        BaseService downLoadService = ServiceFactory.getInstance().createService(BaseService.class);
+        CommonService downLoadService = ServiceFactory.getInstance().createService(CommonService.class);
         downLoadService.download(url).subscribe(new DownLoadSubscribe("gankio.zip") {
             @Override
             public void onCompleted(File file) {

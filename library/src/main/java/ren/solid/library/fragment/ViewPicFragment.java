@@ -3,26 +3,18 @@ package ren.solid.library.fragment;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
 import ren.solid.library.R;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.http.HttpHelper;
 import ren.solid.library.http.ImageLoader;
-import ren.solid.library.http.callback.adapter.FileHttpCallBack;
-import ren.solid.library.http.callback.adapter.StringHttpCallBack;
 import ren.solid.library.http.request.ImageRequest;
 import ren.solid.library.rx.retrofit.ObservableProvider;
-import ren.solid.library.rx.retrofit.TransformUtils;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.rx.retrofit.service.BaseService;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.Logger;

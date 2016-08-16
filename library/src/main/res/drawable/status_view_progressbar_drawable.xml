@@ -15,8 +15,9 @@
             android:useLevel="false"
             android:startColor="#AAAAAA"
             android:centerColor="#C4C4C4"
-            android:centerY="0.50"
-            android:endColor="@color/status_view_text_color" />
+            android:centerY="0.5"
+            android:centerX="0.5"
+            android:endColor="#AAAAAA" />
     </shape>
 
 </animated-rotate>

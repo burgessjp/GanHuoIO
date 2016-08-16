@@ -5,12 +5,17 @@ import java.util.List;
 import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.IRecentlyModel;
+import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by _SOLID
@@ -23,7 +28,7 @@ public class RecentlyModelImpl implements IRecentlyModel {
     public Observable<HttpResult<List<String>>> loadRecentlyDate() {
 
         GankService gankService = ServiceFactory.getInstance().createService(GankService.class);
-        return gankService.getRecentlyDate();
+        return gankService.getRecentlyDate().compose(TransformUtils.<HttpResult<List<String>>>defaultSchedulers());
     }
 
     @Override

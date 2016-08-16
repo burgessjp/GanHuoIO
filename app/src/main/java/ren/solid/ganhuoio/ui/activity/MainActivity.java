@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -114,6 +110,7 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
         mToolbar = $(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setUpDrawer();
+        
         getSupportActionBar().setTitle(getResources().getString(R.string.main_home));
 
     }
@@ -323,7 +320,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
     protected void beforeOnBackPressed() {
         if (mDrawer.isDrawerOpen()) {//当前抽屉是打开的，则关闭
             mDrawer.closeDrawer();
-            return;
         }
     }
 

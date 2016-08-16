@@ -1,30 +1,17 @@
 
 package ren.solid.library.rx.retrofit;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
-
 import okhttp3.ResponseBody;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.func.ResultFunc;
 import ren.solid.library.rx.retrofit.func.RetryWhenNetworkException;
 import ren.solid.library.rx.retrofit.func.StringFunc;
-import ren.solid.library.rx.retrofit.service.BaseService;
+import ren.solid.library.rx.retrofit.service.CommonService;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by _SOLID
@@ -33,14 +20,14 @@ import rx.functions.Func1;
  */
 public class ObservableProvider {
 
-    private BaseService mBaseService;
+    private CommonService mCommonService;
 
     private static class DefaultHolder {
         private static ObservableProvider INSTANCE = new ObservableProvider();
     }
 
     private ObservableProvider() {
-        mBaseService = ServiceFactory.getInstance().createService(BaseService.class);
+        mCommonService = ServiceFactory.getInstance().createService(CommonService.class);
 
     }
 
@@ -49,8 +36,8 @@ public class ObservableProvider {
     }
 
     public Observable<String> loadString(String url) {
-        return mBaseService
-                .loadString(url.substring(mBaseService.BASE_URL.length()))
+        return mCommonService
+                .loadString(url)
                 .compose(TransformUtils.<ResponseBody>defaultSchedulers())
                 .retryWhen(new RetryWhenNetworkException())
                 .map(new StringFunc());
@@ -60,9 +47,8 @@ public class ObservableProvider {
         return loadString(url).map(new ResultFunc<T>());
     }
 
-    //这样做破坏了链式结构，有点不妥
     public void download(String url, final DownLoadSubscribe subscribe) {
-        mBaseService
+        mCommonService
                 .download(url)
                 .compose(TransformUtils.<ResponseBody>all_io())
                 .doOnNext(new Action1<ResponseBody>() {

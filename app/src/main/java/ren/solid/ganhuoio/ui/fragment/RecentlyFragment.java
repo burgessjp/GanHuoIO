@@ -16,6 +16,7 @@ import ren.solid.ganhuoio.ui.activity.MainActivity;
 import ren.solid.ganhuoio.ui.adapter.GanHuoRecentlyPageAdapter;
 import ren.solid.ganhuoio.ui.view.IRecentlyView;
 import ren.solid.library.fragment.base.BaseFragment;
+import ren.solid.library.transformer.RotateDownPageTransformer;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.widget.StatusView;
@@ -50,6 +51,7 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
                 mPresenter.getRecentlyDate();
             }
         });
+        mViewPager.setPageTransformer(false,new RotateDownPageTransformer());
     }
 
     @Override

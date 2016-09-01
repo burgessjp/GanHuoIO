@@ -31,7 +31,7 @@ public class DialogUtils {
                         doCollect(bean, context, view);
                         break;
                     case R.id.item_share_sina:
-                        SinaWeiBoShare share = new SinaWeiBoShare(context);
+                        SinaWeiBoShareUtil share = new SinaWeiBoShareUtil(context);
                         share.setTextObj(bean.getDesc() + "\n" + "【干货IO下载地址:\n" +
                                 "http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                         share.setWebpageObj("来自干货IO的分享", bean.getUrl(), bean.getDesc());

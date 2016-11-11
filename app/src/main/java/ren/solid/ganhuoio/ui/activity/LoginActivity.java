@@ -15,18 +15,16 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.bmob.v3.BmobUser;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.SinaApiService;
 import ren.solid.ganhuoio.constant.Constants;
+import ren.solid.ganhuoio.event.LoginEvent;
 import ren.solid.ganhuoio.model.bean.WeiboBean;
-import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
-import ren.solid.library.http.HttpClientManager;
-import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
 import rx.Subscriber;
 
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onComplete(Bundle values) {
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
             if (mAccessToken.isSessionValid()) {
-                ToastUtils.getInstance().showToast("登陆成功");
+                ToastUtils.getInstance().showToast("登录成功");
                 AuthorityUtils.setUid(mAccessToken.getUid());
                 AuthorityUtils.setAccessToken(mAccessToken.getToken());
                 AuthorityUtils.setRefreshToken(mAccessToken.getRefreshToken());
@@ -125,24 +123,26 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
                     public void onNext(WeiboBean result) {
+
+
                         if (result != null) {
                             AuthorityUtils.setUserName(result.getName());
                             AuthorityUtils.login(result);
-                            if (AppUtils.isFirstRun()) {
-                                Logger.i("isFirst");
-                                LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                AppUtils.setFirstRun(false);
-                            } else {
-                                Logger.i("not isFirst");
-                                RxBus.getInstance().post("Login");
+                            RxBus.getInstance().post(new LoginEvent());
+                            BmobUser user = new BmobUser();
+                            user.setUsername(result.getName());
+                            user.setPassword("123456");
+                            try {
+                                user.signUp(LoginActivity.this, null);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            finish();
 
+                            finish();
                         }
                     }
                 });

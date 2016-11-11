@@ -582,7 +582,7 @@ public class WeiboBean {
          */
 
         private VisibleBean visible;
-        private int biz_feature;
+        private long biz_feature;
         private int userType;
         /**
          * thumbnail_pic : http://ww2.sinaimg.cn/thumbnail/b3f83735jw1f3p8p78elpj20hs6jn4eb.jpg
@@ -785,11 +785,11 @@ public class WeiboBean {
             this.visible = visible;
         }
 
-        public int getBiz_feature() {
+        public long getBiz_feature() {
             return biz_feature;
         }
 
-        public void setBiz_feature(int biz_feature) {
+        public void setBiz_feature(long biz_feature) {
             this.biz_feature = biz_feature;
         }
 

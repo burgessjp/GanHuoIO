@@ -3,4 +3,7 @@
 
 
     <string name="no_network">当前无网络连接</string>
+    <string name="bye_burger_bottom_behavior">ren.solid.library.behavior.byeburgernavigationview.ByeBurgerBottomBehavior</string>
+    <string name="bye_burger_title_behavior">ren.solid.library.behavior.byeburgernavigationview.ByeBurgerTitleBehavior</string>
+
 </resources>

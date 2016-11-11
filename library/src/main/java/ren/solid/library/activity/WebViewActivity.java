@@ -89,14 +89,10 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void setUpData() {
-        mWebViewFragment = new WebViewFragment() {
-            @Override
-            protected String getLoadUrl() {
-                return mUrl;
-            }
-        };
+        mWebViewFragment = WebViewFragment.newInstance(mUrl);
         mFragmentManager.beginTransaction().replace(R.id.fl_content, mWebViewFragment).commit();
     }
+
 
     @Override
     public void onBackPressed() {

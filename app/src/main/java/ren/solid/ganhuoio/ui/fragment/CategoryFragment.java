@@ -1,5 +1,7 @@
 package ren.solid.ganhuoio.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
@@ -7,12 +9,15 @@ import java.util.List;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
+import ren.solid.ganhuoio.event.SortChangeEvent;
 import ren.solid.ganhuoio.presenter.ICategoryPresenter;
 import ren.solid.ganhuoio.presenter.impl.CategoryPresenterImpl;
 import ren.solid.ganhuoio.ui.adapter.GanHuoPagerAdapter;
 import ren.solid.ganhuoio.ui.view.ICategoryView;
 import ren.solid.library.fragment.base.BaseFragment;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.Logger;
+import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -27,17 +32,21 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
     private ICategoryPresenter mIHomePresenter;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        RxBus.getInstance().toObserverable(SortChangeEvent.class).subscribe(new Action1<SortChangeEvent>() {
+            @Override
+            public void call(SortChangeEvent sortChangeEvent) {
+                mAdapter.addAll(Apis.getGanHuoCateGory());
+            }
+        });
+    }
+
+    @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_category;
     }
 
-    @Override
-    protected void handleRxMsg(String msg) {
-        Logger.i(this, msg);
-        if (msg.equals("SortChange")) {
-            mAdapter.addAll(Apis.getGanHuoCateGory());
-        }
-    }
 
     @Override
     protected void setUpView() {

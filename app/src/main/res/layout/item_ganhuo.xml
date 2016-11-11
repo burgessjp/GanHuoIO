@@ -6,9 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
+    android:layout_marginBottom="1dp"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="2dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="0dp">
 
     <LinearLayout
@@ -18,12 +18,11 @@
 
         <ImageView
             android:id="@+id/iv_source"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/web" />
+            android:background="@color/colorPrimary" />
 
 
         <LinearLayout
@@ -44,13 +43,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     tools:text="基于material design support的开源学习项目项目" />
 
                 <ImageView
                     android:id="@+id/iv_action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="right"
                     android:background="@drawable/selector_action"
                     android:padding="5dp"

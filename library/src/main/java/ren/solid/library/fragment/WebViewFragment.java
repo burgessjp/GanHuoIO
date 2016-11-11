@@ -17,10 +17,17 @@ import ren.solid.library.fragment.base.BaseFragment;
  * Date:2016/3/31
  * Time:14:27
  */
-public abstract class WebViewFragment extends BaseFragment {
+public class WebViewFragment extends BaseFragment {
 
     protected WebView mWebView;
     protected ProgressBar mProgressBar;
+    protected String mUrl;
+
+    public static WebViewFragment newInstance(final String url) {
+        WebViewFragment fragment = new WebViewFragment();
+        fragment.mUrl = url;
+        return fragment;
+    }
 
     @Override
     protected int setLayoutResourceID() {
@@ -33,9 +40,11 @@ public abstract class WebViewFragment extends BaseFragment {
      * 网页： http://www.jianshu.com/users/6725c8e8194f/<br/>
      * <p/>
      *
-     * @return
+     * @return 需要加载的Url
      */
-    protected abstract String getLoadUrl();
+    protected String getLoadUrl() {
+        return mUrl;
+    }
 
     @Override
     protected void setUpView() {

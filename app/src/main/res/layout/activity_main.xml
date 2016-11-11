@@ -30,4 +30,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#ffffff"
+        app:itemIconTint="@color/bottom_item_color"
+        app:itemTextColor="@color/bottom_item_color"
+        app:layout_behavior="@string/bye_burger_bottom_behavior"
+        app:menu="@menu/menu_bottom_navigation" />
 </android.support.design.widget.CoordinatorLayout>

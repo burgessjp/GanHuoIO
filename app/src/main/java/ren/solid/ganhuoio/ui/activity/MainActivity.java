@@ -2,9 +2,10 @@ package ren.solid.ganhuoio.ui.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,9 +20,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
@@ -32,32 +31,34 @@ import java.util.List;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.event.CollectChangeEvent;
+import ren.solid.ganhuoio.event.LoginEvent;
 import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
-import ren.solid.ganhuoio.ui.fragment.RxOperatorsSearchFragment;
 import ren.solid.ganhuoio.ui.view.ICollectView;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.utils.Logger;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseMainActivity implements ICollectView {
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
+    private BottomNavigationView mBottomNavigationView;
 
     private FragmentManager mFragmentManager;
     private BaseFragment mCurrentFragment;
     private MenuItem mSortMenu;
-    private PrimaryDrawerItem mItemCollect;
 
 
     private CollectPresenterImpl mPresenter;
@@ -92,26 +93,62 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
 
         //初始化摇一摇
         mShakePictureUtils = new ShakePictureUtils(this);
-    }
-
-    @Override
-    protected void handleRxMsg(String msg) {
-        Logger.i(this, msg);
-        if ("Login".equals(msg)) {
-            updateProfile();
-            mPresenter.getCollect();
-        } else if ("CollectChange".equals(msg)) {
-            mPresenter.getCollect();
-        }
+        RxBus.getInstance().toObserverable(LoginEvent.class).subscribe(new Action1<LoginEvent>() {
+            @Override
+            public void call(LoginEvent loginEvent) {
+                updateProfile();
+                mPresenter.getCollect();
+            }
+        });
+        RxBus.getInstance().toObserverable(CollectChangeEvent.class).subscribe(new Action1<CollectChangeEvent>() {
+            @Override
+            public void call(CollectChangeEvent collectChangeEvent) {
+                mPresenter.getCollect();
+            }
+        });
     }
 
     @Override
     protected void setUpView() {
         mToolbar = $(R.id.toolbar);
+        mBottomNavigationView = $(R.id.bottom_navigation);
         setSupportActionBar(mToolbar);
         setUpDrawer();
-        
+
         getSupportActionBar().setTitle(getResources().getString(R.string.main_home));
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mSortMenu.setVisible(false);
+                Class<?> clazz = null;
+                switch (item.getItemId()) {
+                    case R.id.item_home:
+                        mToolbar.setTitle(getResources().getString(R.string.main_home));
+                        clazz = RecentlyFragment.class;
+                        break;
+                    case R.id.item_category:
+                        mSortMenu.setVisible(true);
+                        mToolbar.setTitle(getResources().getString(R.string.main_category));
+                        clazz = CategoryFragment.class;
+                        break;
+                    case R.id.item_collect:
+                        mToolbar.setTitle(getResources().getString(R.string.main_collect));
+                        clazz = CollectFragment.class;
+                        break;
+//                    case  R.id.item_rx:
+//                        mToolbar.setTitle(getResources().getString(R.string.main_rx_search));
+//                        clazz = RxOperatorsSearchFragment.class;
+//                        break;
+                    default:
+                        break;
+                }
+                if (clazz != null) {
+                    switchFragment(clazz);
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -144,14 +181,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                 })
                 .build();
 
-        PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_home)).withIcon(GoogleMaterial.Icon.gmd_home);
-        PrimaryDrawerItem itemCategory = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_category)).withIcon(GoogleMaterial.Icon.gmd_sort);
-        mItemCollect = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_collect)).withIcon(GoogleMaterial.Icon.gmd_calendar).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700));
-        // PrimaryDrawerItem itemOffline = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_offline)).withIcon(GoogleMaterial.Icon.gmd_nature_people).withBadge("0").withBadgeStyle(new BadgeStyle().withTextColor(Color.GRAY));
-
-        PrimaryDrawerItem itemRxSearch = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_rx_search)).withIcon(GoogleMaterial.Icon.gmd_search);
-
-
         SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingUtils.onlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
@@ -176,12 +205,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                 .withActivity(this)
                 .withToolbar(mToolbar)
                 .addDrawerItems(
-                        itemHome,
-                        itemCategory,
-                        mItemCollect,
-                        //  itemOffline,//放到下一个版本中
-                        itemRxSearch,
-                        new DividerDrawerItem(),
                         itemSwitch,
                         itemShake,
                         itemShare,
@@ -191,59 +214,30 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switchDrawer(position);
+                        setDrawerItemClickListener(position);
                         return true;
                     }
                 })
                 .build();
-        // mDrawer.addStickyFooterItem(new PrimaryDrawerItem().withName(getResources().getString(R.string.main_setting)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false));
     }
 
-    private void switchDrawer(int position) {
-        switchFragment(getClazzAndSetTitle(position));
-        mDrawer.closeDrawer();
-    }
-
-
-    private Class<?> getClazzAndSetTitle(int position) {
-        mSortMenu.setVisible(false);
-        Class<?> clazz = null;
-
+    private void setDrawerItemClickListener(int position) {
         switch (position) {
-            case 1:
-                mToolbar.setTitle(getResources().getString(R.string.main_home));
-                clazz = RecentlyFragment.class;
-                break;
-            case 2:
-                mSortMenu.setVisible(true);
-                mToolbar.setTitle(getResources().getString(R.string.main_category));
-                clazz = CategoryFragment.class;
-                break;
             case 3:
-                mToolbar.setTitle(getResources().getString(R.string.main_collect));
-                clazz = CollectFragment.class;
-                break;
-            case 4:
-                mToolbar.setTitle(getResources().getString(R.string.main_rx_search));
-                clazz = RxOperatorsSearchFragment.class;
-                break;
-            case 8:
                 SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
                 break;
-            case 9:
+            case 4:
                 AppUtils.feedBack(this, mToolbar);
                 break;
-            case 10:
+            case 5:
                 AppUtils.logOut(this);
                 break;
             default:
 
                 break;
         }
-
-        return clazz;
+        mDrawer.closeDrawer();
     }
-
 
     //切换Fragment
     private void switchFragment(Class<?> clazz) {
@@ -284,7 +278,7 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
 
     @Override
     public void getCollect(List<CollectTable> list) {
-        mDrawer.updateItem(mItemCollect.withBadge(list.size() + ""));
+        //  mDrawer.updateItem(mItemCollect.withBadge(list.size() + ""));
     }
 
     @Override

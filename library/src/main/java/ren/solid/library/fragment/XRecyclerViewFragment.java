@@ -100,7 +100,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
             txt_head.setTextSize(ViewUtils.dp2px(getContext(), 6));
             txt_head.setTextColor(Color.BLACK);
             txt_head.getPaint().setFakeBoldText(true);
-            ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.MarginLayoutParams marginLayoutParams = new LinearLayout.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             int margin = ViewUtils.dp2px(getContext(), 10);
             marginLayoutParams.setMargins(margin, margin, margin, margin);
             txt_head.setLayoutParams(marginLayoutParams);

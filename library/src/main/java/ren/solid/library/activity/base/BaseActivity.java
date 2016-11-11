@@ -19,17 +19,10 @@ import rx.functions.Action1;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Subscription mSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSubscription = RxBus.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                handleRxMsg(s);
-            }
-        });
 
         init(savedInstanceState);
         setContentView(setLayoutResourceID());
@@ -37,9 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setUpData();
     }
 
-    protected void handleRxMsg(String msg) {
 
-    }
 
     protected void setUpData() {
     }
@@ -76,7 +67,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSubscription.unsubscribe();
     }
 
     @Override
@@ -100,5 +90,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+
     }
 }

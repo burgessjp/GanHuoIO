@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
 
 import cn.bmob.push.BmobPush;
@@ -54,5 +55,6 @@ public class GanHuoIOApplication extends SolidApplication {
     }
     */
         });
+        LeakCanary.install(this);
     }
 }

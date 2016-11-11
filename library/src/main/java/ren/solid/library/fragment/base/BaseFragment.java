@@ -23,7 +23,6 @@ public abstract class BaseFragment extends Fragment {
     private View mContentView;
     private Context mContext;
     private ProgressDialog mProgressDialog;
-    private Subscription mSubscription;
 
     @Nullable
     @Override
@@ -33,21 +32,14 @@ public abstract class BaseFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getMContext());
         mProgressDialog.setCanceledOnTouchOutside(false);
 
-        mSubscription = RxBus.getInstance().toObserverable(String.class).subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                handleRxMsg(s);
-            }
-        });
+
         init();
         setUpView();
         setUpData();
         return mContentView;
     }
 
-    protected void handleRxMsg(String msg) {
 
-    }
 
     protected abstract int setLayoutResourceID();
 
@@ -83,7 +75,5 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mSubscription != null && mSubscription.isUnsubscribed())
-            mSubscription.unsubscribe();
     }
 }

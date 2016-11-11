@@ -8,12 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +42,8 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
 
     @Override
     protected List<GanHuoDataBean> parseData(String result) {
+
+        long start = System.currentTimeMillis();
         List<GanHuoDataBean> list;
         JsonConvert<List<GanHuoDataBean>> jsonConvert = new JsonConvert<List<GanHuoDataBean>>() {
         };
@@ -56,6 +52,7 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
         if (list == null) {
             list = new ArrayList<>();
         }
+        Log.e("zzz", "parse end:" + (System.currentTimeMillis() - start));
         return list;
 
     }
@@ -72,7 +69,7 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
         return new SolidRVBaseAdapter<GanHuoDataBean>(getMContext(), new ArrayList<GanHuoDataBean>()) {
             @Override
             protected void onBindDataToView(final SolidCommonViewHolder holder, final GanHuoDataBean bean, int position) {
-
+                long start = System.currentTimeMillis();
                 holder.getView(R.id.iv_img).setVisibility(View.GONE);
                 holder.getView(R.id.tv_tag).setVisibility(View.GONE);
                 holder.getView(R.id.iv_source).setVisibility(View.VISIBLE);
@@ -109,6 +106,7 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
                 holder.setText(R.id.tv_desc, bean.getDesc());
                 holder.setImage(R.id.iv_source, AppUtils.getResourseIDByUrl(bean.getUrl()));
                 isCollected(holder, bean);
+                Log.e("zzz", "bind end:" + (System.currentTimeMillis() - start));
             }
 
             @Override

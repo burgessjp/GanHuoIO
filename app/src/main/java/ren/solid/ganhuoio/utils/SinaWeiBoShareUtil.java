@@ -27,7 +27,7 @@ import ren.solid.ganhuoio.constant.Constants;
  * Date:2016/5/23
  * Time:15:34
  */
-public class SinaWeiBoShare {
+public class SinaWeiBoShareUtil {
 
 
     private final Context mContext;
@@ -36,7 +36,7 @@ public class SinaWeiBoShare {
     private TextObject mTextObject = null;
     private ImageObject mImageObject = null;
 
-    public SinaWeiBoShare(Context context) {
+    public SinaWeiBoShareUtil(Context context) {
         this.mContext = context;
         setImageObj();
     }

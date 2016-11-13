@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
+import ren.solid.library.adapter.SolidMultiItemTypeRVBaseAdapter;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
 import ren.solid.library.http.HttpClientManager;
@@ -43,7 +45,6 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     @Override
     protected List<GanHuoDataBean> parseData(String result) {
 
-        long start = System.currentTimeMillis();
         List<GanHuoDataBean> list;
         JsonConvert<List<GanHuoDataBean>> jsonConvert = new JsonConvert<List<GanHuoDataBean>>() {
         };
@@ -52,7 +53,6 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
         if (list == null) {
             list = new ArrayList<>();
         }
-        Log.e("zzz", "parse end:" + (System.currentTimeMillis() - start));
         return list;
 
     }
@@ -66,10 +66,27 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
 
     @Override
     protected SolidRVBaseAdapter setAdapter() {
+
+        new SolidMultiItemTypeRVBaseAdapter<GanHuoDataBean>(getMContext(), new ArrayList<GanHuoDataBean>()) {
+            @Override
+            protected void onBindDataToView(SolidCommonViewHolder holder, GanHuoDataBean bean, int position) {
+
+            }
+
+            @Override
+            public int getItemLayoutID(int viewType) {
+                return 0;
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                return 0;
+            }
+        };
+
         return new SolidRVBaseAdapter<GanHuoDataBean>(getMContext(), new ArrayList<GanHuoDataBean>()) {
             @Override
             protected void onBindDataToView(final SolidCommonViewHolder holder, final GanHuoDataBean bean, int position) {
-                long start = System.currentTimeMillis();
                 holder.getView(R.id.iv_img).setVisibility(View.GONE);
                 holder.getView(R.id.tv_tag).setVisibility(View.GONE);
                 holder.getView(R.id.iv_source).setVisibility(View.VISIBLE);
@@ -106,7 +123,6 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
                 holder.setText(R.id.tv_desc, bean.getDesc());
                 holder.setImage(R.id.iv_source, AppUtils.getResourseIDByUrl(bean.getUrl()));
                 isCollected(holder, bean);
-                Log.e("zzz", "bind end:" + (System.currentTimeMillis() - start));
             }
 
             @Override
@@ -134,6 +150,9 @@ public class CategoryListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     }
 
     private void isCollected(final SolidRVBaseAdapter<GanHuoDataBean>.SolidCommonViewHolder holder, final GanHuoDataBean bean) {
+
+        if (TextUtils.isEmpty(AuthorityUtils.getUserName())) return;
+
         BmobQuery<CollectTable> query = new BmobQuery<>();
         query.addWhereEqualTo("username", AuthorityUtils.getUserName());
         query.addWhereEqualTo("url", bean.getUrl());

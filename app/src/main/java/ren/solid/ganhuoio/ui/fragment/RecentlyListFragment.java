@@ -1,20 +1,18 @@
 package ren.solid.ganhuoio.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +25,10 @@ import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
+import ren.solid.library.http.HttpClientManager;
 import ren.solid.library.utils.DateUtils;
-import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.ViewUtils;
 import ren.solid.library.utils.json.JsonConvert;
 
 /**
@@ -45,6 +44,10 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     private String date;
     private String title = "";
 
+    private boolean isAddHead = false;
+    private ImageView img_head;
+    private TextView txt_head;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,32 @@ public class RecentlyListFragment extends XRecyclerViewFragment<GanHuoDataBean> 
     protected String getUrl(int mCurrentPageIndex) {
         String url = Apis.Urls.GanHuoDataByDay + date;
         return url;
+    }
+
+
+    protected void addHeadTextAndImage(final String title, final String url) {
+        if (!isAddHead) {
+            img_head = new ImageView(getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.gravity = Gravity.CENTER;
+            img_head.setLayoutParams(layoutParams);
+
+            txt_head = new TextView(getContext());
+            txt_head.setTextSize(ViewUtils.dp2px(getContext(), 6));
+            txt_head.setTextColor(Color.BLACK);
+            txt_head.getPaint().setFakeBoldText(true);
+            LinearLayout.MarginLayoutParams marginLayoutParams = new LinearLayout.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            int margin = ViewUtils.dp2px(getContext(), 10);
+            marginLayoutParams.setMargins(margin, margin, margin, margin);
+            txt_head.setLayoutParams(marginLayoutParams);
+            addHeaderView(txt_head);
+            addHeaderView(img_head);
+            isAddHead = true;
+        }
+        txt_head.setText(title);
+        HttpClientManager.displayImage(img_head, url);
+
+
     }
 
     @Override

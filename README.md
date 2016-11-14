@@ -26,10 +26,9 @@ App下载地址
 
 基于Gank.IO提供的API的第三方客户端，风格上是基于Material Design的，项目中覆盖了MVP、RxJava、第三方登录以及很多第三方库的使用。App可以及时的查看gank.io的最新更新，还有可以很方便的对信息进行分类查看，可以对感觉有兴趣的信息进行在线收藏，重点是里面还有很多的福利图哦。
 
-<img src="http://upload-images.jianshu.io/upload_images/623504-3a7543e4e650cd4a.jpg" width="50%>
-App运行的动态图
-<img src="http://upload-images.jianshu.io/upload_images/623504-272e96a7ee176af9.gif?imageMogr2/auto-orient/strip" width="49%>
-<img src="http://upload-images.jianshu.io/upload_images/623504-43c90c49394c2b3d.gif?imageMogr2/auto-orient/strip" width="49%>
+<p>App运行的动态图</p>
+<img src="http://upload-images.jianshu.io/upload_images/623504-272e96a7ee176af9.gif?imageMogr2/auto-orient/strip" width="40%" />
+<img src="http://upload-images.jianshu.io/upload_images/623504-43c90c49394c2b3d.gif?imageMogr2/auto-orient/strip" width="40%" />
 
 使用到的开源库：
 

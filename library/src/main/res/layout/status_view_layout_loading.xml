@@ -7,7 +7,6 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:indeterminateDrawable="@drawable/status_view_progressbar_drawable"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 

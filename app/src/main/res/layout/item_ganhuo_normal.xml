@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp">
@@ -56,14 +55,6 @@
                     android:src="@drawable/icon_action" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_img"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_load_img"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,18 +63,6 @@
                 android:orientation="horizontal"
                 android:padding="2dp">
 
-
-                <TextView
-                    android:id="@+id/tv_source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="6dp"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    tools:text="web" />
-
-
                 <TextView
                     android:id="@+id/tv_people"
                     android:layout_width="wrap_content"
@@ -91,7 +70,7 @@
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="6dp"
                     android:textSize="12sp"
-                    tools:text="Andrew Liu" />
+                    tools:text="SOLID" />
 
 
                 <TextView

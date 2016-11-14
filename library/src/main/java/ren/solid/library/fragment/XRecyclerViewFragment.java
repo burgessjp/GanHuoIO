@@ -1,5 +1,7 @@
 package ren.solid.library.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -12,9 +14,12 @@ import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.utils.StringUtils;
+import ren.solid.library.widget.LinearDecoration;
 import ren.solid.library.widget.StatusView;
 import rx.Observable;
 import rx.Subscriber;
+
+import static android.R.interpolator.linear;
 
 
 /**
@@ -43,6 +48,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
         mRecyclerView = $(R.id.recyclerview);
 
         mRecyclerView.setLayoutManager(setLayoutManager());
+        customConfig();
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallClipRotatePulse);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
         mRecyclerView.setAdapter(mAdapter);
@@ -65,6 +71,15 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
             }
         });
         mRecyclerView.setLoadingMoreEnabled(isHaveLoadMore());
+    }
+
+    protected void customConfig() {
+
+    }
+
+    protected void addItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
+        if (mRecyclerView != null)
+            mRecyclerView.addItemDecoration(itemDecoration);
     }
 
 

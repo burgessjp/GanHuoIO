@@ -18,6 +18,7 @@ import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SnackBarUtils;
+import ren.solid.library.widget.StatusView;
 
 /**
  * Created by _SOLID
@@ -32,6 +33,7 @@ public class CollectFragment extends BaseFragment implements ICollectView {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private SolidRVBaseAdapter<CollectTable> mAdapter;
+    private StatusView mStatusView;
 
     @Override
     protected int setLayoutResourceID() {
@@ -40,6 +42,7 @@ public class CollectFragment extends BaseFragment implements ICollectView {
 
     @Override
     protected void setUpView() {
+        mStatusView = $(R.id.status_view);
         mRecyclerView = $(R.id.recyclerview);
         mSwipeRefreshLayout = $(R.id.swipeLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
@@ -77,6 +80,13 @@ public class CollectFragment extends BaseFragment implements ICollectView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mStatusView.showContent();
+        mPresenter.getCollect();
+    }
+
+    @Override
     protected void setUpData() {
         mPresenter = new CollectPresenterImpl(this);
         mPresenter.getCollect();
@@ -109,9 +119,11 @@ public class CollectFragment extends BaseFragment implements ICollectView {
         mRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SnackBarUtils.makeShort(mRecyclerView, errMsg).warning();
+                mStatusView.showError(errMsg);
+               // SnackBarUtils.makeShort(mRecyclerView, errMsg).warning();
             }
         }, 100);
 
     }
+
 }

@@ -8,10 +8,6 @@ import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
 
-import ren.solid.library.rx.RxBus;
-import rx.Subscription;
-import rx.functions.Action1;
-
 /**
  * Created by _SOLID
  * Date:2016/3/30

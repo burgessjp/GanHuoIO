@@ -1,12 +1,14 @@
 package ren.solid.library.widget;
 
 import android.content.Context;
+import android.service.voice.VoiceInteractionService;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import ren.solid.library.R;
 
@@ -22,6 +24,7 @@ public class StatusView extends FrameLayout {
     private View mEmptyView;
     private LayoutParams mLayoutParams;
     private OnClickListener mOnRetryListener;
+    private TextView status_view_tv_error;
 
     public StatusView(Context context) {
         this(context, null);
@@ -44,7 +47,7 @@ public class StatusView extends FrameLayout {
         mLoadingView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_loading, null);
         mErrorView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_error, null);
         mEmptyView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_empty, null);
-
+        status_view_tv_error = (TextView) mErrorView.findViewById(R.id.status_view_tv_error);
         addView(mLoadingView, mLayoutParams);
         addView(mErrorView, mLayoutParams);
         addView(mEmptyView, mLayoutParams);
@@ -58,6 +61,7 @@ public class StatusView extends FrameLayout {
                 }
             }
         });
+        showContent();
     }
 
     public void setOnRetryListener(OnClickListener listener) {
@@ -77,6 +81,12 @@ public class StatusView extends FrameLayout {
             getChildAt(i).setVisibility(View.GONE);
         }
         mErrorView.setVisibility(View.VISIBLE);
+    }
+
+    public void showError(String msg) {
+        showError();
+        status_view_tv_error.setText(msg);
+
     }
 
     public void showEmpty() {

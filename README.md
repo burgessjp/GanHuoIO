@@ -1,6 +1,7 @@
 
-**update:**
 
+**update:**
+- 2.0.0  改变主界面UI，增强用户体验
 - 1.3.0  重构底层网络请求，项目使用RxJava+Retrofit+MVP
 - 1.2.0  加入图片摇一摇
 - 1.1.0  
@@ -11,6 +12,9 @@
 - 1.0.2  Fix Issues 1,增加反馈功能
 - 1.0.1  修复登录异常
 - 1.0.0  发布
+
+
+<img src="capture/main_page" width="300px" />
 
 App下载地址
 

@@ -3,7 +3,9 @@ package ren.solid.ganhuoio.ui.activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,6 +23,11 @@ import ren.solid.library.utils.ViewUtils;
  */
 public class SplashActivity extends BaseActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int setLayoutResourceID() {
@@ -31,10 +38,11 @@ public class SplashActivity extends BaseActivity {
     protected void setUpView() {
         ObjectAnimator animatorX = ObjectAnimator.ofFloat($(R.id.iv_logo), "scaleX", 1.0f, 1.5f);
         ObjectAnimator animatorY = ObjectAnimator.ofFloat($(R.id.iv_logo), "scaleY", 1.0f, 1.5f);
+        ObjectAnimator animatorAlpha = ObjectAnimator.ofFloat($(R.id.iv_logo), "alpha", 0.1f, 1);
         ObjectAnimator animatorTv = ObjectAnimator.ofFloat($(R.id.tv_appname), "translationY", 0, ViewUtils.dp2px(this, 30));
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animatorX, animatorY, animatorTv);
+        animatorSet.playTogether(animatorX, animatorY, animatorAlpha, animatorTv);
         animatorSet.setDuration(2000).start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

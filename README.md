@@ -1,6 +1,7 @@
 
 
 **update:**
+- 2.0.1  解决应用启动白屏的问题
 - 2.0.0  改变主界面UI，增强用户体验
 - 1.3.0  重构底层网络请求，项目使用RxJava+Retrofit+MVP
 - 1.2.0  加入图片摇一摇
@@ -26,34 +27,3 @@ App下载地址
 
 基于Gank.IO提供的API的第三方客户端，风格上是基于Material Design的，项目中覆盖了MVP、RxJava、第三方登录以及很多第三方库的使用。App可以及时的查看gank.io的最新更新，还有可以很方便的对信息进行分类查看，可以对感觉有兴趣的信息进行在线收藏，重点是里面还有很多的福利图哦。
 
-<p>App运行的动态图</p>
-<img src="http://upload-images.jianshu.io/upload_images/623504-43c90c49394c2b3d.gif?imageMogr2/auto-orient/strip" width="40%" />
-
-使用到的开源库：
-
-
-io.reactivex:rxandroid:1.2.0
-
-io.reactivex:rxjava:1.1.5
-
-com.github.paolorotolo:appintro:3.4.0
-
-com.afollestad.material-dialogs:core:0.8.5.9
-
-com.mikepenz:materialdrawer:5.2.6
-
-com.mikepenz:google-material-typeface:2.2.0.1
-
-com.squareup.okhttp3:okhttp:3.2.0
-
-com.squareup.picasso:picasso:2.5.2
-
-com.github.chrisbanes:PhotoView:1.2.6
-
-com.jcodecraeer:xrecyclerview:1.2.7
-
-de.hdodenhof:circleimageview:1.3.0
-
-com.google.code.gson:gson:2.2.4
-
-com.zhy:okhttputils:2.4.1

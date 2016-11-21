@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/bg_splash_activity</item>
+    </style>
+
     <style name="ByTextAppearance">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/md_grey_400</item>

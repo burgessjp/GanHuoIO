@@ -1,6 +1,8 @@
 package ren.solid.ganhuoio.ui.activity;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,7 +11,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +41,7 @@ import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
+import ren.solid.ganhuoio.ui.fragment.ReadingFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
 import ren.solid.ganhuoio.ui.view.ICollectView;
 import ren.solid.ganhuoio.utils.AppUtils;
@@ -49,6 +54,9 @@ import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
 import rx.functions.Action1;
+
+import static ren.solid.ganhuoio.R.id.search;
+import static u.aly.av.L;
 
 public class MainActivity extends BaseMainActivity implements ICollectView {
 
@@ -135,6 +143,10 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                     case R.id.item_collect:
                         mToolbar.setTitle(getResources().getString(R.string.main_collect));
                         clazz = CollectFragment.class;
+                        break;
+                    case R.id.item_reading:
+                        mToolbar.setTitle(getResources().getString(R.string.main_reading));
+                        clazz = ReadingFragment.class;
                         break;
 //                    case  R.id.item_rx:
 //                        mToolbar.setTitle(getResources().getString(R.string.main_rx_search));
@@ -259,8 +271,23 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        mSortMenu = menu.getItem(0);
+        mSortMenu = menu.findItem(R.id.action_sort);
         mSortMenu.setVisible(false);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("请输入搜索关键词");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchResultActivity.openActivity(MainActivity.this, query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -271,6 +298,8 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
             startActivityWithoutExtras(SortActivity.class);
         } else if (id == R.id.action_about) {
             startActivityWithoutExtras(AboutActivity.class);
+        } else if (id == R.id.action_search) {
+            //startActivityWithoutExtras(SearchResultActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }

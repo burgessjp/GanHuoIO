@@ -58,6 +58,10 @@
         <activity
             android:name="ren.solid.library.activity.WebViewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SearchResultActivity"
+            android:screenOrientation="portrait" />
+
         <!-- 新浪微博账号登录页面 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"

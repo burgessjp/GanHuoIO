@@ -55,6 +55,8 @@ public class Apis {
          */
         public static String GanHuoDataByDay = GanHuoBaseUrl + "day/";
 
+        public static String GanHuoSearchResult = GanHuoBaseUrl + "search/query/%s/category/all/count/20/page/%d";
+
 
         /**
          * 随机图片

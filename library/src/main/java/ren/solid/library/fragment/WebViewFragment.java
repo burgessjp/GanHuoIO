@@ -111,7 +111,14 @@ public class WebViewFragment extends BaseFragment {
             return true;
         }
 
-//        shouldOverrideUrlLoading(WebView view, String url)  最常用的，比如上面的。
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+            onPageLoadFinished(view, url);
+        }
+
+        //        shouldOverrideUrlLoading(WebView view, String url)  最常用的，比如上面的。
 //        //在网页上的所有加载都经过这个方法,这个函数我们可以做很多操作。
 //        //比如获取url，查看url.contains(“add”)，进行添加操作
 //
@@ -157,6 +164,7 @@ public class WebViewFragment extends BaseFragment {
             mProgressBar.setProgress(newProgress);
             if (newProgress == 100) {
                 mProgressBar.setVisibility(View.GONE);
+                mWebView.setVisibility(View.VISIBLE);
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
             }
@@ -205,6 +213,10 @@ public class WebViewFragment extends BaseFragment {
 //            //
 //            return true;
 //        }
+    }
+
+    protected void onPageLoadFinished(WebView view, String url) {
+
     }
 
     @Override

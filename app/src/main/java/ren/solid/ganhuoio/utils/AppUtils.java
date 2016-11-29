@@ -58,6 +58,7 @@ public class AppUtils {
                         feedBack.setAppVersion(SystemUtils.getAppVersion(context));
                         feedBack.setDeviceName(SystemUtils.getDeviceName());
                         feedBack.setSystemVersion(SystemUtils.getSystemVersion());
+                        feedBack.setUsername(AuthorityUtils.getUserName());
                         feedBack.save(context, new SaveListener() {
                             @Override
                             public void onSuccess() {

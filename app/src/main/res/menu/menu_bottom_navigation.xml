@@ -16,4 +16,8 @@
         android:id="@+id/item_collect"
         android:icon="@drawable/ic_collect_black_24dp"
         android:title="@string/main_collect" />
+    <item
+        android:id="@+id/item_reading"
+        android:icon="@drawable/ic_reading_black_24dp"
+        android:title="@string/main_reading" />
 </menu>

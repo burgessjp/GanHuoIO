@@ -13,6 +13,8 @@ public class FeedBack extends BmobObject {
     private String deviceName;
     private String systemVersion;
     private String appVersion;
+    private String username;
+
 
     public String getDeviceName() {
         return deviceName;
@@ -45,6 +47,14 @@ public class FeedBack extends BmobObject {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

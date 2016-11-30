@@ -10,14 +10,18 @@
         android:id="@+id/item_category"
         android:icon="@drawable/ic_category_black_24dp"
         android:title="@string/main_category" />
-
+    <item
+        android:id="@+id/item_meizhi"
+        android:icon="@drawable/ic_meizhi_black_24dp"
+        android:title="@string/main_meizhi" />
+    <item
+        android:id="@+id/item_reading"
+        android:icon="@drawable/ic_reading_black_24dp"
+        android:title="@string/main_reading" />
 
     <item
         android:id="@+id/item_collect"
         android:icon="@drawable/ic_collect_black_24dp"
         android:title="@string/main_collect" />
-    <item
-        android:id="@+id/item_reading"
-        android:icon="@drawable/ic_reading_black_24dp"
-        android:title="@string/main_reading" />
+
 </menu>

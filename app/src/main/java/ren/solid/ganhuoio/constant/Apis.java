@@ -15,7 +15,16 @@ import ren.solid.library.utils.PrefUtils;
  */
 public class Apis {
 
-    public static String[] GanHuoCateGory = new String[]{"all", "休息视频", "福利", "Android", "iOS", "拓展资源", "前端", "瞎推荐"};
+    public static String[] GanHuoCateGory = new String[]{"all", "休息视频", "Android", "iOS", "拓展资源", "前端", "瞎推荐"};
+    private final static int CATEGORY_VERSION = 1;
+
+    static {
+        if (PrefUtils.getInt(GanHuoIOApplication.getInstance(), "category_version", 0) != CATEGORY_VERSION) {
+            PrefUtils.putString(GanHuoIOApplication.getInstance(), "HomeCategory", "");
+            PrefUtils.putInt(GanHuoIOApplication.getInstance(), "category_version", CATEGORY_VERSION);
+        }
+
+    }
 
     public static List<String> getGanHuoCateGory() {
 

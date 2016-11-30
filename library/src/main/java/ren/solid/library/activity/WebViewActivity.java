@@ -1,5 +1,7 @@
 package ren.solid.library.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +35,14 @@ public class WebViewActivity extends BaseActivity {
     private FragmentManager mFragmentManager;
     private WebViewFragment mWebViewFragment;
 
+    public  static void  openActivity(Context context,String title,String url)
+    {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(WebViewActivity.WEB_URL, url);
+        intent.putExtra(WebViewActivity.TITLE, title);
+        context.startActivity(intent);
+    }
+
 
     @Override
     protected int setLayoutResourceID() {
@@ -53,8 +63,8 @@ public class WebViewActivity extends BaseActivity {
         mToolbar.setTitle(mTitle);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);//决定左上角的图标是否可以点击
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);//决定左上角图标的右侧是否有向左的小箭头
-        mToolbar.setNavigationIcon(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//决定左上角图标的右侧是否有向左的小箭头
+        //mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

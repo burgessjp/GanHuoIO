@@ -10,15 +10,10 @@ import android.os.Vibrator;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.PictureService;
-import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.model.bean.RandomPictureBean;
 import ren.solid.ganhuoio.ui.dialog.PictureDialog;
-import ren.solid.library.http.HttpClientManager;
-import ren.solid.library.http.callback.adapter.JsonHttpCallBack;
-import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ToastUtils;
 import rx.Subscriber;
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import ren.solid.ganhuoio.R;
-import ren.solid.library.http.HttpClientManager;
+import ren.solid.library.HttpClientManager;
 
 /**
  * Created by _SOLID

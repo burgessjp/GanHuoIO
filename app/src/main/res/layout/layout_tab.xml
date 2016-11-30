@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     app:tabGravity="fill"
+    app:tabIndicatorHeight="1dp"
     app:tabMode="scrollable"
-    app:tabSelectedTextColor="@android:color/white"
-    app:tabTextColor="@color/md_blue_grey_400" />
+    app:tabSelectedTextColor="@color/main_tab_selected"
+    app:tabTextColor="@color/main_tab_unselected" />

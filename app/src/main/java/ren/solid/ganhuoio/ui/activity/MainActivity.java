@@ -1,8 +1,6 @@
 package ren.solid.ganhuoio.ui.activity;
 
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,9 +51,6 @@ import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
 import rx.functions.Action1;
-
-import static ren.solid.ganhuoio.R.id.search;
-import static u.aly.av.L;
 
 public class MainActivity extends BaseMainActivity implements ICollectView {
 
@@ -193,7 +187,7 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                 })
                 .build();
 
-        SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingUtils.onlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
+        SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingUtils.getOnlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
                 SettingUtils.setOnlyWifiLoadImage(isChecked);

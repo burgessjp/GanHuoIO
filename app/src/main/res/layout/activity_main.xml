@@ -5,24 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="0dp"
-        app:layout_scrollFlags="scroll|enterAlways">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_collapseMode="pin"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextColor="#ffffff" />
-    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/toolbar" />
 
     <FrameLayout
         android:id="@+id/frame_content"
@@ -35,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#ffffff"
+        android:background="@color/main_tab_background"
         app:itemIconTint="@color/bottom_item_color"
         app:itemTextColor="@color/bottom_item_color"
         app:layout_behavior="@string/bye_burger_bottom_behavior"

@@ -9,7 +9,7 @@ import ren.solid.library.R;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.utils.FileUtils;
-import ren.solid.library.utils.NetworkUtils;
+import ren.solid.library.utils.NetworkUtil;
 import ren.solid.library.utils.StringUtils;
 import ren.solid.library.utils.ToastUtils;
 import rx.Observable;
@@ -63,7 +63,8 @@ public abstract class BaseListFragment<T> extends BaseFragment {
      */
     protected void loadData() {
         final String reqUrl = getUrl(mCurrentPageIndex);
-        if (!NetworkUtils.isNetworkConnected(getMContext()) && mCurrentAction == ACTION_REFRESH) {//no network
+
+        if (!NetworkUtil.isConnected(getMContext()) && mCurrentAction == ACTION_REFRESH) {//no network
             loadDataFromLocal();
             ToastUtils.getInstance().showToast(getString(R.string.no_network));
 

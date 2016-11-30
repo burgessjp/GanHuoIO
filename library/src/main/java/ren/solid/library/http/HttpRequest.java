@@ -1,4 +1,4 @@
-package ren.solid.library.http.request;
+package ren.solid.library.http;
 
 import java.io.File;
 import java.util.HashMap;

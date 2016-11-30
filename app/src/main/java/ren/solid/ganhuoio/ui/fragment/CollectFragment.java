@@ -17,8 +17,7 @@ import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.Logger;
-import ren.solid.library.utils.SnackBarUtils;
-import ren.solid.library.widget.StatusView;
+import ren.solid.library.widget.StatusViewLayout;
 
 /**
  * Created by _SOLID
@@ -33,7 +32,7 @@ public class CollectFragment extends BaseFragment implements ICollectView {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private SolidRVBaseAdapter<CollectTable> mAdapter;
-    private StatusView mStatusView;
+    private StatusViewLayout mStatusView;
 
     @Override
     protected int setLayoutResourceID() {

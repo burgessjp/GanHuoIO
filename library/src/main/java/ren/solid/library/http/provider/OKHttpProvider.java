@@ -3,7 +3,7 @@ package ren.solid.library.http.provider;
 import ren.solid.library.http.callback.HttpCallBack;
 import ren.solid.library.http.callback.adapter.FileHttpCallBack;
 import ren.solid.library.http.provider.base.IHttpProvider;
-import ren.solid.library.http.request.HttpRequest;
+import ren.solid.library.http.HttpRequest;
 
 /**
  * Created by _SOLID

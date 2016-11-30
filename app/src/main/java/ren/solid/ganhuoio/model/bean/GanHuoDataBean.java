@@ -2,8 +2,7 @@ package ren.solid.ganhuoio.model.bean;
 
 
 import java.io.Serializable;
-
-import cn.bmob.v3.BmobObject;
+import java.util.List;
 
 /**
  * Created by _SOLID
@@ -21,6 +20,7 @@ public class GanHuoDataBean implements Serializable {
     private String url;
     private boolean used;
     private String who;
+    private List<String> images;
 
     public String get_id() {
         return _id;
@@ -29,7 +29,6 @@ public class GanHuoDataBean implements Serializable {
     public void set_id(String _id) {
         this._id = _id;
     }
-
 
     public String getCreatedAt() {
         return createdAt;
@@ -93,5 +92,13 @@ public class GanHuoDataBean implements Serializable {
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

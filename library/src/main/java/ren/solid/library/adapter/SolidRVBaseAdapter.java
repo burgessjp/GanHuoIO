@@ -14,8 +14,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import ren.solid.library.R;
-import ren.solid.library.http.ImageLoader;
-import ren.solid.library.http.request.ImageRequest;
+import ren.solid.library.imageloader.ImageLoader;
+import ren.solid.library.imageloader.ImageRequest;
+
+import static u.aly.av.I;
 
 
 /**
@@ -199,8 +201,7 @@ public abstract class SolidRVBaseAdapter<T> extends RecyclerView.Adapter<SolidRV
          */
         public void setImageFromInternet(int viewId, String url) {
             ImageView iv = getView(viewId);
-            ImageRequest imageRequest = new ImageRequest.Builder().imgView(iv).url(url).create();
-            ImageLoader.getProvider().loadImage(imageRequest);
+            ImageLoader.displayImage(iv,url);
         }
     }
 

@@ -70,6 +70,7 @@
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="6dp"
                     android:textSize="12sp"
+                    android:textColor="@color/item_desc"
                     tools:text="SOLID" />
 
 
@@ -79,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:textSize="12sp"
+                    android:textColor="@color/item_desc"
                     tools:text="2016-04-18" />
 
                 <View

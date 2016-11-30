@@ -1,8 +1,9 @@
-package ren.solid.library.http.request;
+package ren.solid.library.imageloader;
 
 import android.widget.ImageView;
 
 import ren.solid.library.R;
+
 
 /**
  * Created by _SOLID

@@ -3,7 +3,6 @@ package ren.solid.ganhuoio.ui.fragment;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -21,7 +20,7 @@ import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
-import ren.solid.library.http.HttpClientManager;
+import ren.solid.library.HttpClientManager;
 
 /**
  * Created by _SOLID

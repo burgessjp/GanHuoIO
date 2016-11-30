@@ -43,7 +43,6 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     private void setUpToolBar() {
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +50,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             }
         });
         getSupportActionBar().setHomeButtonEnabled(true);//决定左上角的图标是否可以点击
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected abstract String getToolbarTitle();

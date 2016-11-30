@@ -3,23 +3,17 @@ package ren.solid.ganhuoio.ui.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
-import java.util.List;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.GanHuoRecentlyWrapper;
 import ren.solid.ganhuoio.presenter.IRecentlyPresenter;
 import ren.solid.ganhuoio.presenter.impl.RecentlyPresenterImpl;
-import ren.solid.ganhuoio.ui.activity.MainActivity;
 import ren.solid.ganhuoio.ui.adapter.GanHuoRecentlyPageAdapter;
 import ren.solid.ganhuoio.ui.view.IRecentlyView;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.transformer.RotateDownPageTransformer;
-import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.SnackBarUtils;
-import ren.solid.library.widget.StatusView;
+import ren.solid.library.widget.StatusViewLayout;
 
 /**
  * Created by _SOLID
@@ -33,7 +27,7 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private StatusView mStatusView;
+    private StatusViewLayout mStatusView;
 
     @Override
     protected int setLayoutResourceID() {

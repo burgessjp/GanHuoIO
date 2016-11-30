@@ -13,6 +13,11 @@ import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.update.BmobUpdateAgent;
+import me.drakeet.multitype.GlobalMultiTypePool;
+import ren.solid.ganhuoio.model.bean.GanHuoDataBeanImage;
+import ren.solid.ganhuoio.model.bean.GanHuoDataBeanText;
+import ren.solid.ganhuoio.ui.provider.GanHuoImageViewProvider;
+import ren.solid.ganhuoio.ui.provider.GanHuoTextViewProvider;
 import ren.solid.library.SolidApplication;
 
 /**
@@ -56,5 +61,7 @@ public class GanHuoIOApplication extends SolidApplication {
     */
         });
         LeakCanary.install(this);
+        GlobalMultiTypePool.register(GanHuoDataBeanText.class, new GanHuoTextViewProvider());
+        GlobalMultiTypePool.register(GanHuoDataBeanImage.class, new GanHuoImageViewProvider());
     }
 }

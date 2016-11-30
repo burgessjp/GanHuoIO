@@ -1,7 +1,6 @@
 package ren.solid.library.widget;
 
 import android.content.Context;
-import android.service.voice.VoiceInteractionService;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import ren.solid.library.R;
  * Date:2016/7/8
  * Time:10:36
  */
-public class StatusView extends FrameLayout {
+public class StatusViewLayout extends FrameLayout {
 
     private View mLoadingView;
     private View mErrorView;
@@ -25,16 +24,17 @@ public class StatusView extends FrameLayout {
     private LayoutParams mLayoutParams;
     private OnClickListener mOnRetryListener;
     private TextView status_view_tv_error;
+    private TextView status_tv_empty_msg;
 
-    public StatusView(Context context) {
+    public StatusViewLayout(Context context) {
         this(context, null);
     }
 
-    public StatusView(Context context, AttributeSet attrs) {
+    public StatusViewLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public StatusView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StatusViewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setUpView();
 
@@ -48,6 +48,7 @@ public class StatusView extends FrameLayout {
         mErrorView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_error, null);
         mEmptyView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_empty, null);
         status_view_tv_error = (TextView) mErrorView.findViewById(R.id.status_view_tv_error);
+        status_tv_empty_msg = (TextView) mEmptyView.findViewById(R.id.status_tv_empty_msg);
         addView(mLoadingView, mLayoutParams);
         addView(mErrorView, mLayoutParams);
         addView(mEmptyView, mLayoutParams);
@@ -94,6 +95,12 @@ public class StatusView extends FrameLayout {
             getChildAt(i).setVisibility(View.GONE);
         }
         mEmptyView.setVisibility(View.VISIBLE);
+    }
+
+    public void showEmpty(String msg) {
+        showEmpty();
+        status_tv_empty_msg.setText(msg);
+
     }
 
     public void showContent() {

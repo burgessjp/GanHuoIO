@@ -25,7 +25,7 @@ import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.XRecyclerViewFragment;
-import ren.solid.library.http.HttpClientManager;
+import ren.solid.library.HttpClientManager;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.StringStyleUtils;
 import ren.solid.library.utils.ViewUtils;

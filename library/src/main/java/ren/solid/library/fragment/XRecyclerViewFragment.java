@@ -1,6 +1,5 @@
 package ren.solid.library.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -12,14 +11,8 @@ import java.util.List;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseListFragment;
-import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.utils.StringUtils;
-import ren.solid.library.widget.LinearDecoration;
-import ren.solid.library.widget.StatusView;
-import rx.Observable;
-import rx.Subscriber;
-
-import static android.R.interpolator.linear;
+import ren.solid.library.widget.StatusViewLayout;
 
 
 /**
@@ -34,7 +27,7 @@ public abstract class XRecyclerViewFragment<T> extends BaseListFragment {
     private static String TAG = "XRecyclerViewFragment";
 
     private XRecyclerView mRecyclerView;
-    private StatusView mStatusView;
+    private StatusViewLayout mStatusView;
 
     @Override
     protected int setLayoutResourceID() {

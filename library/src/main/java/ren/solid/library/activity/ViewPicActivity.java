@@ -1,22 +1,14 @@
 package ren.solid.library.activity;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.ViewPicFragment;
-import rx.functions.Action1;
 
 /**
  * Created by _SOLID

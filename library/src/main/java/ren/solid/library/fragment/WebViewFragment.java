@@ -160,7 +160,6 @@ public class WebViewFragment extends BaseFragment {
     class MyWebChromeClient extends WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            Log.e("onProgressChanged", newProgress + "");
             mProgressBar.setProgress(newProgress);
             if (newProgress == 100) {
                 mProgressBar.setVisibility(View.GONE);

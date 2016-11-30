@@ -2,6 +2,7 @@ package ren.solid.ganhuoio.ui.activity;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -14,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.library.activity.base.BaseActivity;
+import ren.solid.library.utils.ViewUtils;
 
 /**
  * Created by _SOLID
@@ -85,14 +88,14 @@ public class AboutActivity extends BaseActivity {
                 if (percentage >= 0.5f) {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
-                    mToolbar.setNavigationIcon(R.drawable.ic_back);
+                    ViewCompat.setElevation(mToolbar, ViewUtils.dp2px(AboutActivity.this, 2));
                 } else {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
+                    ViewCompat.setElevation(mToolbar, 0);
                 }
                 handleAlphaOnTitle(percentage);
                 handleToolbarTitleVisibility(percentage);
-                Log.i(TAG, "verticalOffset:" + verticalOffset + "  maxScroll:" + maxScroll);
             }
         });
 

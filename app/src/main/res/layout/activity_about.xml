@@ -99,7 +99,8 @@
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="false"
             app:layout_anchor="@id/fl_title_container"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -117,7 +118,7 @@
                     android:layout_marginLeft="8dp"
                     android:gravity="center_vertical"
                     android:text="关于"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/item_title"
                     android:textSize="20sp"
                     android:visibility="invisible" />
 

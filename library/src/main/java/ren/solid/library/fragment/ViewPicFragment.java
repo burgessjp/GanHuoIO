@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import ren.solid.library.R;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.http.ImageLoader;
-import ren.solid.library.http.request.ImageRequest;
+import ren.solid.library.imageloader.ImageLoader;
+import ren.solid.library.imageloader.ImageRequest;
 import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import ren.solid.library.utils.FileUtils;
@@ -71,9 +71,7 @@ public class ViewPicFragment extends BaseFragment {
             photoView.setLayoutParams(layoutParams);
 
             //setUpPhotoViewAttacher(photoView);
-
-            ImageRequest imageRequest = new ImageRequest.Builder().imgView(photoView).url(mUrlList.get(position)).create();
-            ImageLoader.getProvider().loadImage(imageRequest);
+            ImageLoader.displayImage(photoView, mUrlList.get(position));
 
             container.addView(photoView);
 
@@ -115,7 +113,7 @@ public class ViewPicFragment extends BaseFragment {
     public void downloadPicture(final int action) {
         mSavePath = FileUtils.getSaveImagePath(getMContext()) + File.separator + FileUtils.getFileName(mUrlList.get(0));
         Logger.i(this, mSavePath);
-        ObservableProvider.getDefault().download(mUrlList.get(0),new DownLoadSubscribe(FileUtils.getSaveImagePath(getMContext()),FileUtils.getFileName(mUrlList.get(0))) {
+        ObservableProvider.getDefault().download(mUrlList.get(0), new DownLoadSubscribe(FileUtils.getSaveImagePath(getMContext()), FileUtils.getFileName(mUrlList.get(0))) {
             @Override
             public void onCompleted(File file) {
                 //Log.i("ThreadInfo", "onCompleted:" + Thread.currentThread().getName());
@@ -135,7 +133,7 @@ public class ViewPicFragment extends BaseFragment {
 
             @Override
             public void onProgress(double progress, long downloadByte, long totalByte) {
-               // Log.i("ThreadInfo", "onProgress:" + Thread.currentThread().getName());
+                // Log.i("ThreadInfo", "onProgress:" + Thread.currentThread().getName());
                 Logger.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
 
             }

@@ -83,7 +83,7 @@ public class ServiceFactory {
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         //设置缓存
         File httpCacheDirectory = new File(SolidApplication.getInstance().getCacheDir(), "OkHttpCache");
-        httpClientBuilder.cache(new Cache(httpCacheDirectory, 10 * 1024 * 1024));
+        httpClientBuilder.cache(new Cache(httpCacheDirectory, 50 * 1024 * 1024));
         //设置拦截器
         httpClientBuilder.addInterceptor(new LoggingInterceptor());
         httpClientBuilder.addNetworkInterceptor(new CacheControlInterceptor());

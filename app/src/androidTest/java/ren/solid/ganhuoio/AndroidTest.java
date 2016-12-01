@@ -39,28 +39,28 @@ public class AndroidTest extends AndroidTestCase {
 
 
     public void testRetrofit() {
-        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class);
-        pictureService.getRandomPicture("rand").subscribe(new Subscriber<RandomPictureBean>() {
-            @Override
-            public void onStart() {
-                Log.e("AndroidTest", "onStart");
-            }
-
-            @Override
-            public void onCompleted() {
-                Log.e("AndroidTest", "onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("AndroidTest", "onError:" + e);
-            }
-
-            @Override
-            public void onNext(RandomPictureBean result) {
-                Log.e("AndroidTest", "onNext:" + result.getP_mid());
-            }
-        });
+//        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class);
+//        pictureService.getRandomPicture("rand").subscribe(new Subscriber<RandomPictureBean>() {
+//            @Override
+//            public void onStart() {
+//                Log.e("AndroidTest", "onStart");
+//            }
+//
+//            @Override
+//            public void onCompleted() {
+//                Log.e("AndroidTest", "onCompleted");
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e("AndroidTest", "onError:" + e);
+//            }
+//
+//            @Override
+//            public void onNext(RandomPictureBean result) {
+//                Log.e("AndroidTest", "onNext:" + result.getP_mid());
+//            }
+//        });
     }
 
 

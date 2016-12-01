@@ -32,6 +32,7 @@ import java.util.List;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.event.LoginEvent;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectListFragment;
 import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
@@ -42,9 +43,11 @@ import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
+import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseMainActivity {
 
@@ -87,6 +90,12 @@ public class MainActivity extends BaseMainActivity {
 
         //初始化摇一摇
         mShakePictureUtils = new ShakePictureUtils(this);
+        RxBus.getInstance().toObserverable(LoginEvent.class).subscribe(new Action1<LoginEvent>() {
+            @Override
+            public void call(LoginEvent loginEvent) {
+                updateProfile();
+            }
+        });
     }
 
     @Override

@@ -5,7 +5,7 @@
      - 1.UI风格大调整，全新的UI风格
      - 2.支持干货配图
      - 3.新增gank最近推出的闲读
-     - 4.修复仅Wifi加载图片的bug
+     - 4.修复仅Wifi加载图片的bugd
      - 5.行为更改：长按干货收藏
 - 2.0.1  解决应用启动白屏的问题
 - 2.0.0  改变主界面UI，增强用户体验
@@ -21,7 +21,10 @@
 - 1.0.0  发布
 
 
-<img src="capture/main_page.jpg" width="300px" />
+<img src="capture/p1.jpg" width="25%" />
+<img src="capture/p2.jpg" width="25%" />
+<img src="capture/p3.jpg" width="25%" />
+<img src="capture/p4.jpg" width="25%" />
 
 App下载地址
 

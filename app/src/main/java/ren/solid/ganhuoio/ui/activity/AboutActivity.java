@@ -17,7 +17,11 @@ import android.widget.TextView;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.library.activity.base.BaseActivity;
+import ren.solid.library.utils.SettingUtils;
+import ren.solid.library.utils.SystemUtils;
 import ren.solid.library.utils.ViewUtils;
+
+import static u.aly.av.S;
 
 /**
  * Created by _SOLID
@@ -52,6 +56,7 @@ public class AboutActivity extends BaseActivity {
     private TextView mTvMsg;
 
     private Toolbar mToolbar; // 工具栏
+    private TextView tv_version;
 
     @Override
     protected void setUpView() {
@@ -64,7 +69,8 @@ public class AboutActivity extends BaseActivity {
         mTvMsg = $(R.id.tv_msg);
         mTvToolbarTitle = $(R.id.tv_toolbar_title);
         mCollapsingToolbarLayout = $(R.id.collapsing_toolbar_layout);
-
+        tv_version = $(R.id.tv_version);
+        tv_version.setText("version:" + SystemUtils.getAppVersion(this));
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

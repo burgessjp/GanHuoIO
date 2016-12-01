@@ -1,7 +1,6 @@
 package ren.solid.ganhuoio.ui.provider;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
-import ren.solid.ganhuoio.ui.activity.MainActivity;
-import ren.solid.library.HttpClientManager;
+import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.utils.DialogUtils;
+import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.utils.DateUtils;
@@ -38,13 +37,13 @@ public class GanHuoImageViewProvider
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_ganhuo2_image, parent, false);
+        View root = inflater.inflate(R.layout.item_ganhuo_image, parent, false);
         return new ViewHolder(root);
     }
 
     @Override
     protected void onBindViewHolder(
-            @NonNull ViewHolder holder, @NonNull final GanHuoDataBean bean) {
+            @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean bean) {
         final Context context = holder.itemView.getContext();
         String date = bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
         holder.tv_title.setText(bean.getDesc());
@@ -58,6 +57,14 @@ public class GanHuoImageViewProvider
                 WebViewActivity.openActivity(context, bean.getDesc(), bean.getUrl());
             }
         });
+        holder.rl_bottom.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                DialogUtils.showActionPopWindow(view.getContext(), holder.itemView, new CollectTable(bean));
+                return false;
+            }
+        });
+
     }
 
     class VPAdapter extends PagerAdapter {
@@ -71,11 +78,16 @@ public class GanHuoImageViewProvider
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(context);
+            final ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             ImageLoader.displayImage(imageView, images.get(position));
-            // Glide.with(context).load(images.get(position)).asGif().into(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewPicActivity.openActivity(context, imageView, (ArrayList<String>) images, 0);
+                }
+            });
             container.addView(imageView);
             return imageView;
         }

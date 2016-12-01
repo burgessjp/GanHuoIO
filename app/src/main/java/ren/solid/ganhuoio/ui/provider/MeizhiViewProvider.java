@@ -12,6 +12,7 @@ import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBeanMeizhi;
+import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.utils.DateUtils;
@@ -40,7 +41,14 @@ public class MeizhiViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean bean) {
-        ImageLoader.displayImage(holder.iv_img,bean.getUrl());
+        ImageLoader.displayImage(holder.iv_img, bean.getUrl());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPicActivity.openActivity(holder.iv_img.getContext(), holder.iv_img, bean.getUrl());
+            }
+        });
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

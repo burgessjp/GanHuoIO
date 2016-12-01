@@ -1,21 +1,17 @@
 package ren.solid.ganhuoio.ui.fragment;
 
-import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.constant.Apis;
+import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.model.bean.SearchResult;
-import ren.solid.library.activity.WebViewActivity;
-import ren.solid.library.adapter.SolidRVBaseAdapter;
-import ren.solid.library.fragment.XRecyclerViewFragment;
-import ren.solid.library.utils.json.JsonConvert;
-
-import static u.aly.av.W;
+import ren.solid.library.fragment.base.AbsListFragment;
+import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.widget.LinearDecoration;
+import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -24,7 +20,7 @@ import static u.aly.av.W;
  * Desc:
  */
 
-public class SearchResultListFragment extends XRecyclerViewFragment<SearchResult> {
+public class SearchResultListFragment extends AbsListFragment {
     private String keyWord = "Android";
 
     public static SearchResultListFragment newInstance(String keyWord) {
@@ -35,51 +31,32 @@ public class SearchResultListFragment extends XRecyclerViewFragment<SearchResult
     }
 
     @Override
-    protected String getUrl(int mCurrentPageIndex) {
-
-        return String.format(Apis.Urls.GanHuoSearchResult, keyWord, mCurrentPageIndex);
+    protected void customConfig() {
+        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL));
     }
 
     @Override
-    protected List parseData(String result) {
-        List<SearchResult> list;
-        JsonConvert<List<SearchResult>> jsonConvert = new JsonConvert<List<SearchResult>>() {
-        };
-        jsonConvert.setDataName("results");
-        list = jsonConvert.parseData(result);
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-        return list;
+    public void loadData(final int pageIndex) {
+        ServiceFactory.getInstance().createService(GankService.class)
+                .search(keyWord, pageIndex)
+                .compose(TransformUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
+                .subscribe(new Subscriber<HttpResult<List<SearchResult>>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showError(new Exception(e));
+                    }
+
+                    @Override
+                    public void onNext(HttpResult<List<SearchResult>> searchResultHttpResult) {
+                        onDataSuccessReceived(pageIndex, searchResultHttpResult.results);
+                    }
+                });
     }
 
-    @Override
-    protected SolidRVBaseAdapter setAdapter() {
-        return new SolidRVBaseAdapter<SearchResult>(getContext(), new ArrayList()) {
 
-            @Override
-            protected void onBindDataToView(SolidCommonViewHolder holder, SearchResult bean, int position) {
-                holder.setText(R.id.tv_title, bean.getDesc());
-                holder.setText(R.id.tv_author, bean.getWho());
-            }
-
-            @Override
-            public int getItemLayoutID(int viewType) {
-                return R.layout.item_search_result;
-            }
-
-            @Override
-            protected void onItemClick(int position) {
-                Intent intent = new Intent(getMContext(), WebViewActivity.class);
-                intent.putExtra(WebViewActivity.WEB_URL, mBeans.get(position).getUrl());
-                intent.putExtra(WebViewActivity.TITLE, mBeans.get(position).getDesc());
-                getMContext().startActivity(intent);
-            }
-        };
-    }
-
-    @Override
-    protected RecyclerView.LayoutManager setLayoutManager() {
-        return new LinearLayoutManager(getMContext());
-    }
 }

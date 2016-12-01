@@ -39,7 +39,6 @@ public class SearchResultActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         mKeyWord = getIntent().getExtras().getString("keyWord");
-        Log.e("zzz", "SearchContent:" + mKeyWord);
     }
 
     @Override
@@ -48,9 +47,8 @@ public class SearchResultActivity extends BaseActivity {
         mToolbar.setTitle(mKeyWord + "的搜索结果");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);//决定左上角的图标是否可以点击
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);//决定左上角图标的右侧是否有向左的小箭头
-        mToolbar.setNavigationIcon(ren.solid.library.R.drawable.ic_back);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//决定左上角图标的右侧是否有向左的小箭头
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

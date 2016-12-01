@@ -11,6 +11,7 @@ import android.widget.TextView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.RecentlyHeader;
+import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 
 /**
@@ -31,9 +32,15 @@ public class RecentlyHeaderViewProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull ViewHolder holder, @NonNull RecentlyHeader recentlyHeader) {
+            @NonNull final ViewHolder holder, @NonNull final RecentlyHeader recentlyHeader) {
         holder.tv_title.setText(recentlyHeader.getTitle());
         ImageLoader.displayImage(holder.iv_img, recentlyHeader.getImgUrl());
+        holder.iv_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPicActivity.openActivity(holder.iv_img.getContext(), holder.iv_img, recentlyHeader.getImgUrl());
+            }
+        });
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

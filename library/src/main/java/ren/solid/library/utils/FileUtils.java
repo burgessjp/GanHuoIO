@@ -252,12 +252,14 @@ public class FileUtils {
     }
 
     public static String getSaveImagePath(Context context) {
+
         String path = getCacheDir(context).getAbsolutePath();
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath();
+            path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + File.separator + Environment.DIRECTORY_DCIM;
+        } else {
+            path = path + File.separator + "Pictures";
         }
-
-        path = path + File.separator + "Pictures";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdir();
@@ -271,7 +273,7 @@ public class FileUtils {
 
     public static String getFileName(String path) {
         int index = path.lastIndexOf('/');
-        return path.substring(index+1);
+        return path.substring(index + 1);
     }
 
 

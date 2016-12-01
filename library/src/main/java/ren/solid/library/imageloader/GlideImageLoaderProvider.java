@@ -37,7 +37,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
             } else {
                 loadCache(context, request);
             }
-          }
+        }
 
     }
 

@@ -33,12 +33,14 @@ public class ReadingFragment extends WebViewFragment {
 
         String js ="function(){\n" +
                 "  var f=document.getElementsByTagName(\"header\");\n" +
+                "  var h3=document.getElementsByTagName(\"h3\");\n" +
                 "  var content=document.getElementsByClassName(\"content\");\n" +
                 "  for(var i=0;i<f.length;i++)\n" +
                 "  {\n" +
                 "    f[i].remove();\n" +
                 "  }\n" +
-                "  content.style.marginTop=0;\n" +
+                "  h3[0].remove();\n" +
+                "  content[0].style.marginTop=0;\n" +
                 "}";
         mWebView.loadUrl("javascript:(" + js + ")()");
         mWebView.setVisibility(View.VISIBLE);

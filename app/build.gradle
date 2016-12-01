@@ -10,8 +10,8 @@ android {
         applicationId "ren.solid.ganhuoio"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 201
-        versionName "2.0.1"
+        versionCode 300
+        versionName "3.0.0"
     }
     buildTypes {
         release {

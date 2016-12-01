@@ -4,28 +4,15 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.picasso.Picasso;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.update.BmobUpdateAgent;
-import me.drakeet.multitype.GlobalMultiTypePool;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanImage;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanMeizhi;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanText;
-import ren.solid.ganhuoio.model.bean.Recently;
-import ren.solid.ganhuoio.model.bean.RecentlyHeader;
-import ren.solid.ganhuoio.model.bean.RecentlyTitle;
-import ren.solid.ganhuoio.ui.provider.GanHuoImageViewProvider;
-import ren.solid.ganhuoio.ui.provider.GanHuoTextViewProvider;
-import ren.solid.ganhuoio.ui.provider.MeizhiViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyHeaderViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyTitleViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyViewProvider;
 import ren.solid.library.SolidApplication;
 
 /**
@@ -48,12 +35,12 @@ public class GanHuoIOApplication extends SolidApplication {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+                Glide.with(imageView.getContext()).onStop();
             }
 
     /*
@@ -69,11 +56,6 @@ public class GanHuoIOApplication extends SolidApplication {
     */
         });
         LeakCanary.install(this);
-        GlobalMultiTypePool.register(GanHuoDataBeanText.class, new GanHuoTextViewProvider());
-        GlobalMultiTypePool.register(GanHuoDataBeanImage.class, new GanHuoImageViewProvider());
-        GlobalMultiTypePool.register(GanHuoDataBeanMeizhi.class, new MeizhiViewProvider());
-        GlobalMultiTypePool.register(Recently.class, new RecentlyViewProvider());
-        GlobalMultiTypePool.register(RecentlyTitle.class, new RecentlyTitleViewProvider());
-        GlobalMultiTypePool.register(RecentlyHeader.class, new RecentlyHeaderViewProvider());
+        MultiTypeInstaller.install();
     }
 }

@@ -104,7 +104,8 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
     @Override
     public final void refreshData() {
         mCurrentPageIndex = getInitPageIndex();
-        mLoadMoreWrapper.showLoadMore();
+        if (isCanLoadMore)
+            mLoadMoreWrapper.showLoadMore();
         loadData(getInitPageIndex());
     }
 

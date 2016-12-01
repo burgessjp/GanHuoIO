@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/avastar"
+                    android:src="@mipmap/logo"
                     app:layout_collapseMode="parallax" />
 
                 <FrameLayout
@@ -130,7 +130,7 @@
             android:layout_width="@dimen/image_width"
             android:layout_height="@dimen/image_width"
             android:layout_gravity="center"
-            android:src="@drawable/avastar"
+            android:src="@mipmap/logo"
             app:border_color="@android:color/white"
             app:border_width="2dp"
             app:layout_behavior="ren.solid.library.behavior.AvatarImageBehavior" />

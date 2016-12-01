@@ -32,7 +32,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/BMUpdateTitle"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#63C2FF" />
+                android:textColor="@color/colorAccent" />
             
             <Button
                 android:id="@+id/bmob_update_id_close"
@@ -54,7 +54,7 @@
             android:layout_height="2dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#2AACFF" />
+            android:background="@color/colorAccent" />
         <!-- Content -->
 
         <ScrollView

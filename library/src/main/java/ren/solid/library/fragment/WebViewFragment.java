@@ -164,6 +164,7 @@ public class WebViewFragment extends BaseFragment {
             if (newProgress == 100) {
                 mProgressBar.setVisibility(View.GONE);
                 mWebView.setVisibility(View.VISIBLE);
+                onPageLoadFinished(view, null);
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
             }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
+import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
 
@@ -26,7 +28,7 @@ public class GanHuoTextViewProvider
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_ganhuo2_text, parent, false);
+        View root = inflater.inflate(R.layout.item_ganhuo_text, parent, false);
         return new ViewHolder(root);
     }
 
@@ -41,6 +43,13 @@ public class GanHuoTextViewProvider
             @Override
             public void onClick(View view) {
                 WebViewActivity.openActivity(holder.itemView.getContext(), bean.getDesc(), bean.getUrl());
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                DialogUtils.showActionPopWindow(view.getContext(), holder.itemView, new CollectTable(bean));
+                return false;
             }
         });
     }

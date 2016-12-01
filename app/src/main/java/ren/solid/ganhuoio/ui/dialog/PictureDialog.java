@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import ren.solid.ganhuoio.R;
-import ren.solid.library.HttpClientManager;
+import ren.solid.library.imageloader.ImageLoader;
 
 /**
  * Created by _SOLID
@@ -40,7 +40,7 @@ public class PictureDialog extends Dialog {
 
     public void setPicture(String url) {
         show();
-        HttpClientManager.displayImage(mImageView, url);
+        ImageLoader.displayImage(mImageView,url);
     }
 
 

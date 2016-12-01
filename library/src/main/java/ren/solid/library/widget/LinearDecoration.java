@@ -68,7 +68,7 @@ public class LinearDecoration extends RecyclerView.ItemDecoration {
         mDivider = a.getDrawable(0);
         a.recycle();
         mDividerHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerHeight, context.getResources().getDisplayMetrics());
-        mDividerColor = ContextCompat.getColor(context, R.color.md_grey_300);
+        mDividerColor = ContextCompat.getColor(context, R.color.md_grey_200);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(mDividerColor);
         mPaint.setStyle(Paint.Style.FILL);

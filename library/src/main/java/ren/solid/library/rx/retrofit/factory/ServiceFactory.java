@@ -104,13 +104,13 @@ public class ServiceFactory {
 
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
                 int maxAge = 60 * 60; // read from network
-                response.newBuilder()
+                response = response.newBuilder()
                         .removeHeader("Pragma")
                         .header("Cache-Control", "public, max-age=" + maxAge)
                         .build();
             } else {
                 int maxStale = 60 * 60 * 24 * 30; // tolerate 1-month stale
-                response.newBuilder()
+                response = response.newBuilder()
                         .removeHeader("Pragma")
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                         .build();

@@ -32,28 +32,21 @@ import java.util.List;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.event.CollectChangeEvent;
-import ren.solid.ganhuoio.event.LoginEvent;
-import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
-import ren.solid.ganhuoio.ui.fragment.CollectFragment;
+import ren.solid.ganhuoio.ui.fragment.CollectListFragment;
 import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
 import ren.solid.ganhuoio.ui.fragment.ReadingFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
-import ren.solid.ganhuoio.ui.view.ICollectView;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
-import rx.functions.Action1;
 
-public class MainActivity extends BaseMainActivity implements ICollectView {
+public class MainActivity extends BaseMainActivity {
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
@@ -63,8 +56,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
     private BaseFragment mCurrentFragment;
     private MenuItem mSortMenu;
 
-
-    private CollectPresenterImpl mPresenter;
     private ProfileDrawerItem mProfileDrawerItem;
     private AccountHeader mProfileHeader;
 
@@ -96,19 +87,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
 
         //初始化摇一摇
         mShakePictureUtils = new ShakePictureUtils(this);
-        RxBus.getInstance().toObserverable(LoginEvent.class).subscribe(new Action1<LoginEvent>() {
-            @Override
-            public void call(LoginEvent loginEvent) {
-                updateProfile();
-                mPresenter.getCollect();
-            }
-        });
-        RxBus.getInstance().toObserverable(CollectChangeEvent.class).subscribe(new Action1<CollectChangeEvent>() {
-            @Override
-            public void call(CollectChangeEvent collectChangeEvent) {
-                mPresenter.getCollect();
-            }
-        });
     }
 
     @Override
@@ -142,7 +120,7 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                         break;
                     case R.id.item_collect:
                         mToolbar.setTitle(getResources().getString(R.string.main_collect));
-                        clazz = CollectFragment.class;
+                        clazz = CollectListFragment.class;
                         break;
                     case R.id.item_reading:
                         mToolbar.setTitle(getResources().getString(R.string.main_reading));
@@ -166,10 +144,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
 
     @Override
     protected void setUpData() {
-        mPresenter = new CollectPresenterImpl(this);
-        if (AuthorityUtils.isLogin()) {
-            mPresenter.getCollect();
-        }
     }
 
     private void setUpDrawer() {
@@ -304,26 +278,6 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
         return super.onOptionsItemSelected(item);
     }
 
-
-    @Override
-    public void getCollect(List<CollectTable> list) {
-        //  mDrawer.updateItem(mItemCollect.withBadge(list.size() + ""));
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showError(String errMsg) {
-
-    }
 
     public void checkUseInfo() {
         if (AuthorityUtils.isLogin()) {

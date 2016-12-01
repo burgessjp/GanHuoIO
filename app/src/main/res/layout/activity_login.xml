@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="新浪微博登录"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/app_text"
             android:textSize="18sp" />
     </LinearLayout>
 

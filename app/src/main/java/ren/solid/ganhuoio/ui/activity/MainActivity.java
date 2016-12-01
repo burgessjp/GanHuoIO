@@ -38,6 +38,7 @@ import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.presenter.impl.CollectPresenterImpl;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectFragment;
+import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
 import ren.solid.ganhuoio.ui.fragment.ReadingFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
 import ren.solid.ganhuoio.ui.view.ICollectView;
@@ -133,6 +134,11 @@ public class MainActivity extends BaseMainActivity implements ICollectView {
                         mSortMenu.setVisible(true);
                         mToolbar.setTitle(getResources().getString(R.string.main_category));
                         clazz = CategoryFragment.class;
+                        break;
+                    case R.id.item_meizhi:
+                        mSortMenu.setVisible(false);
+                        mToolbar.setTitle(getResources().getString(R.string.main_meizhi));
+                        clazz = MeizhiFragmant.class;
                         break;
                     case R.id.item_collect:
                         mToolbar.setTitle(getResources().getString(R.string.main_collect));

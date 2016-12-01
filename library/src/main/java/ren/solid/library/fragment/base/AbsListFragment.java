@@ -34,6 +34,12 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
     private int mCurrentPageIndex;
     private List mItems;
 
+    private boolean isCanLoadMore = true;
+
+    public void disAbleLoadMore() {
+        isCanLoadMore = false;
+        mLoadMoreWrapper.disableLoadMore();
+    }
 
     @Override
     protected final int setLayoutResourceID() {
@@ -55,7 +61,8 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
 
             @Override
             public void onLoadMore() {
-                AbsListFragment.this.loadMore();
+                if (isCanLoadMore)
+                    AbsListFragment.this.loadMore();
             }
         });
     }

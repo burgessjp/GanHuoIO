@@ -8,9 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import ren.solid.ganhuoio.ui.fragment.CategoryListFragment;
 import ren.solid.ganhuoio.ui.fragment.CategoryListFragment2;
-import ren.solid.ganhuoio.ui.fragment.ImagesFragmant;
+import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
 import ren.solid.library.utils.Logger;
 import ren.solid.library.utils.ViewUtils;
 
@@ -44,7 +43,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
             bundle.putString("type", mTitles.get(position));
             fragment.setArguments(bundle);
         } else {
-            fragment = ViewUtils.createFragment(ImagesFragmant.class, false);
+            fragment = ViewUtils.createFragment(MeizhiFragmant.class, false);
         }
         return fragment;
     }

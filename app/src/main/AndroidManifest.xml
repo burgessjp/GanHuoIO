@@ -55,7 +55,7 @@
         <activity
             android:name="ren.solid.library.activity.ViewPicActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Transparent" />
+            android:theme="@style/ViewPicTheme" />
         <activity
             android:name="ren.solid.library.activity.WebViewActivity"
             android:screenOrientation="portrait" />

@@ -8,16 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Transparent" parent="FullScreen">
+    <style name="Transparent" parent="AppTheme">
         <item name="android:windowBackground">@color/transparent_background</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
 
     <style name="FullScreen" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="ViewPicTheme" parent="AppTheme">
     </style>
 
     <style name="SplashTheme" parent="FullScreen">

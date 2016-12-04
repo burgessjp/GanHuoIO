@@ -33,4 +33,13 @@ public class ImageLoader {
         getProvider().loadImage(request);
     }
 
+    public static void displayImage(ImageView iv, String url, int placeHolder) {
+        ImageRequest request = new ImageRequest.Builder()
+                .url(url)
+                .imgView(iv)
+                .placeHolder(placeHolder)
+                .create();
+        getProvider().loadImage(request);
+    }
+
 }

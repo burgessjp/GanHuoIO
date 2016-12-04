@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">干货IO</string>
-    <string name="app_site">gank.io</string>
+    <string name="app_site">Gank.IO</string>
     <string name="app_desc">在这里阅读最新的高质量的技术干货</string>
 
     <!--MainActivity-->
@@ -17,12 +17,15 @@
     <string name="main_feedback">反馈</string>
     <string name="main_setting">设置</string>
     <string name="main_exit">注销账户</string>
+    <string name="main_cache_clear">缓存清理</string>
 
     <string name="feedback_dialog_title">您宝贵的反馈建议</string>
     <string name="feedback_input_hint">可直接到Github提Issues</string>
     <string name="feedback_input_prefill"></string>
     <string name="feedback_success">提交成功</string>
     <string name="feedback_failed">提交失败</string>
+
+    <string name="app_share">我正在使用[干货IO]这个App,还不错哦！应用下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio</string>
 
 
     <string name="no_login">未登录</string>

@@ -13,18 +13,19 @@ public abstract class BaseMainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        beforeOnBackPressed();
-        long currentTick = System.currentTimeMillis();
-        if (currentTick - lastBackKeyDownTick > MAX_DOUBLE_BACK_DURATION) {
-            ToastUtils.getInstance().showToast("再按一次退出");
-            lastBackKeyDownTick = currentTick;
-        } else {
-            finish();
-            System.exit(0);
+        if (beforeOnBackPressed()) {
+            long currentTick = System.currentTimeMillis();
+            if (currentTick - lastBackKeyDownTick > MAX_DOUBLE_BACK_DURATION) {
+                ToastUtils.getInstance().showToast("再按一次退出");
+                lastBackKeyDownTick = currentTick;
+            } else {
+                finish();
+                System.exit(0);
+            }
         }
     }
 
-    protected void beforeOnBackPressed() {
-
+    protected boolean beforeOnBackPressed() {
+        return true;
     }
 }

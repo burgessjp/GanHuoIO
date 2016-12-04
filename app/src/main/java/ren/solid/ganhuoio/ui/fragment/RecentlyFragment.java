@@ -13,6 +13,7 @@ import ren.solid.ganhuoio.ui.view.IRecentlyView;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.transformer.RotateDownPageTransformer;
 import ren.solid.library.utils.SnackBarUtils;
+import ren.solid.library.utils.ToastUtils;
 import ren.solid.library.widget.StatusViewLayout;
 
 /**
@@ -63,13 +64,11 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
             mTabLayout.addTab(mTabLayout.newTab());
         }
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
     public void showLoading() {
         mStatusView.showLoading();
-
     }
 
     @Override
@@ -79,8 +78,6 @@ public class RecentlyFragment extends BaseFragment implements IRecentlyView {
 
     @Override
     public void showError(String errMsg) {
-        mStatusView.showError();
-
-        SnackBarUtils.makeShort(mViewPager, "哇哇哇，网络遇到问题了...").danger();
+        mStatusView.showError(errMsg);
     }
 }

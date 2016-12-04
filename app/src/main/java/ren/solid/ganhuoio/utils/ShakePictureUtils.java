@@ -122,7 +122,7 @@ public class ShakePictureUtils implements SensorEventListener {
 
 
     private void requestPicture() {
-        PictureService pictureService = ServiceFactory.getInstance().createService(PictureService.class);
+        PictureService pictureService = ServiceFactory.getNoCacheInstance().createService(PictureService.class);
         pictureService.getRandomPicture().compose(TransformUtils.<RandomPictureBean>defaultSchedulers()).subscribe(new Subscriber<RandomPictureBean>() {
             @Override
             public void onStart() {

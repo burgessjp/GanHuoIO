@@ -29,7 +29,7 @@ public class RecentlyModelImpl implements IRecentlyModel {
     public Observable<HttpResult<List<String>>> loadRecentlyDate() {
 
         GankService gankService = ServiceFactory.getInstance().createService(GankService.class);
-        return gankService.getRecentlyDate().compose(TransformUtils.<HttpResult<List<String>>>defaultSchedulers());
+        return gankService.getRecentlyDate();
     }
 
     @Override

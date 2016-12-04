@@ -3,9 +3,11 @@ package ren.solid.ganhuoio.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 
 /**
@@ -38,9 +40,18 @@ public class PictureDialog extends Dialog {
         mImageView.setImageResource(R.drawable.avastar);
     }
 
-    public void setPicture(String url) {
+    public void setPicture(final String url) {
+
+
         show();
-        ImageLoader.displayImage(mImageView,url);
+        ImageLoader.displayImage(mImageView, url);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPicActivity.openActivity(view.getContext(), view, url);
+            }
+        });
+
     }
 
 

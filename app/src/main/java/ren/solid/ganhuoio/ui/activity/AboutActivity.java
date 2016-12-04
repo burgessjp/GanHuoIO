@@ -6,7 +6,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
@@ -15,13 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.library.activity.base.BaseActivity;
-import ren.solid.library.utils.SettingUtils;
 import ren.solid.library.utils.SystemUtils;
 import ren.solid.library.utils.ViewUtils;
-
-import static u.aly.av.S;
 
 /**
  * Created by _SOLID

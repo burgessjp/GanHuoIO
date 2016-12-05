@@ -2,8 +2,10 @@ package ren.solid.library.imageloader;
 
 import android.content.Context;
 
+import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
@@ -14,9 +16,9 @@ import java.io.InputStream;
 import ren.solid.library.R;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.NetworkUtil;
-import ren.solid.library.utils.SettingUtils;
+import ren.solid.library.SettingCenter;
 
-import static java.lang.System.load;
+import static com.bumptech.glide.Glide.with;
 
 
 /**
@@ -28,8 +30,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
     @Override
     public void loadImage(ImageRequest request) {
         Context context = SolidApplication.getInstance();
-        request.setPlaceHolder(R.drawable.default_load_img);
-        if (!SettingUtils.getOnlyWifiLoadImage()) {
+        if (!SettingCenter.getOnlyWifiLoadImage()) {
             loadNormal(context, request);
         } else {
             if (NetworkUtil.isWifiConnected(context)) {
@@ -51,7 +52,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
     }
 
     private void loadCache(Context ctx, ImageRequest img) {
-        Glide.with(ctx)
+        with(ctx)
                 .using(new StreamModelLoader<String>() {
                     @Override
                     public DataFetcher<InputStream> getResourceFetcher(final String model, int i, int i1) {
@@ -80,7 +81,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
                 })
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .dontAnimate()
                 .into(img.getImageView());
     }

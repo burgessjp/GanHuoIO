@@ -18,19 +18,18 @@
 
             <ImageView
                 android:id="@+id/iv_logo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:paddingLeft="-16dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@mipmap/logo" />
 
             <TextView
                 android:id="@+id/tv_site"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:gravity="center"
                 android:text="@string/app_site"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
 
@@ -38,13 +37,11 @@
             android:id="@+id/v_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"></View>
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_desc"
             android:textColor="@color/colorPrimary"

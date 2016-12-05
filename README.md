@@ -8,7 +8,7 @@
 <img src="capture/p3.jpg" width="25%" />
 <img src="capture/p4.jpg" width="25%" />
 
-App下载地址
+
 
 下载地址:[Fir.im](http://fir.im/ganhuoio)、[应用宝](http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio)
 

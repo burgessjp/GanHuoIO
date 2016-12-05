@@ -43,17 +43,6 @@ public class GanHuoIOApplication extends SolidApplication {
                 Glide.with(imageView.getContext()).onStop();
             }
 
-    /*
-    @Override
-    public Drawable placeholder(Context ctx) {
-        return super.placeholder(ctx);
-    }
-
-    @Override
-    public Drawable placeholder(Context ctx, String tag) {
-        return super.placeholder(ctx, tag);
-    }
-    */
         });
         LeakCanary.install(this);
         MultiTypeInstaller.install();

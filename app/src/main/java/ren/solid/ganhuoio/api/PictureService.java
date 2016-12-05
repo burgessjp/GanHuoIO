@@ -13,6 +13,6 @@ import rx.Observable;
 public interface PictureService {
     String BASE_URL = "http://lelouchcrgallery.tk/";
 
-    @GET("{url}")
-    Observable<RandomPictureBean> getRandomPicture(@Path("url") String url);
+    @GET("rand")
+    Observable<RandomPictureBean> getRandomPicture();
 }

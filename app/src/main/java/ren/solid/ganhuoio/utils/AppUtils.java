@@ -13,6 +13,7 @@ import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.bean.bomb.FeedBack;
+import ren.solid.library.SettingCenter;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
@@ -90,6 +91,21 @@ public class AppUtils {
 
                     }
                 });
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
+    }
+
+    public static void clearCache(final Activity activity, final SettingCenter.ClearCacheListener listener) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(activity)
+                .title("温馨提示")
+                .content("确定清空缓存吗？如果你使用的是移动网络不建议清空缓存哦")
+                .positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                        SettingCenter.clearAppCache(listener);
+                    }
+                }).negativeText("取消");
 
         MaterialDialog dialog = builder.build();
         dialog.show();

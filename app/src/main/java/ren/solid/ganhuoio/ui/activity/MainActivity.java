@@ -9,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -41,10 +43,11 @@ import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.ganhuoio.utils.ShakePictureUtils;
+import ren.solid.library.SettingCenter;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.rx.RxBus;
-import ren.solid.library.utils.SettingUtils;
+import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import ren.solid.library.utils.ViewUtils;
 import rx.functions.Action1;
@@ -64,6 +67,7 @@ public class MainActivity extends BaseMainActivity {
 
     //摇一摇相关
     private ShakePictureUtils mShakePictureUtils;
+    private PrimaryDrawerItem mItemCache;
 
     @Override
     protected int setLayoutResourceID() {
@@ -105,7 +109,7 @@ public class MainActivity extends BaseMainActivity {
         setSupportActionBar(mToolbar);
         setUpDrawer();
 
-        getSupportActionBar().setTitle(getResources().getString(R.string.main_home));
+        mToolbar.setTitle(getResources().getString(R.string.main_home));
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -161,7 +165,7 @@ public class MainActivity extends BaseMainActivity {
         checkUseInfo();
         mProfileHeader = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(new ColorDrawable(getResources().getColor(R.color.colorAccent)))
+                .withHeaderBackground(new ColorDrawable(ContextCompat.getColor(this, R.color.colorAccent)))
                 .addProfiles(
                         mProfileDrawerItem
                 )
@@ -176,10 +180,10 @@ public class MainActivity extends BaseMainActivity {
                 })
                 .build();
 
-        SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingUtils.getOnlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
+        SwitchDrawerItem itemSwitch = new SwitchDrawerItem().withName(getResources().getString(R.string.main_only_wifi)).withIcon(GoogleMaterial.Icon.gmd_network_wifi).withChecked(SettingCenter.getOnlyWifiLoadImage()).withOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
-                SettingUtils.setOnlyWifiLoadImage(isChecked);
+                SettingCenter.setOnlyWifiLoadImage(isChecked);
             }
         }).withSelectable(false);
 
@@ -191,10 +195,32 @@ public class MainActivity extends BaseMainActivity {
         }).withSelectable(false);
 
 
-        PrimaryDrawerItem itemShare = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_share)).withIcon(GoogleMaterial.Icon.gmd_share).withSelectable(false);
-        PrimaryDrawerItem itemFeedback = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_feedback)).withIcon(GoogleMaterial.Icon.gmd_coffee).withSelectable(false);
-        PrimaryDrawerItem itemExit = new PrimaryDrawerItem().withName(getResources().getString(R.string.main_exit)).withIcon(GoogleMaterial.Icon.gmd_grid_off).withSelectable(false);
-
+        PrimaryDrawerItem itemShare = new PrimaryDrawerItem()
+                .withName(getResources().getString(R.string.main_share))
+                .withIcon(GoogleMaterial.Icon.gmd_share)
+                .withSelectable(false);
+        PrimaryDrawerItem itemFeedback = new PrimaryDrawerItem()
+                .withName(getResources().getString(R.string.main_feedback))
+                .withIcon(GoogleMaterial.Icon.gmd_coffee)
+                .withSelectable(false);
+        PrimaryDrawerItem itemExit = new PrimaryDrawerItem()
+                .withName(getResources().getString(R.string.main_exit))
+                .withIcon(GoogleMaterial.Icon.gmd_grid_off)
+                .withSelectable(false);
+        mItemCache = new PrimaryDrawerItem()
+                .withName(getResources()
+                        .getString(R.string.main_cache_clear))
+                .withIcon(GoogleMaterial.Icon.gmd_adb)
+                .withBadgeStyle(new BadgeStyle()
+                        .withTextColorRes(R.color.item_desc)
+                        .withColorRes(R.color.colorAccent))
+                .withSelectable(false);
+        SettingCenter.countDirSizeTask(new SettingCenter.CountDirSizeListener() {
+            @Override
+            public void onResult(long result) {
+                mItemCache.withBadge(SettingCenter.formatFileSize(result));
+            }
+        });
         mDrawer = new DrawerBuilder()
                 .withAccountHeader(mProfileHeader)
                 .withActivity(this)
@@ -204,6 +230,7 @@ public class MainActivity extends BaseMainActivity {
                         itemShake,
                         itemShare,
                         itemFeedback,
+                        mItemCache,
                         itemExit
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -214,18 +241,28 @@ public class MainActivity extends BaseMainActivity {
                     }
                 })
                 .build();
+
     }
 
     private void setDrawerItemClickListener(int position) {
         switch (position) {
             case 3:
-                SystemShareUtils.shareText(MainActivity.this, "【干货IO下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
+                SystemShareUtils.shareText(MainActivity.this, getResources().getString(R.string.app_share));
                 break;
             case 4:
                 AppUtils.feedBack(this, mToolbar);
                 break;
-            case 5:
+            case 6:
                 AppUtils.logOut(this);
+                break;
+            case 5:
+                AppUtils.clearCache(this, new SettingCenter.ClearCacheListener() {
+                    @Override
+                    public void onResult() {
+                        mDrawer.updateItem(mItemCache.withBadge(SettingCenter.formatFileSize(0)));
+                        SnackBarUtils.makeShort(mToolbar, "清理成功").success();
+                    }
+                });
                 break;
             default:
 
@@ -234,7 +271,6 @@ public class MainActivity extends BaseMainActivity {
         mDrawer.closeDrawer();
     }
 
-    //切换Fragment
     private void switchFragment(Class<?> clazz) {
         if (clazz == null) return;
         BaseFragment to = ViewUtils.createFragment(clazz);
@@ -281,8 +317,6 @@ public class MainActivity extends BaseMainActivity {
             startActivityWithoutExtras(SortActivity.class);
         } else if (id == R.id.action_about) {
             startActivityWithoutExtras(AboutActivity.class);
-        } else if (id == R.id.action_search) {
-            //startActivityWithoutExtras(SearchResultActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -303,10 +337,18 @@ public class MainActivity extends BaseMainActivity {
     }
 
     @Override
-    protected void beforeOnBackPressed() {
+    protected boolean beforeOnBackPressed() {
         if (mDrawer.isDrawerOpen()) {//当前抽屉是打开的，则关闭
             mDrawer.closeDrawer();
         }
+        if (mCurrentFragment instanceof ReadingFragment) {
+            ReadingFragment fragment = (ReadingFragment) mCurrentFragment;
+            if (fragment.canGoBack()) {
+                fragment.goBack();
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

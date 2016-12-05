@@ -160,11 +160,11 @@ public class WebViewFragment extends BaseFragment {
     class MyWebChromeClient extends WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            mProgressBar.setProgress(newProgress);
-            if (newProgress == 100) {
+            if (newProgress == 0) {
+                loadStart();
+            } else if (newProgress > 90) {
+                loadJs();//这种方式并不可取
                 mProgressBar.setVisibility(View.GONE);
-                mWebView.setVisibility(View.VISIBLE);
-                onPageLoadFinished(view, null);
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
             }
@@ -213,6 +213,14 @@ public class WebViewFragment extends BaseFragment {
 //            //
 //            return true;
 //        }
+    }
+
+    protected void loadStart() {
+
+    }
+
+    protected void loadJs() {
+
     }
 
     protected void onPageLoadFinished(WebView view, String url) {

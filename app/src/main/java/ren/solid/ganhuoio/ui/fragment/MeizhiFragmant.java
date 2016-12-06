@@ -15,6 +15,7 @@ import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import rx.Subscriber;
 
 /**
@@ -36,20 +37,15 @@ public class MeizhiFragmant extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo("福利", pageIndex)
                 .compose(TransformUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
-                .subscribe(new Subscriber<HttpResult<List<GanHuoDataBean>>>() {
+                .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
+                    public void _onError(Throwable e) {
                         showError(new Exception(e));
                     }
 
                     @Override
-                    public void onNext(HttpResult<List<GanHuoDataBean>> listHttpResult) {
-                        onDataSuccessReceived(pageIndex, listHttpResult.results);
+                    public void onSuccess(List<GanHuoDataBean> ganHuoDataBeen) {
+                        onDataSuccessReceived(pageIndex, ganHuoDataBeen);
                     }
                 });
     }

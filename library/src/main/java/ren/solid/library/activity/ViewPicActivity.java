@@ -207,5 +207,9 @@ public class ViewPicActivity extends BaseActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityCompat.finishAfterTransition(this);
+    }
 }

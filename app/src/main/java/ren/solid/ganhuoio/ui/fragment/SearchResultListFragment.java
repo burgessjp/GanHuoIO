@@ -10,6 +10,7 @@ import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import ren.solid.library.widget.LinearDecoration;
 import rx.Subscriber;
 
@@ -40,21 +41,18 @@ public class SearchResultListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .search(keyWord, pageIndex)
                 .compose(TransformUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
-                .subscribe(new Subscriber<HttpResult<List<SearchResult>>>() {
+                .subscribe(new HttpResultSubscriber<List<SearchResult>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
+                    public void _onError(Throwable e) {
                         showError(new Exception(e));
                     }
 
                     @Override
-                    public void onNext(HttpResult<List<SearchResult>> searchResultHttpResult) {
-                        onDataSuccessReceived(pageIndex, searchResultHttpResult.results);
+                    public void onSuccess(List<SearchResult> searchResults) {
+                        onDataSuccessReceived(pageIndex, searchResults);
                     }
+
+
                 });
     }
 

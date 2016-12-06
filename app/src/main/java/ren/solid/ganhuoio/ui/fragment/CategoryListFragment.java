@@ -16,6 +16,7 @@ import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import ren.solid.library.widget.LinearDecoration;
 import rx.Subscriber;
 
@@ -45,21 +46,17 @@ public class CategoryListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo(mType, pageIndex)
                 .compose(TransformUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
-                .subscribe(new Subscriber<HttpResult<List<GanHuoDataBean>>>() {
+                .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override
-                    public void onCompleted() {
-
+                    public void onSuccess(List<GanHuoDataBean> list) {
+                        onDataSuccessReceived(pageIndex, list);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void _onError(Throwable e) {
                         showError(new Exception(e));
                     }
 
-                    @Override
-                    public void onNext(HttpResult<List<GanHuoDataBean>> listHttpResult) {
-                        onDataSuccessReceived(pageIndex, listHttpResult.results);
-                    }
                 });
     }
 

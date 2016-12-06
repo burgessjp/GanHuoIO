@@ -19,13 +19,16 @@ public abstract class HttpResultSubscriber<T> extends Subscriber<HttpResult<T>> 
 
     @Override
     public void onError(Throwable e) {
-        Logger.e(this,e.getMessage());
-        e.printStackTrace();
-        //在这里做全局的错误处理
-        if (e instanceof HttpException) {
-            // ToastUtils.getInstance().showToast(e.getMessage());
+        if (e != null) {
+            e.printStackTrace();
+            //在这里做全局的错误处理
+            if (e instanceof HttpException) {
+                // ToastUtils.getInstance().showToast(e.getMessage());
+            }
+            _onError(e);
+        } else {
+            _onError(new Exception("null"));
         }
-        _onError(e);
     }
 
     @Override

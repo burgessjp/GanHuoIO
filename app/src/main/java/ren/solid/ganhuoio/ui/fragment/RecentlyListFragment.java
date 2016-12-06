@@ -18,6 +18,7 @@ import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.TransformUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import rx.Subscriber;
 
 /**
@@ -68,27 +69,23 @@ public class RecentlyListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getRecentlyGanHuo(date)
                 .compose(TransformUtils.<HttpResult<GanHuoRecentlyBean>>defaultSchedulers())
-                .subscribe(new Subscriber<HttpResult<GanHuoRecentlyBean>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+                .subscribe(new HttpResultSubscriber<GanHuoRecentlyBean>() {
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void _onError(Throwable e) {
                         showError(new Exception(e));
                     }
 
                     @Override
-                    public void onNext(HttpResult<GanHuoRecentlyBean> result) {
+                    public void onSuccess(GanHuoRecentlyBean recentlyBean) {
                         List list = new ArrayList<>();
-                        GanHuoRecentlyBean recentlyBean = result.results;
+
                         if (recentlyBean != null) {
                             if (recentlyBean.get福利() != null) {
                                 mRecentlyHeader.setImgUrl(recentlyBean.get福利().get(0).getUrl());
                                 list.add(mRecentlyHeader);
                             }
-                            if (result.results.get休息视频() != null) {
+                            if (recentlyBean.get休息视频() != null) {
                                 list.add(new RecentlyTitle("休息视频"));
                                 list.addAll(recentlyBean.get休息视频());
                             }

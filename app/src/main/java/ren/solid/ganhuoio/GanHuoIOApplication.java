@@ -40,7 +40,7 @@ public class GanHuoIOApplication extends SolidApplication {
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.with(imageView.getContext()).onStop();
+                Glide.with(imageView.getContext()).onDestroy();
             }
 
         });

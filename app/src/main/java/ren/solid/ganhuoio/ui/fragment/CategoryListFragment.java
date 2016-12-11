@@ -29,6 +29,15 @@ public class CategoryListFragment extends AbsListFragment {
 
     private String mType;
 
+    public static CategoryListFragment newInstance(String type) {
+        
+        Bundle args = new Bundle();
+        args.putString("type",type);
+        CategoryListFragment fragment = new CategoryListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

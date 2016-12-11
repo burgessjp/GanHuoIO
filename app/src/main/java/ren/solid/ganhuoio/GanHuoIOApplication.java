@@ -26,7 +26,7 @@ public class GanHuoIOApplication extends SolidApplication {
         super.onCreate();
         Bmob.initialize(this, "caed915330178bff62bfd281b627c77f");
 
-        BmobUpdateAgent.initAppVersion(this);
+        //BmobUpdateAgent.initAppVersion(this);
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务

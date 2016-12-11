@@ -38,12 +38,9 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
         if (!"福利".equals(mTitles.get(position))) {
-            fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
-            Bundle bundle = new Bundle();
-            bundle.putString("type", mTitles.get(position));
-            fragment.setArguments(bundle);
+            fragment = CategoryListFragment.newInstance(mTitles.get(position));
         } else {
-            fragment = ViewUtils.createFragment(MeizhiFragmant.class, false);
+            fragment = MeizhiFragmant.newInstance();
         }
         return fragment;
     }
@@ -56,7 +53,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        Logger.i("getItemPosition:"+mChildCount);
+        Logger.i("getItemPosition:" + mChildCount);
         if (mChildCount > 0) {
             mChildCount--;
             return POSITION_NONE;

@@ -21,6 +21,8 @@ import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import rx.Subscriber;
 
+import static android.R.attr.fragment;
+
 /**
  * Created by _SOLID
  * Date:2016/5/18
@@ -35,6 +37,15 @@ public class RecentlyListFragment extends AbsListFragment {
     private String title = "";
 
     private RecentlyHeader mRecentlyHeader;
+
+    public static RecentlyListFragment newInstance(String date, String title) {
+        Bundle args = new Bundle();
+        args.putString(RecentlyListFragment.DATE_STRING, date);
+        args.putString(RecentlyListFragment.TITLE, title);
+        RecentlyListFragment fragment = new RecentlyListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

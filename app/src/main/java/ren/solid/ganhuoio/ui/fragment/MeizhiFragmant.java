@@ -1,5 +1,6 @@
 package ren.solid.ganhuoio.ui.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,12 @@ import rx.Subscriber;
  */
 public class MeizhiFragmant extends AbsListFragment {
 
+    public static MeizhiFragmant newInstance() {
+        Bundle args = new Bundle();
+        MeizhiFragmant fragment = new MeizhiFragmant();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @NonNull
     @Override

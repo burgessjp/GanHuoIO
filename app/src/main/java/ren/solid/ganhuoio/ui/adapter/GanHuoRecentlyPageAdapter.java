@@ -1,7 +1,5 @@
 package ren.solid.ganhuoio.ui.adapter;
 
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,7 +8,6 @@ import java.util.List;
 
 import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
 import ren.solid.ganhuoio.ui.fragment.RecentlyListFragment;
-import ren.solid.library.utils.ViewUtils;
 
 /**
  * Created by _SOLID
@@ -30,21 +27,11 @@ public class GanHuoRecentlyPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = ViewUtils.createFragment(RecentlyListFragment.class, false);
-        Bundle bundle = new Bundle();
-        bundle.putString(RecentlyListFragment.DATE_STRING, mDateString.get(position));
-        bundle.putString(RecentlyListFragment.TITLE, mTitleList.get(position).getTitle());
-        fragment.setArguments(bundle);
-        return fragment;
+        return RecentlyListFragment.newInstance(mDateString.get(position),mTitleList.get(position).getTitle());
     }
 
     @Override
     public int getCount() {
         return mDateString.size();
-    }
-
-    @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {
-        super.restoreState(state, loader);
     }
 }

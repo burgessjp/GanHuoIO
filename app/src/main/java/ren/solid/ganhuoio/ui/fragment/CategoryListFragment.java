@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import java.util.List;
 
@@ -14,11 +15,10 @@ import ren.solid.ganhuoio.model.bean.GanHuoDataBeanImage;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBeanText;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import ren.solid.library.widget.LinearDecoration;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -30,9 +30,8 @@ public class CategoryListFragment extends AbsListFragment {
     private String mType;
 
     public static CategoryListFragment newInstance(String type) {
-        
         Bundle args = new Bundle();
-        args.putString("type",type);
+        args.putString("type", type);
         CategoryListFragment fragment = new CategoryListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -44,7 +43,6 @@ public class CategoryListFragment extends AbsListFragment {
         mType = getArguments().getString("type");
     }
 
-
     @Override
     protected void customConfig() {
         addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL, 2));
@@ -52,9 +50,13 @@ public class CategoryListFragment extends AbsListFragment {
 
     @Override
     public void loadData(final int pageIndex) {
+        if (TextUtils.isEmpty(mType)) {
+            showError(new Exception("mType is null"));
+            return;
+        }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo(mType, pageIndex)
-                .compose(TransformUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override
                     public void onSuccess(List<GanHuoDataBean> list) {

@@ -1,6 +1,7 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
 import ren.solid.library.rx.retrofit.HttpResult;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
 /**
@@ -19,14 +20,10 @@ public abstract class HttpResultSubscriber<T> extends Subscriber<HttpResult<T>> 
     public void onError(Throwable e) {
         if (e != null) {
             e.printStackTrace();
-            //在这里做全局的错误处理
-//            if (e instanceof HttpException) {
-//                // ToastUtils.getInstance().showToast(e.getMessage());
-//            }
-            if (e.getMessage() == null) {//e.getMessage()可能为null
+            if (e.getMessage() == null) {
                 _onError(new Throwable(e.toString()));
             } else {
-                _onError(e);
+                _onError(new Throwable(e.getMessage()));
             }
         } else {
             _onError(new Exception("null message"));

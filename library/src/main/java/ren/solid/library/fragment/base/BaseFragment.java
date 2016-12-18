@@ -5,11 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ren.solid.library.rx.RxBus;
+import ren.solid.library.utils.SLog;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -31,15 +33,11 @@ public abstract class BaseFragment extends Fragment {
         mContext = getContext();
         mProgressDialog = new ProgressDialog(getMContext());
         mProgressDialog.setCanceledOnTouchOutside(false);
-
-
         init();
         setUpView();
         setUpData();
         return mContentView;
     }
-
-
 
     protected abstract int setLayoutResourceID();
 
@@ -70,10 +68,5 @@ public abstract class BaseFragment extends Fragment {
 
     protected ProgressDialog getProgressDialog() {
         return mProgressDialog;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

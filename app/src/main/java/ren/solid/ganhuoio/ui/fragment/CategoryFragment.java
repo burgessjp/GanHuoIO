@@ -16,7 +16,6 @@ import ren.solid.ganhuoio.ui.adapter.GanHuoPagerAdapter;
 import ren.solid.ganhuoio.ui.view.ICategoryView;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.rx.RxBus;
-import ren.solid.library.utils.Logger;
 import rx.functions.Action1;
 
 /**

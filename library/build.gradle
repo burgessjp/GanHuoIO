@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -54,7 +54,6 @@ dependencies {
      compile 'com.nineoldandroids:library:2.4.0'
     //RecyclerView Adapter
     compile('me.drakeet.multitype:multitype:2.2.2', {
-        //exclude group: 'com.android.support'
-        transitive = true
+        exclude group: 'com.android.support'
     })
 }

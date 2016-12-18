@@ -2,6 +2,7 @@
 
 package ren.solid.library.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
@@ -25,7 +26,7 @@ import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.rx.retrofit.ObservableProvider;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import ren.solid.library.utils.FileUtils;
-import ren.solid.library.utils.Logger;
+import ren.solid.library.utils.SLog;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
 import uk.co.senab.photoview.PhotoView;
@@ -38,8 +39,6 @@ import uk.co.senab.photoview.PhotoView;
  * view full picture
  */
 public class ViewPicActivity extends BaseActivity {
-
-    private static String TAG = "ViewPicActivity";
     public final static String IMG_URLS = "ImageUrls";
     public final static String IMG_INDEX = "ImageIndex";
     private ViewPager mViewPager;
@@ -50,21 +49,21 @@ public class ViewPicActivity extends BaseActivity {
     private int mCurrentIndex = 0;
     private String mSavePath;
 
-    public static void openActivity(Context context, View view, ArrayList<String> urls, int position) {
-        Intent intent = new Intent(context, ViewPicActivity.class);
+
+    public static void openActivity(Activity activity, View view, ArrayList<String> urls, int position) {
+        Intent intent = new Intent(activity, ViewPicActivity.class);
         intent.putStringArrayListExtra(IMG_URLS, urls);
         intent.putExtra(IMG_INDEX, position);
-
         ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(view,
                 view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-        ActivityCompat.startActivity(context, intent,
+        ActivityCompat.startActivity(activity, intent,
                 compat.toBundle());
     }
 
-    public static void openActivity(Context context, View view, String url) {
+    public static void openActivity(Activity activity, View view, String url) {
         ArrayList<String> urls = new ArrayList<>();
         urls.add(url);
-        openActivity(context, view, urls, 0);
+        openActivity(activity, view, urls, 0);
     }
 
     @Override
@@ -137,7 +136,6 @@ public class ViewPicActivity extends BaseActivity {
 
             //setUpPhotoViewAttacher(photoView);
             ImageLoader.displayImage(photoView, mUrlList.get(position));
-
             container.addView(photoView);
 
             return photoView;
@@ -177,7 +175,7 @@ public class ViewPicActivity extends BaseActivity {
      */
     public void downloadPicture(final int action) {
         mSavePath = FileUtils.getSaveImagePath(this) + File.separator + FileUtils.getFileName(mUrlList.get(0));
-        Logger.i(this, mSavePath);
+        SLog.i(this, mSavePath);
         ObservableProvider.getDefault().download(mUrlList.get(0), new DownLoadSubscribe(FileUtils.getSaveImagePath(this), FileUtils.getFileName(mUrlList.get(0))) {
             @Override
             public void onCompleted(File file) {
@@ -201,7 +199,7 @@ public class ViewPicActivity extends BaseActivity {
             @Override
             public void onProgress(double progress, long downloadByte, long totalByte) {
                 // Log.i("ThreadInfo", "onProgress:" + Thread.currentThread().getName());
-                Logger.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
+                SLog.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
 
             }
         });

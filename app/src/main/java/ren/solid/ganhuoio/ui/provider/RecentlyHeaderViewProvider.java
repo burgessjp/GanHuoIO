@@ -1,5 +1,6 @@
 package ren.solid.ganhuoio.ui.provider;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class RecentlyHeaderViewProvider
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPicActivity.openActivity(holder.iv_img.getContext(), holder.iv_img, recentlyHeader.getImgUrl());
+                ViewPicActivity.openActivity((Activity) holder.iv_img.getContext(), holder.iv_img, recentlyHeader.getImgUrl());
             }
         });
     }

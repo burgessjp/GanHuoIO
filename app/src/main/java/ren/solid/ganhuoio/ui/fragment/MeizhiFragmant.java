@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import java.util.List;
 
@@ -14,10 +13,9 @@ import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
 import ren.solid.ganhuoio.model.bean.GanHuoDataBeanMeizhi;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -43,7 +41,7 @@ public class MeizhiFragmant extends AbsListFragment {
     public void loadData(final int pageIndex) {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo("福利", pageIndex)
-                .compose(TransformUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override
                     public void _onError(Throwable e) {

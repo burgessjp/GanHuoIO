@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import ren.solid.library.SolidApplication;
-import ren.solid.library.utils.Logger;
+import ren.solid.library.utils.SLog;
 import ren.solid.library.utils.NetworkUtil;
 
 /**
@@ -120,13 +120,13 @@ public class OkHttpProvider {
             Request request = chain.request();
 
             long t1 = System.nanoTime();
-            Logger.i(String.format(Locale.CHINA, "Sending request %s on %s%n%s",
+            SLog.i(this,String.format(Locale.CHINA, "Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers()));
 
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();
-            Logger.i(String.format(Locale.CHINA, "Received response for %s in %.1fms%n%s",
+            SLog.i(this,String.format(Locale.CHINA, "Received response for %s in %.1fms%n%s",
                     response.request().url(), (t2 - t1) / 1e6d, response.headers()));
 
             return response;

@@ -8,11 +8,10 @@ import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.model.bean.SearchResult;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import ren.solid.library.widget.LinearDecoration;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -40,7 +39,7 @@ public class SearchResultListFragment extends AbsListFragment {
     public void loadData(final int pageIndex) {
         ServiceFactory.getInstance().createService(GankService.class)
                 .search(keyWord, pageIndex)
-                .compose(TransformUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<SearchResult>>() {
                     @Override
                     public void _onError(Throwable e) {

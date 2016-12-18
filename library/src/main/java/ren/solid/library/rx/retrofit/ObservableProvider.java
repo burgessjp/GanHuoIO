@@ -38,7 +38,7 @@ public class ObservableProvider {
     public Observable<String> loadString(String url) {
         return mCommonService
                 .loadString(url)
-                .compose(TransformUtils.<ResponseBody>defaultSchedulers())
+                .compose(RxUtils.<ResponseBody>defaultSchedulers())
                 .retryWhen(new RetryWhenNetworkException())
                 .map(new StringFunc());
     }
@@ -50,7 +50,7 @@ public class ObservableProvider {
     public void download(String url, final DownLoadSubscribe subscribe) {
         mCommonService
                 .download(url)
-                .compose(TransformUtils.<ResponseBody>all_io())
+                .compose(RxUtils.<ResponseBody>all_io())
                 .doOnNext(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody responseBody) {

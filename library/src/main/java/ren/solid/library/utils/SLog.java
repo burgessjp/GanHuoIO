@@ -1,6 +1,7 @@
 package ren.solid.library.utils;
 
 import android.support.annotation.NonNull;
+import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,14 +10,11 @@ import android.util.Log;
  * Date:2016/5/10
  * Time:10:15
  */
-public class Logger {
+public class SLog {
 
-    /**
-     * 是否为开发者模式(开发模式打印LOG,非开发模式不打印LOG)
-     */
     private static boolean mDebug = true;
 
-    private Logger() {
+    private SLog() {
     }
 
     /**
@@ -43,9 +41,9 @@ public class Logger {
      *
      * @param msg
      */
-    public static void i(String msg) {
+    public static void i(String tag,String msg) {
         if (mDebug) {
-            Log.i("LogInfo", msg);
+            Log.i(tag, msg);
         }
     }
 

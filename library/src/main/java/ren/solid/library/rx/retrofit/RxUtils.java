@@ -9,7 +9,7 @@ import rx.schedulers.Schedulers;
  * Date:2016/7/27
  * Time:21:17
  */
-public class TransformUtils {
+public class RxUtils {
 
     public static <T> Observable.Transformer<T, T> defaultSchedulers() {
         return new Observable.Transformer<T, T>() {

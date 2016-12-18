@@ -1,7 +1,5 @@
 package ren.solid.ganhuoio.ui.adapter;
 
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,8 +8,6 @@ import java.util.List;
 
 import ren.solid.ganhuoio.ui.fragment.CategoryListFragment;
 import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
-import ren.solid.library.utils.Logger;
-import ren.solid.library.utils.ViewUtils;
 
 /**
  * Created by _SOLID
@@ -19,9 +15,7 @@ import ren.solid.library.utils.ViewUtils;
  * Time:17:04
  */
 public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
-
-    private static String TAG = "GanHuoPagerAdapter";
-    private static List<String> mTitles;
+    private  List<String> mTitles;
     private int mChildCount = 0;
 
     public GanHuoPagerAdapter(FragmentManager fm, List<String> titles) {
@@ -30,7 +24,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addAll(List<String> titles) {
-        this.mTitles = titles;
+        mTitles = titles;
         notifyDataSetChanged();
     }
 
@@ -53,7 +47,6 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        Logger.i("getItemPosition:" + mChildCount);
         if (mChildCount > 0) {
             mChildCount--;
             return POSITION_NONE;
@@ -69,11 +62,5 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mTitles.get(position);
-    }
-
-    @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {
-        // super.restoreState(state, loader);
-        Logger.i(TAG, "restoreState");
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.TextureView;
 import android.widget.SearchView;
 
 import com.jakewharton.rxbinding.widget.RxSearchView;
@@ -17,17 +16,13 @@ import java.util.concurrent.TimeUnit;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.model.bean.bomb.RxOperators;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.utils.Logger;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by _SOLID

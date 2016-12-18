@@ -3,6 +3,7 @@ package ren.solid.ganhuoio.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,9 @@ import ren.solid.ganhuoio.model.bean.RecentlyHeader;
 import ren.solid.ganhuoio.model.bean.RecentlyTitle;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
-import rx.Subscriber;
-
-import static android.R.attr.fragment;
 
 /**
  * Created by _SOLID
@@ -34,7 +32,6 @@ public class RecentlyListFragment extends AbsListFragment {
     public static final String TITLE = "fragment_index";
 
     private String date;
-    private String title = "";
 
     private RecentlyHeader mRecentlyHeader;
 
@@ -50,8 +47,11 @@ public class RecentlyListFragment extends AbsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = getArguments().getString(DATE_STRING).replace('-', '/');
-        title = getArguments().getString(TITLE);
+        date = getArguments().getString(DATE_STRING);
+        if (!TextUtils.isEmpty(date)) {
+            date = date.replace('-', '/');
+        }
+        String title = getArguments().getString(TITLE);
         mRecentlyHeader = new RecentlyHeader();
         mRecentlyHeader.setTitle(title);
     }
@@ -76,10 +76,15 @@ public class RecentlyListFragment extends AbsListFragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void loadData(final int pageIndex) {
+        if (TextUtils.isEmpty(date)) {
+            showError(new Exception("date is null"));
+            return;
+        }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getRecentlyGanHuo(date)
-                .compose(TransformUtils.<HttpResult<GanHuoRecentlyBean>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<GanHuoRecentlyBean>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<GanHuoRecentlyBean>() {
 
                     @Override

@@ -9,7 +9,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.library.R;
 import ren.solid.library.adapter.LoadMoreWrapper;
@@ -23,13 +22,12 @@ import ren.solid.library.widget.StatusViewLayout;
  * Desc:列表基类，默认线性布局
  */
 
-public abstract class AbsListFragment extends BaseFragment implements IList {
+public abstract class AbsListFragment extends LazyLoadFragment implements IList {
 
     private StatusViewLayout mStatusViewLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
-    private MultiTypeAdapter mAdapter;
     private LoadMoreWrapper mLoadMoreWrapper;
     private int mCurrentPageIndex;
     private List mItems;
@@ -50,7 +48,7 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
     protected final void init() {
         mCurrentPageIndex = getInitPageIndex();
         mItems = new ArrayList<>();
-        mAdapter = getAdapter();
+        MultiTypeAdapter mAdapter = getAdapter();
         mAdapter.applyGlobalMultiTypePool();
         mLoadMoreWrapper = new LoadMoreWrapper(getContext(), mAdapter);
         mLoadMoreWrapper.setOnLoadListener(new LoadMoreWrapper.OnLoadListener() {
@@ -96,10 +94,13 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
 
     @Override
     protected final void setUpData() {
+    }
+
+    @Override
+    protected void lazyLoad() {
         showLoading();
         loadData(getInitPageIndex());//初始加载首页数据
     }
-
 
     @Override
     public final void refreshData() {
@@ -125,6 +126,7 @@ public abstract class AbsListFragment extends BaseFragment implements IList {
      * @param pageIndex 当前请求的页数
      * @param items     返回的数据
      */
+    @SuppressWarnings("unchecked")
     protected final void onDataSuccessReceived(int pageIndex, List items) {
         showContent();
         if (pageIndex == getInitPageIndex() && items.size() <= 0) {//无数据

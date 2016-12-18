@@ -1,5 +1,6 @@
 package ren.solid.ganhuoio.ui.provider;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -85,7 +86,7 @@ public class GanHuoImageViewProvider
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ViewPicActivity.openActivity(context, imageView, (ArrayList<String>) images, 0);
+                    ViewPicActivity.openActivity((Activity) context, imageView, (ArrayList<String>) images, 0);
                 }
             });
             container.addView(imageView);

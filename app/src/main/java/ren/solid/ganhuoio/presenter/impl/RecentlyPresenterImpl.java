@@ -9,7 +9,7 @@ import ren.solid.ganhuoio.model.impl.RecentlyModelImpl;
 import ren.solid.ganhuoio.presenter.IRecentlyPresenter;
 import ren.solid.ganhuoio.ui.view.IRecentlyView;
 import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import rx.functions.Func2;
 
@@ -48,7 +48,7 @@ public class RecentlyPresenterImpl implements IRecentlyPresenter {
                         return wrapper;
                     }
                 })
-                .compose(TransformUtils.<HttpResult<GanHuoRecentlyWrapper>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<GanHuoRecentlyWrapper>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<GanHuoRecentlyWrapper>() {
                     @Override
                     public void onSuccess(GanHuoRecentlyWrapper ganHuoRecentlyWrapper) {

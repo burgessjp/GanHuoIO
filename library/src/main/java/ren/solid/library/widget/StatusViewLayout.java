@@ -21,7 +21,6 @@ public class StatusViewLayout extends FrameLayout {
     private View mLoadingView;
     private View mErrorView;
     private View mEmptyView;
-    private LayoutParams mLayoutParams;
     private OnClickListener mOnRetryListener;
     private TextView status_view_tv_error;
     private TextView status_tv_empty_msg;
@@ -41,7 +40,7 @@ public class StatusViewLayout extends FrameLayout {
     }
 
     private void setUpView() {
-        mLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams mLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLayoutParams.gravity = Gravity.CENTER;
 
         mLoadingView = LayoutInflater.from(getContext()).inflate(R.layout.status_view_layout_loading, null);
@@ -62,13 +61,17 @@ public class StatusViewLayout extends FrameLayout {
                 }
             }
         });
-        showContent();
     }
 
     public void setOnRetryListener(OnClickListener listener) {
         mOnRetryListener = listener;
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        showLoading();
+    }
 
     public void showLoading() {
         for (int i = 0; i < getChildCount(); i++) {

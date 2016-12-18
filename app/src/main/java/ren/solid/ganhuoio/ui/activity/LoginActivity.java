@@ -23,7 +23,7 @@ import ren.solid.ganhuoio.event.LoginEvent;
 import ren.solid.ganhuoio.model.bean.WeiboBean;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.rx.RxBus;
-import ren.solid.library.rx.retrofit.TransformUtils;
+import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.utils.ToastUtils;
 import rx.Subscriber;
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("uid", AuthorityUtils.getUid());
 
         SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class);
-        service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(TransformUtils.<WeiboBean>defaultSchedulers())
+        service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(RxUtils.<WeiboBean>defaultSchedulers())
                 .subscribe(new Subscriber<WeiboBean>() {
                     @Override
                     public void onCompleted() {

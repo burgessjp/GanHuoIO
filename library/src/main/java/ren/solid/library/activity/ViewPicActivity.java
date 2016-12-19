@@ -65,6 +65,21 @@ public class ViewPicActivity extends BaseActivity {
         urls.add(url);
         openActivity(activity, view, urls, 0);
     }
+    public static void openActivity(Context context, View view, ArrayList<String> urls, int position) {
+        Intent intent = new Intent(context, ViewPicActivity.class);
+        intent.putStringArrayListExtra(IMG_URLS, urls);
+        intent.putExtra(IMG_INDEX, position);
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(view,
+                view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+        ActivityCompat.startActivity(context, intent,
+                compat.toBundle());
+    }
+
+    public static void openActivity(Context context, View view, String url) {
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(url);
+        openActivity(context, view, urls, 0);
+    }
 
     @Override
     protected void init(Bundle savedInstanceState) {

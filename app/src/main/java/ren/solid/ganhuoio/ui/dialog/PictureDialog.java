@@ -1,6 +1,5 @@
 package ren.solid.ganhuoio.ui.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -49,7 +48,7 @@ public class PictureDialog extends Dialog {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPicActivity.openActivity((Activity) view.getContext(), view, url);
+                ViewPicActivity.openActivity(view.getContext(), view, url);
             }
         });
 

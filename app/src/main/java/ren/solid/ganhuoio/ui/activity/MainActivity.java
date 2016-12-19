@@ -46,6 +46,7 @@ import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.SettingCenter;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
+import ren.solid.library.fragment.base.LazyLoadFragment;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
@@ -275,9 +276,10 @@ public class MainActivity extends BaseMainActivity {
         if (clazz == null) return;
         BaseFragment to = ViewUtils.createFragment(clazz);
         if (to.isAdded()) {
-            mFragmentManager.beginTransaction().hide(mCurrentFragment).show(to).commitAllowingStateLoss();
+            mFragmentManager.beginTransaction().hide(mCurrentFragment).show(to).commit();
         } else {
-            mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.frame_content, to).commitAllowingStateLoss();
+            to.setUserVisibleHint(true);
+            mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.frame_content, to).commit();
         }
         mCurrentFragment = to;
 

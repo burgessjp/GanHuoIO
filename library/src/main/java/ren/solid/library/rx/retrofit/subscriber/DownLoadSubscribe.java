@@ -1,6 +1,5 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;

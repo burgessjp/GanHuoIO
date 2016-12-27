@@ -1,5 +1,7 @@
 package ren.solid.library.rx;
 
+import android.text.TextUtils;
+
 import com.jakewharton.rxbinding.internal.Preconditions;
 
 import java.io.File;
@@ -47,6 +49,7 @@ public class OkHttpProvider {
         httpClientBuilder.cache(new Cache(httpCacheDirectory, 100 * 1024 * 1024));
         //设置拦截器
         httpClientBuilder.addInterceptor(new LoggingInterceptor());
+        httpClientBuilder.addInterceptor(cacheControl);
         httpClientBuilder.addNetworkInterceptor(cacheControl);
         httpClientBuilder.addInterceptor(new UserAgentInterceptor("Android Device"));
         return httpClientBuilder.build();
@@ -66,10 +69,15 @@ public class OkHttpProvider {
 
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
                 int maxAge = 60 * 60;
+                String cacheControl = request.cacheControl().toString();
+                if (TextUtils.isEmpty(cacheControl)) {
+                    cacheControl = "public, max-age=" + maxAge;
+                }
                 response = response.newBuilder()
                         .removeHeader("Pragma")
-                        .header("Cache-Control", "public, max-age=" + maxAge)
+                        .header("Cache-Control", cacheControl)
                         .build();
+
             } else {
                 int maxStale = 60 * 60 * 24 * 30;
                 response = response.newBuilder()
@@ -120,13 +128,13 @@ public class OkHttpProvider {
             Request request = chain.request();
 
             long t1 = System.nanoTime();
-            SLog.i(this,String.format(Locale.CHINA, "Sending request %s on %s%n%s",
+            SLog.i(this, String.format(Locale.CHINA, "Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers()));
 
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();
-            SLog.i(this,String.format(Locale.CHINA, "Received response for %s in %.1fms%n%s",
+            SLog.i(this, String.format(Locale.CHINA, "Received response for %s in %.1fms%n%s",
                     response.request().url(), (t2 - t1) / 1e6d, response.headers()));
 
             return response;

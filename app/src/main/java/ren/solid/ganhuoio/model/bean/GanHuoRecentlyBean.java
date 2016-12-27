@@ -22,6 +22,10 @@ public class GanHuoRecentlyBean {
 
     private List<GanHuoDataBean> 福利;
 
+
+
+    private List<GanHuoDataBean> 前端;
+
     public List<GanHuoDataBean> getAndroid() {
         return Android;
     }
@@ -68,5 +72,12 @@ public class GanHuoRecentlyBean {
 
     public void set福利(List<GanHuoDataBean> 福利) {
         this.福利 = 福利;
+    }
+    public List<GanHuoDataBean> get前端() {
+        return 前端;
+    }
+
+    public void set前端(List<GanHuoDataBean> 前端) {
+        this.前端 = 前端;
     }
 }

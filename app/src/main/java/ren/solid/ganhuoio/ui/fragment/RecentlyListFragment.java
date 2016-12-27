@@ -113,10 +113,15 @@ public class RecentlyListFragment extends AbsListFragment {
                                 list.add(new RecentlyTitle("iOS"));
                                 list.addAll(recentlyBean.getIOS());
                             }
+                            if (recentlyBean.get前端() != null) {
+                                list.add(new RecentlyTitle("前端"));
+                                list.addAll(recentlyBean.get前端());
+                            }
                             if (recentlyBean.get瞎推荐() != null) {
                                 list.add(new RecentlyTitle("瞎推荐"));
                                 list.addAll(recentlyBean.get瞎推荐());
                             }
+
 
                         }
                         onDataSuccessReceived(pageIndex, list);

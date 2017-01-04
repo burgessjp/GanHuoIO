@@ -46,7 +46,7 @@ public class MeizhiViewProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPicActivity.openActivity((Activity) holder.iv_img.getContext(), holder.iv_img, bean.getUrl());
+                ViewPicActivity.openActivity(holder.iv_img.getContext(), holder.iv_img, bean.getUrl());
             }
         });
 

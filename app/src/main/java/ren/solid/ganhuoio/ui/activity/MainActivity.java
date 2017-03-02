@@ -37,7 +37,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.event.LoginEvent;
 import ren.solid.ganhuoio.ui.fragment.CategoryFragment;
 import ren.solid.ganhuoio.ui.fragment.CollectListFragment;
-import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
+import ren.solid.ganhuoio.ui.fragment.MeiZhiFragment;
 import ren.solid.ganhuoio.ui.fragment.ReadingFragment;
 import ren.solid.ganhuoio.ui.fragment.RecentlyFragment;
 import ren.solid.ganhuoio.utils.AppUtils;
@@ -46,7 +46,6 @@ import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.SettingCenter;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.fragment.base.LazyLoadFragment;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemShareUtils;
@@ -130,7 +129,7 @@ public class MainActivity extends BaseMainActivity {
                     case R.id.item_meizhi:
                         mSortMenu.setVisible(false);
                         mToolbar.setTitle(getResources().getString(R.string.main_meizhi));
-                        clazz = MeizhiFragmant.class;
+                        clazz = MeiZhiFragment.class;
                         break;
                     case R.id.item_collect:
                         mToolbar.setTitle(getResources().getString(R.string.main_collect));

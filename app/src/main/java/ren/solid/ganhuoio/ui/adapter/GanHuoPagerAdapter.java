@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 import ren.solid.ganhuoio.ui.fragment.CategoryListFragment;
-import ren.solid.ganhuoio.ui.fragment.MeizhiFragmant;
+import ren.solid.ganhuoio.ui.fragment.MeiZhiFragment;
 
 /**
  * Created by _SOLID
@@ -34,7 +34,7 @@ public class GanHuoPagerAdapter extends FragmentStatePagerAdapter {
         if (!"福利".equals(mTitles.get(position))) {
             fragment = CategoryListFragment.newInstance(mTitles.get(position));
         } else {
-            fragment = MeizhiFragmant.newInstance();
+            fragment = MeiZhiFragment.newInstance();
         }
         return fragment;
     }

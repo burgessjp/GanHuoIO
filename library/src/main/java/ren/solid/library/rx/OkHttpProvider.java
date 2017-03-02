@@ -16,8 +16,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import ren.solid.library.SolidApplication;
-import ren.solid.library.utils.SLog;
 import ren.solid.library.utils.NetworkUtil;
+import ren.solid.library.utils.SLog;
 
 /**
  * Created by _SOLID
@@ -27,34 +27,40 @@ import ren.solid.library.utils.NetworkUtil;
 
 public class OkHttpProvider {
 
-    private final static long DEFAULT_TIMEOUT = 10;
+    private final static long DEFAULT_CONNECT_TIMEOUT = 30;
+    private final static long DEFAULT_WRITE_TIMEOUT = 30;
+    private final static long DEFAULT_READ_TIMEOUT = 30;
 
     public static OkHttpClient getDefaultOkHttpClient() {
-        return getNoCacheOkHttpClient(new CacheControlInterceptor());
+        return getOkHttpClient(new CacheControlInterceptor());
     }
 
-    public static OkHttpClient getNoCacheOkHttpClient() {
-        return getNoCacheOkHttpClient(new FromNetWorkControlInterceptor());
+    public static OkHttpClient getOkHttpClient() {
+        return getOkHttpClient(new FromNetWorkControlInterceptor());
     }
 
-    private static OkHttpClient getNoCacheOkHttpClient(Interceptor cacheControl) {
+    private static OkHttpClient getOkHttpClient(Interceptor cacheControl) {
         //定制OkHttp
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         //设置超时时间
-        httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-        httpClientBuilder.writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-        httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        httpClientBuilder.connectTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS);
+        httpClientBuilder.writeTimeout(DEFAULT_WRITE_TIMEOUT, TimeUnit.SECONDS);
+        httpClientBuilder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
         //设置缓存
         File httpCacheDirectory = new File(SolidApplication.getInstance().getCacheDir(), "OkHttpCache");
         httpClientBuilder.cache(new Cache(httpCacheDirectory, 100 * 1024 * 1024));
         //设置拦截器
+        httpClientBuilder.addInterceptor(new UserAgentInterceptor("Android Device"));
         httpClientBuilder.addInterceptor(new LoggingInterceptor());
         httpClientBuilder.addInterceptor(cacheControl);
         httpClientBuilder.addNetworkInterceptor(cacheControl);
-        httpClientBuilder.addInterceptor(new UserAgentInterceptor("Android Device"));
         return httpClientBuilder.build();
     }
 
+    /**
+     * 没有网络的情况下就从缓存中取
+     * 有网络的情况则从网络获取
+     */
     private static class CacheControlInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -66,7 +72,6 @@ public class OkHttpProvider {
             }
 
             Response response = chain.proceed(request);
-
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
                 int maxAge = 60 * 60;
                 String cacheControl = request.cacheControl().toString();
@@ -89,6 +94,9 @@ public class OkHttpProvider {
         }
     }
 
+    /**
+     * 强制从网络获取数据
+     */
     private static class FromNetWorkControlInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -102,6 +110,7 @@ public class OkHttpProvider {
             return response;
         }
     }
+
 
     private static class UserAgentInterceptor implements Interceptor {
         private static final String USER_AGENT_HEADER_NAME = "User-Agent";

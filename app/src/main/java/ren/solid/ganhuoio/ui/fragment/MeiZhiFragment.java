@@ -22,11 +22,11 @@ import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
  * Date:2016/5/21
  * Time:9:31
  */
-public class MeizhiFragmant extends AbsListFragment {
+public class MeiZhiFragment extends AbsListFragment {
 
-    public static MeizhiFragmant newInstance() {
+    public static MeiZhiFragment newInstance() {
         Bundle args = new Bundle();
-        MeizhiFragmant fragment = new MeizhiFragmant();
+        MeiZhiFragment fragment = new MeiZhiFragment();
         fragment.setArguments(args);
         return fragment;
     }

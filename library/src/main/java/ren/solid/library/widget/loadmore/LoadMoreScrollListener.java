@@ -1,4 +1,4 @@
-package ren.solid.library.adapter;
+package ren.solid.library.widget.loadmore;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,7 +54,10 @@ public abstract class LoadMoreScrollListener extends RecyclerView.OnScrollListen
 
 
         }
-        if (!isLoading && visibleItemCount > 0 && totalItemCount - 1 == lastVisibleItemPosition && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+        if (!isLoading
+                && visibleItemCount > 0
+                && totalItemCount - 1 == lastVisibleItemPosition
+                && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
             loadMore();
         }
 

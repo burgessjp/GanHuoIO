@@ -1,4 +1,4 @@
-package ren.solid.library.adapter;
+package ren.solid.library.widget.loadmore;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -92,7 +91,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((TextView) mLoadMoreView).setText("正在加载中");
             ((TextView) mLoadMoreView).setGravity(Gravity.CENTER);
         }
-        return ViewHolder.createViewHolder(mContext, mLoadMoreView);
+        return new ViewHolder(mLoadMoreView);
     }
 
     private ViewHolder getLoadFailedViewHolder() {
@@ -103,7 +102,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((TextView) mLoadMoreFailedView).setText("加载失败，请点我重试");
             ((TextView) mLoadMoreFailedView).setGravity(Gravity.CENTER);
         }
-        return ViewHolder.createViewHolder(mContext, mLoadMoreFailedView);
+        return new ViewHolder(mLoadMoreFailedView);
     }
 
     private ViewHolder getNoMoreViewHolder() {
@@ -114,7 +113,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((TextView) mNoMoreView).setText("--end--");
             ((TextView) mNoMoreView).setGravity(Gravity.CENTER);
         }
-        return ViewHolder.createViewHolder(mContext, mNoMoreView);
+        return new ViewHolder(mNoMoreView);
     }
     //endregion
 
@@ -201,6 +200,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 type == ITEM_TYPE_LOAD_FAILED_VIEW ||
                 type == ITEM_TYPE_NO_MORE_VIEW ||
                 type == ITEM_TYPE_LOAD_MORE_VIEW;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
     }
     //region 加载监听
 

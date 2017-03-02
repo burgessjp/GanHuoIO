@@ -18,12 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ServiceFactory {
 
-    private final Gson mGsonDateFormat;
+    private final Gson mGson;
     private OkHttpClient mOkHttpClient;
 
 
-    public ServiceFactory() {
-        mGsonDateFormat = new GsonBuilder()
+    private ServiceFactory() {
+        mGson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd hh:mm:ss")
                 .create();
         mOkHttpClient = OkHttpProvider.getDefaultOkHttpClient();
@@ -40,7 +40,7 @@ public class ServiceFactory {
 
     public static ServiceFactory getNoCacheInstance() {
         ServiceFactory factory = SingletonHolder.INSTANCE;
-        factory.mOkHttpClient = OkHttpProvider.getNoCacheOkHttpClient();
+        factory.mOkHttpClient = OkHttpProvider.getOkHttpClient();
         return factory;
     }
 
@@ -58,7 +58,7 @@ public class ServiceFactory {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(mOkHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(mGsonDateFormat))
+                .addConverterFactory(GsonConverterFactory.create(mGson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofit.create(serviceClass);

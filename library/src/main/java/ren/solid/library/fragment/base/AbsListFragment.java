@@ -11,9 +11,9 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.library.R;
-import ren.solid.library.adapter.LoadMoreWrapper;
 import ren.solid.library.utils.ToastUtils;
 import ren.solid.library.widget.StatusViewLayout;
+import ren.solid.library.widget.loadmore.LoadMoreWrapper;
 
 /**
  * Created by _SOLID

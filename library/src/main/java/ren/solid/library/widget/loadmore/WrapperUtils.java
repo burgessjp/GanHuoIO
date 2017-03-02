@@ -1,4 +1,4 @@
-package ren.solid.library.adapter;
+package ren.solid.library.widget.loadmore;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

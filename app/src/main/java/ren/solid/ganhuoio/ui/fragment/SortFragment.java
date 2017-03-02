@@ -4,8 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +18,6 @@ import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.constant.Apis;
 import ren.solid.ganhuoio.event.SortChangeEvent;
-import ren.solid.library.adapter.SolidRVBaseAdapter;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.CommonUtils;
@@ -79,31 +83,49 @@ public class SortFragment extends BaseFragment {
     }
 
 
-    public class SortAdapter extends SolidRVBaseAdapter<String> implements ItemTouchHelperAdapter {
+    public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
-        public SortAdapter(Context context, List<String> beans) {
-            super(context, beans);
+        Context context;
+        List<String> beans = new ArrayList<>();
+
+        SortAdapter(Context context, List<String> beans) {
+            this.context = context;
+            this.beans = beans;
+        }
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(context).inflate(R.layout.item_sort, parent, false);
+            return new ViewHolder(itemView);
         }
 
         @Override
-        protected void onBindDataToView(SolidCommonViewHolder holder, String bean, int position) {
+        public void onBindViewHolder(ViewHolder holder, int position) {
             if (position != 0) {
-                holder.setImage(R.id.iv_icon, R.drawable.icon_sort_item);
+                holder.iv_icon.setImageResource(R.drawable.icon_sort_item);
             } else {
-                holder.setImage(R.id.iv_icon, R.drawable.icon_fix);
+                holder.iv_icon.setImageResource(R.drawable.icon_fix);
             }
-            holder.setText(R.id.tv_name, bean);
+            holder.tv_name.setText(beans.get(position));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonUtils.vibrate(getMContext(), 100);
+                }
+            });
         }
 
         @Override
-        public int getItemLayoutID(int viewType) {
-            return R.layout.item_sort;
+        public int getItemCount() {
+            return beans.size();
         }
+
 
         @Override
         public void onItemMove(int fromPosition, int toPosition) {
             if (fromPosition != 0 && toPosition != 0) {
-                Collections.swap(mBeans, fromPosition, toPosition);
+                Collections.swap(beans, fromPosition, toPosition);
                 notifyItemMoved(fromPosition, toPosition);
                 saveCategoryString();
                 RxBus.getInstance().post(new SortChangeEvent());
@@ -113,15 +135,25 @@ public class SortFragment extends BaseFragment {
         }
 
         @Override
-        protected void onItemLongClick(int position) {
-            super.onItemLongClick(position);
-            CommonUtils.vibrate(getMContext(), 100);
+        public void onItemDismiss(int position) {
+            beans.remove(position);
+            notifyItemRemoved(position);
         }
 
-        @Override
-        public void onItemDismiss(int position) {
-            mBeans.remove(position);
-            notifyItemRemoved(position);
+        List<String> getDatas() {
+            return beans;
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            ImageView iv_icon;
+            TextView tv_name;
+
+            ViewHolder(View itemView) {
+                super(itemView);
+                iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
+                tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            }
         }
 
     }
@@ -132,7 +164,8 @@ public class SortFragment extends BaseFragment {
         List<String> list = mAdapter.getDatas();
         for (int i = 0; i < list.size(); i++) {
             if (i != list.size() - 1) {
-                builder.append(list.get(i) + "|");
+                builder.append(list.get(i));
+                builder.append("|");
             } else {
                 builder.append(list.get(i));
             }
@@ -145,7 +178,7 @@ public class SortFragment extends BaseFragment {
     public class SortCallBack extends ItemTouchHelper.Callback {
         private ItemTouchHelperAdapter adapter = null;
 
-        public SortCallBack(ItemTouchHelperAdapter adapter) {
+        SortCallBack(ItemTouchHelperAdapter adapter) {
             this.adapter = adapter;
         }
 

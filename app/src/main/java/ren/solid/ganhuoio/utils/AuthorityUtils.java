@@ -22,7 +22,7 @@ public class AuthorityUtils {
     }
 
     public static boolean isLogin() {
-        return PrefUtils.getBoolean(GanHuoIOApplication.getInstance(), "isLogin", false);
+        return PrefUtils.getBoolean(GanHuoIOApplication.getInstance(), "isLogin", true);
     }
 
     public static void login(WeiboBean result) {
@@ -52,7 +52,7 @@ public class AuthorityUtils {
     }
 
     public static String getUserName() {
-        return PrefUtils.getString(getContext(), "UserName", "");
+        return PrefUtils.getString(getContext(), "UserName", "_SOLID");
     }
 
     public static void setDescription(String desc) {

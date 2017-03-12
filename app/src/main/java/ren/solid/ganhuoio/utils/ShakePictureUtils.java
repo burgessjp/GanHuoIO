@@ -10,8 +10,8 @@ import android.os.Vibrator;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.PictureService;
-import ren.solid.ganhuoio.model.bean.RandomPictureBean;
-import ren.solid.ganhuoio.ui.dialog.PictureDialog;
+import ren.solid.ganhuoio.model.RandomPictureBean;
+import ren.solid.ganhuoio.common.PictureDialog;
 import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.utils.ToastUtils;

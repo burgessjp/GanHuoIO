@@ -22,11 +22,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    //侧滑菜单
-    compile('com.mikepenz:materialdrawer:5.2.6@aar', {
-        transitive = true
-    })
-    compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
+    // compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
     compile 'com.afollestad.material-dialogs:core:0.8.5.9'
     //support package
     compile 'com.android.support:recyclerview-v7:25.0.0'
@@ -51,9 +47,10 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     //compile 'com.squareup.okhttp:logging-interceptor:2.6.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
-     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.nineoldandroids:library:2.4.0'
     //RecyclerView Adapter
     compile('me.drakeet.multitype:multitype:2.2.2', {
         exclude group: 'com.android.support'
     })
+    compile 'com.makeramen:roundedimageview:2.3.0'
 }

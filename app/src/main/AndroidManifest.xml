@@ -30,7 +30,7 @@
             android:value="Tencent" />
 
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".common.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -40,16 +40,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".common.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SortActivity"
+            android:name=".common.activity.SortActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.AboutActivity"
+            android:name=".common.activity.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".common.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="ren.solid.library.activity.ViewPicActivity"
@@ -59,9 +59,17 @@
             android:name="ren.solid.library.activity.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SearchResultActivity"
+            android:name=".module.search.SearchResultActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".module.home.activity.CategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.home.activity.DailyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.home.activity.MeizhiActivity"
+            android:screenOrientation="portrait" />
         <!-- 新浪微博账号登录页面 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
@@ -89,7 +97,6 @@
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-
         <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"
@@ -110,7 +117,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.BombPushMessageReceiver">
+        <receiver android:name=".common.recevier.BombPushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>

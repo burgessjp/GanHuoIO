@@ -7,8 +7,8 @@ import android.widget.PopupMenu;
 
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.event.CollectChangeEvent;
-import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.common.event.CollectChangeEvent;
+import ren.solid.ganhuoio.model.bomb.CollectTable;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 

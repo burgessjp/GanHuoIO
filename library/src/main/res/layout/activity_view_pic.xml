@@ -33,7 +33,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            app:srcCompat="@drawable/ic_file_download_black_24dp"
-            app:theme="@style/MaterialTheme.Light" />
+            app:srcCompat="@drawable/ic_file_download_black_24dp" />
     </RelativeLayout>
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.api;
 
-import ren.solid.ganhuoio.model.bean.WeiboBean;
+import ren.solid.ganhuoio.model.WeiboBean;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;

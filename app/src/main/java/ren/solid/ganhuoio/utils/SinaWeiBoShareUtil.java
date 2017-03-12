@@ -20,7 +20,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.utils.Utility;
 
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.constant.Constants;
+import ren.solid.ganhuoio.common.constant.Constants;
 
 /**
  * Created by _SOLID

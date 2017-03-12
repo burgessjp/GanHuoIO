@@ -36,8 +36,11 @@ public abstract class ToolbarActivity extends BaseActivity {
         mAppBarLayout = $(R.id.appbar_layout);
         mToolbar = $(R.id.toolbar);
         mToolbar.setTitle(getToolbarTitle());
-
+        mToolbar.setSubtitle(getToolbarSubTitle());
         setUpToolBar();
+        if (!isHaveTitle()) {
+            mAppBarLayout.setVisibility(View.GONE);
+        }
 
     }
 
@@ -55,12 +58,20 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     protected abstract String getToolbarTitle();
 
+    protected String getToolbarSubTitle() {
+        return "";
+    }
+
     @Override
     protected void setUpData() {
         mFragmentManager.beginTransaction().replace(R.id.fl_content, setFragment()).commit();
     }
 
     protected abstract Fragment setFragment();
+
+    protected boolean isHaveTitle() {
+        return true;
+    }
 
 
     @Override

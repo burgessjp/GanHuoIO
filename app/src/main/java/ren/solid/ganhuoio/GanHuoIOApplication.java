@@ -1,18 +1,10 @@
 package ren.solid.ganhuoio;
 
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.leakcanary.LeakCanary;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
-import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.library.SolidApplication;
 
 /**
@@ -32,18 +24,6 @@ public class GanHuoIOApplication extends SolidApplication {
         // 启动推送服务
         BmobPush.startWork(this);
 
-        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
-            @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
-            }
-
-            @Override
-            public void cancel(ImageView imageView) {
-                Glide.with(imageView.getContext()).onDestroy();
-            }
-
-        });
         LeakCanary.install(this);
         MultiTypeInstaller.install();
     }

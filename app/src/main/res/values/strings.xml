@@ -4,7 +4,7 @@
     <string name="app_desc">在这里阅读最新的高质量的技术干货</string>
 
     <!--MainActivity-->
-    <string name="main_home">最新</string>
+    <string name="main_home">首页</string>
     <string name="main_category">分类浏览</string>
     <string name="main_collect">我的收藏</string>
     <string name="main_reading">闲读</string>

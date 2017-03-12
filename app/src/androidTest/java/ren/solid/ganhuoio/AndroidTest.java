@@ -5,12 +5,9 @@ import android.util.Log;
 
 import java.io.File;
 
-import ren.solid.ganhuoio.api.PictureService;
-import ren.solid.ganhuoio.model.bean.RandomPictureBean;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.service.CommonService;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID

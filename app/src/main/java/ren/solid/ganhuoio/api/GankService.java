@@ -2,16 +2,15 @@ package ren.solid.ganhuoio.api;
 
 import java.util.List;
 
-import ren.solid.ganhuoio.model.bean.GanHuoDataBean;
-import ren.solid.ganhuoio.model.bean.GanHuoRecentlyBean;
-import ren.solid.ganhuoio.model.bean.GanHuoTitleBean;
-import ren.solid.ganhuoio.model.bean.SearchResult;
+import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoRecentlyBean;
+import ren.solid.ganhuoio.model.GanHuoTitleBean;
+import ren.solid.ganhuoio.model.SearchResult;
+import ren.solid.ganhuoio.model.Daily;
 import ren.solid.library.rx.retrofit.HttpResult;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
-
-import static android.R.attr.path;
 
 /**
  * Created by _SOLID
@@ -67,4 +66,7 @@ public interface GankService {
      */
     @GET("search/query/{keyword}/category/all/count/20/page/{pageIndex}")
     Observable<HttpResult<List<SearchResult>>> search(@Path("keyword") String keyword, @Path("pageIndex") int pageIndex);
+
+    @GET("history/content/10/{pageIndex}")
+    Observable<HttpResult<List<Daily>>> getRecently(@Path("pageIndex") int pageIndex);
 }

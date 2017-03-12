@@ -1,22 +1,25 @@
 package ren.solid.ganhuoio;
 
 import me.drakeet.multitype.GlobalMultiTypePool;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanImage;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanMeizhi;
-import ren.solid.ganhuoio.model.bean.GanHuoDataBeanText;
-import ren.solid.ganhuoio.model.bean.Recently;
-import ren.solid.ganhuoio.model.bean.RecentlyHeader;
-import ren.solid.ganhuoio.model.bean.RecentlyTitle;
-import ren.solid.ganhuoio.model.bean.SearchResult;
-import ren.solid.ganhuoio.model.bean.bomb.CollectTable;
-import ren.solid.ganhuoio.ui.provider.CollectViewProvider;
-import ren.solid.ganhuoio.ui.provider.GanHuoImageViewProvider;
-import ren.solid.ganhuoio.ui.provider.GanHuoTextViewProvider;
-import ren.solid.ganhuoio.ui.provider.MeizhiViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyHeaderViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyTitleViewProvider;
-import ren.solid.ganhuoio.ui.provider.RecentlyViewProvider;
-import ren.solid.ganhuoio.ui.provider.SearchResultViewProvider;
+import ren.solid.ganhuoio.model.GanHuoDataBeanImage;
+import ren.solid.ganhuoio.model.GanHuoDataBeanMeizhi;
+import ren.solid.ganhuoio.model.GanHuoDataBeanText;
+import ren.solid.ganhuoio.model.Recently;
+import ren.solid.ganhuoio.model.RecentlyHeader;
+import ren.solid.ganhuoio.model.RecentlyTitle;
+import ren.solid.ganhuoio.model.SearchResult;
+import ren.solid.ganhuoio.model.bomb.CollectTable;
+import ren.solid.ganhuoio.model.CategoryList;
+import ren.solid.ganhuoio.module.home.provider.CategoryViewProvider;
+import ren.solid.ganhuoio.model.Daily;
+import ren.solid.ganhuoio.module.mine.CollectViewProvider;
+import ren.solid.ganhuoio.module.home.provider.GanHuoImageViewProvider;
+import ren.solid.ganhuoio.module.home.provider.GanHuoTextViewProvider;
+import ren.solid.ganhuoio.module.home.provider.MeizhiViewProvider;
+import ren.solid.ganhuoio.module.home.provider.DailyViewItemHeaderProvider;
+import ren.solid.ganhuoio.module.home.provider.DailyViewItemTitleProvider;
+import ren.solid.ganhuoio.module.home.provider.DailyViewItemProvider;
+import ren.solid.ganhuoio.module.search.SearchResultViewProvider;
 
 /**
  * Created by _SOLID
@@ -30,11 +33,14 @@ public class MultiTypeInstaller {
         GlobalMultiTypePool.register(GanHuoDataBeanText.class, new GanHuoTextViewProvider());
         GlobalMultiTypePool.register(GanHuoDataBeanImage.class, new GanHuoImageViewProvider());
         GlobalMultiTypePool.register(GanHuoDataBeanMeizhi.class, new MeizhiViewProvider());
-        GlobalMultiTypePool.register(Recently.class, new RecentlyViewProvider());
-        GlobalMultiTypePool.register(RecentlyTitle.class, new RecentlyTitleViewProvider());
-        GlobalMultiTypePool.register(RecentlyHeader.class, new RecentlyHeaderViewProvider());
+        GlobalMultiTypePool.register(Recently.class, new DailyViewItemProvider());
+        GlobalMultiTypePool.register(RecentlyTitle.class, new DailyViewItemTitleProvider());
+        GlobalMultiTypePool.register(RecentlyHeader.class, new DailyViewItemHeaderProvider());
         GlobalMultiTypePool.register(SearchResult.class, new SearchResultViewProvider());
         GlobalMultiTypePool.register(CollectTable.class, new CollectViewProvider());
+        //新版
+        GlobalMultiTypePool.register(CategoryList.class, new CategoryViewProvider());
+        GlobalMultiTypePool.register(Daily.class, new ren.solid.ganhuoio.module.home.provider.DailyViewProvider());
 
     }
 }

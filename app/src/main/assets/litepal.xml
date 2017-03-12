@@ -5,6 +5,6 @@
     <version value="1"></version>
 
     <list>
-        <mapping class="ren.solid.ganhuoio.model.bean.GanHuoDataBean"></mapping>
+        <mapping class="ren.solid.ganhuoio.model.GanHuoDataBean"></mapping>
     </list>
 </litepal>

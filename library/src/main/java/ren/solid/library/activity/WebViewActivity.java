@@ -6,11 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import ren.solid.library.R;
+import ren.solid.library.SolidApplication;
 import ren.solid.library.activity.base.BaseActivity;
 import ren.solid.library.fragment.WebViewFragment;
 import ren.solid.library.utils.ClipboardUtils;
@@ -34,9 +39,9 @@ public class WebViewActivity extends BaseActivity {
 
     private FragmentManager mFragmentManager;
     private WebViewFragment mWebViewFragment;
+    private TextSwitcher mTextSwitcher;
 
-    public  static void  openActivity(Context context,String title,String url)
-    {
+    public static void start(Context context, String title, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(WebViewActivity.WEB_URL, url);
         intent.putExtra(WebViewActivity.TITLE, title);
@@ -60,11 +65,10 @@ public class WebViewActivity extends BaseActivity {
     protected void setUpView() {
         //设置Toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(mTitle);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);//决定左上角的图标是否可以点击
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//决定左上角图标的右侧是否有向左的小箭头
-        //mToolbar.setNavigationIcon(R.drawable.ic_back);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +76,29 @@ public class WebViewActivity extends BaseActivity {
             }
         });
 
-
+        mTextSwitcher = $(R.id.textSwitcher);
+        mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public View makeView() {
+                Context context = WebViewActivity.this;
+                TextView textView = new TextView(context);
+                textView.setTextAppearance(context, R.style.WebTitle);
+                textView.setSingleLine(true);
+                textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        v.setSelected(!v.isSelected());
+                    }
+                });
+                return textView;
+            }
+        });
+        mTextSwitcher.setInAnimation(this, android.R.anim.fade_in);
+        mTextSwitcher.setOutAnimation(this, android.R.anim.fade_out);
+        mTextSwitcher.setText(mTitle);
+        mTextSwitcher.setSelected(true);
     }
 
     @Override
@@ -86,7 +112,7 @@ public class WebViewActivity extends BaseActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_copy) {
-            ClipboardUtils.setText(this, mUrl);
+            ClipboardUtils.setText(SolidApplication.getInstance(), mUrl);
             Snackbar.make(mToolbar, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_share) {

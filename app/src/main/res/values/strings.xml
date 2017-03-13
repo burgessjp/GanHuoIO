@@ -6,11 +6,10 @@
     <!--MainActivity-->
     <string name="main_home">首页</string>
     <string name="main_category">分类浏览</string>
-    <string name="main_collect">我的收藏</string>
+    <string name="main_mine">我的</string>
     <string name="main_reading">闲读</string>
     <string name="main_meizhi">妹纸</string>
     <string name="main_offline">离线缓存</string>
-    <string name="main_rx_search">RX</string>
     <string name="main_only_wifi">仅WIFI加载图片</string>
     <string name="main_shake_picture">图片摇一摇</string>
     <string name="main_share">分享</string>
@@ -36,15 +35,6 @@ drakeet的妹纸APP，最后感谢代码家的api。
     \n GitHub主页:https://github.com/burgessjp
     \n 新浪微博ID:_SOLID(之后的新文章会第一时间分享到新浪微博，欢迎关注~~~)
          \n项目地址:https://github.com/burgessjp/GanHuoIO
-              \n\n 更新日志:
-\nv3.0.0
-\n1.UI风格调整，全新的UI风格
-\n2.支持干货配图
-\n3.修复仅Wifi加载图片的bug
-\n4.新增gank最近推出的闲读
-\nv2.0.0
-\n1.新增底部Tab
-\n2.解决启动白屏问题
      </string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="update_log">

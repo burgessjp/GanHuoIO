@@ -55,7 +55,7 @@ public class GanHuoImageViewProvider
         holder.rl_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebViewActivity.openActivity(context, bean.getDesc(), bean.getUrl());
+                WebViewActivity.start(context, bean.getDesc(), bean.getUrl());
             }
         });
         holder.rl_bottom.setOnLongClickListener(new View.OnLongClickListener() {
@@ -86,7 +86,7 @@ public class GanHuoImageViewProvider
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ViewPicActivity.openActivity((Activity) context, imageView, (ArrayList<String>) images, 0);
+                    ViewPicActivity.start((Activity) context, imageView, (ArrayList<String>) images, 0);
                 }
             });
             container.addView(imageView);

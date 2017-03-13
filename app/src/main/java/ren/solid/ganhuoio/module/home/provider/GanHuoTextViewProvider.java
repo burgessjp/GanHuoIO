@@ -42,7 +42,7 @@ public class GanHuoTextViewProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebViewActivity.openActivity(holder.itemView.getContext(), bean.getDesc(), bean.getUrl());
+                WebViewActivity.start(holder.itemView.getContext(), bean.getDesc(), bean.getUrl());
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

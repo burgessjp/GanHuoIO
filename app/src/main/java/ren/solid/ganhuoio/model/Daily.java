@@ -1,7 +1,5 @@
 package ren.solid.ganhuoio.model;
 
-import static u.aly.x.i;
-
 /**
  * Created by _SOLID
  * GitHub:https://github.com/burgessjp

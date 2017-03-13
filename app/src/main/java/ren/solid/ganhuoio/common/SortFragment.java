@@ -16,7 +16,6 @@ import java.util.List;
 
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.common.constant.Apis;
 import ren.solid.ganhuoio.common.event.SortChangeEvent;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.rx.RxBus;
@@ -48,7 +47,7 @@ public class SortFragment extends BaseFragment {
     protected void setUpView() {
         mRecyclerView = $(R.id.recyclerview);
 
-        mList = Apis.getGanHuoCateGory();
+      //  mList = Apis.getGanHuoCateGory();
         mAdapter = new SortAdapter(getMContext(), mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
         mRecyclerView.setAdapter(mAdapter);

@@ -1,14 +1,12 @@
 package ren.solid.ganhuoio.common.constant;
 
-import android.text.TextUtils;
+import android.support.v4.util.ArrayMap;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import ren.solid.ganhuoio.GanHuoIOApplication;
-import ren.solid.library.utils.PrefUtils;
+import ren.solid.ganhuoio.model.CategoryList;
 
 /**
  * Created by _SOLID
@@ -17,32 +15,36 @@ import ren.solid.library.utils.PrefUtils;
  */
 public class Apis {
 
-    public static String[] GanHuoCateGory = new String[]{"休息视频", "Android", "iOS", "前端", "拓展资源", "瞎推荐", "福利"};
-//    private final static int CATEGORY_VERSION = 2;
-//
-//    static {
-//        if (PrefUtils.getInt(GanHuoIOApplication.getInstance(), "category_version", 0) != CATEGORY_VERSION) {
-//            PrefUtils.putString(GanHuoIOApplication.getInstance(), "HomeCategory", "");
-//            PrefUtils.putInt(GanHuoIOApplication.getInstance(), "category_version", CATEGORY_VERSION);
-//        }
-//
-//    }
+    static Map<String, String> cateMaps = new ArrayMap<>();
+    static String[] ganHuoCateGory = new String[]{
+            "休息视频",
+            "Android",
+            "iOS",
+            "前端",
+            "拓展资源",
+            "瞎推荐",
+            "福利"};
 
-    public static List<String> getGanHuoCateGory() {
+    static {
+        cateMaps.put("休息视频", "http://omqomam0q.bkt.clouddn.com/video.png");
+        cateMaps.put("Android", "http://omqomam0q.bkt.clouddn.com/android.png");
+        cateMaps.put("iOS", "http://omqomam0q.bkt.clouddn.com/ios.png");
+        cateMaps.put("前端", "http://omqomam0q.bkt.clouddn.com/web.png");
+        cateMaps.put("拓展资源", "http://omqomam0q.bkt.clouddn.com/android.png");
+        cateMaps.put("瞎推荐", "http://omqomam0q.bkt.clouddn.com/android.png");
+        cateMaps.put("福利", "http://omqomam0q.bkt.clouddn.com/meizhi.png");
+    }
 
-//        List<String> list = new ArrayList<>();
-//        String prefCategory = PrefUtils.getString(GanHuoIOApplication.getInstance(), "HomeCategory", "");
-//        if (TextUtils.isEmpty(prefCategory)) {
-//
-//            for (int i = 0; i < GanHuoCateGory.length; i++) {
-//                list.add(GanHuoCateGory[i]);
-//            }
-//        } else {
-//            String[] str = prefCategory.split("\\|");
-//            for (int i = 0; i < str.length; i++) {
-//                list.add(str[i]);
-//            }
-//        }
-        return Arrays.asList(GanHuoCateGory);
+
+    public static List<CategoryList.Category> getGanHuoCateGory() {
+        List<CategoryList.Category> list = new ArrayList<>();
+
+        for (String name : ganHuoCateGory) {
+            CategoryList.Category category = new CategoryList.Category();
+            category.setName(name);
+            category.setImgUrl(cateMaps.get(name));
+            list.add(category);
+        }
+        return list;
     }
 }

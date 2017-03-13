@@ -1,12 +1,16 @@
 package ren.solid.library.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import ren.solid.library.R;
 import ren.solid.library.activity.base.BaseActivity;
@@ -23,8 +27,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     protected Toolbar mToolbar;
     protected AppBarLayout mAppBarLayout;
+    protected TextSwitcher mTextSwitcher;
     protected FragmentManager mFragmentManager;
-    protected boolean mIsHidden = false;
 
     @Override
     protected void init(Bundle savedInstanceState) {
@@ -34,17 +38,37 @@ public abstract class ToolbarActivity extends BaseActivity {
     @Override
     protected void setUpView() {
         mAppBarLayout = $(R.id.appbar_layout);
-        mToolbar = $(R.id.toolbar);
-        mToolbar.setTitle(getToolbarTitle());
-        mToolbar.setSubtitle(getToolbarSubTitle());
+        mTextSwitcher = $(R.id.textSwitcher);
+        mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public View makeView() {
+                Context context = ToolbarActivity.this;
+                TextView textView = new TextView(context);
+                textView.setTextAppearance(context, R.style.WebTitle);
+                textView.setSingleLine(true);
+                textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        v.setSelected(!v.isSelected());
+                    }
+                });
+                return textView;
+            }
+        });
+        mTextSwitcher.setInAnimation(this, android.R.anim.fade_in);
+        mTextSwitcher.setOutAnimation(this, android.R.anim.fade_out);
         setUpToolBar();
         if (!isHaveTitle()) {
             mAppBarLayout.setVisibility(View.GONE);
         }
+        setTitle(getToolbarTitle());
 
     }
 
     private void setUpToolBar() {
+        mToolbar = $(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,48 +76,33 @@ public abstract class ToolbarActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        getSupportActionBar().setHomeButtonEnabled(true);//决定左上角的图标是否可以点击
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     protected abstract String getToolbarTitle();
-
-    protected String getToolbarSubTitle() {
-        return "";
-    }
 
     @Override
     protected void setUpData() {
         mFragmentManager.beginTransaction().replace(R.id.fl_content, setFragment()).commit();
     }
 
+    @Override
+    protected int setLayoutResourceID() {
+        return R.layout.activity_toolbar;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        mTextSwitcher.setText(title);
+        mTextSwitcher.setSelected(true);
+    }
+
     protected abstract Fragment setFragment();
 
     protected boolean isHaveTitle() {
         return true;
-    }
-
-
-    @Override
-    protected int setLayoutResourceID() {
-        return R.layout.activity_content;
-    }
-
-    protected void setAppBarAlpha(float alpha) {
-        mAppBarLayout.setAlpha(alpha);
-    }
-
-
-    public void hideOrShowToolbar() {
-        mAppBarLayout.animate()
-                .translationY(mIsHidden ? 0 : -mAppBarLayout.getHeight())
-                .setInterpolator(new DecelerateInterpolator(2))
-                .start();
-
-        mIsHidden = !mIsHidden;
-    }
-
-    protected void setAppbarVisibility(int visibility) {
-        mAppBarLayout.setVisibility(visibility);
     }
 }

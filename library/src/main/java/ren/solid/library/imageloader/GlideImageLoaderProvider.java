@@ -42,6 +42,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
         Glide.with(ctx)
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
+                .error(img.getError())
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(img.getImageView());

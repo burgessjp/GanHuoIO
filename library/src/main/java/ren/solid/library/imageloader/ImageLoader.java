@@ -28,16 +28,8 @@ public class ImageLoader {
         ImageRequest request = new ImageRequest.Builder()
                 .url(url)
                 .imgView(iv)
-                .placeHolder(R.drawable.default_load_img)
-                .create();
-        getProvider().loadImage(request);
-    }
-
-    public static void displayImage(ImageView iv, String url, int placeHolder) {
-        ImageRequest request = new ImageRequest.Builder()
-                .url(url)
-                .imgView(iv)
-                .placeHolder(placeHolder)
+                .placeHolder(R.color.md_grey_500)
+                .error(R.color.md_red_500)
                 .create();
         getProvider().loadImage(request);
     }

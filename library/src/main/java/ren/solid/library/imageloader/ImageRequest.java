@@ -16,11 +16,13 @@ public class ImageRequest {
 
     private String url;
     private int placeHolder;
+    private int error;
     private ImageView imageView;
 
     public ImageRequest(Builder builder) {
         this.url = builder.url;
         this.placeHolder = builder.placeHolder;
+        this.error = builder.error;
         this.imageView = builder.imageView;
     }
 
@@ -48,9 +50,18 @@ public class ImageRequest {
         this.placeHolder = placeHolder;
     }
 
+    public int getError() {
+        return error;
+    }
+
+    public void setError(int error) {
+        this.error = error;
+    }
+
     public static class Builder {
         private String url;
         private int placeHolder;
+        private int error;
         private ImageView imageView;
 
         public Builder() {
@@ -66,6 +77,11 @@ public class ImageRequest {
 
         public Builder placeHolder(int placeHolder) {
             this.placeHolder = placeHolder;
+            return this;
+        }
+
+        public Builder error(int error) {
+            this.error = error;
             return this;
         }
 

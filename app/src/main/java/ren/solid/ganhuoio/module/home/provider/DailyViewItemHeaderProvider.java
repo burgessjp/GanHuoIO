@@ -1,6 +1,5 @@
 package ren.solid.ganhuoio.module.home.provider;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,12 +33,12 @@ public class DailyViewItemHeaderProvider
     @Override
     protected void onBindViewHolder(
             @NonNull final ViewHolder holder, @NonNull final RecentlyHeader recentlyHeader) {
-        holder.tv_title.setText(recentlyHeader.getTitle());
+        //holder.tv_title.setText(recentlyHeader.getTitle());
         ImageLoader.displayImage(holder.iv_img, recentlyHeader.getImgUrl());
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPicActivity.openActivity((Activity) holder.iv_img.getContext(), holder.iv_img, recentlyHeader.getImgUrl());
+                ViewPicActivity.start(holder.iv_img.getContext(), holder.iv_img, recentlyHeader.getImgUrl());
             }
         });
     }

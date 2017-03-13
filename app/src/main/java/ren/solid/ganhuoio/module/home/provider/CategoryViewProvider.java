@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
@@ -13,6 +14,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.CategoryList;
 import ren.solid.ganhuoio.module.home.activity.CategoryActivity;
 import ren.solid.ganhuoio.module.home.activity.MeizhiActivity;
+import ren.solid.library.imageloader.ImageLoader;
 
 /**
  * Created by _SOLID
@@ -34,7 +36,6 @@ public class CategoryViewProvider
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull CategoryList categoryList) {
-
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(new SubAdapter(categoryList));
@@ -70,8 +71,9 @@ public class CategoryViewProvider
 
         @Override
         public void onBindViewHolder(SubViewHolder holder, int position) {
-            final String type = categoryList.getData().get(position);
+            final String type = categoryList.getData().get(position).getName();
             holder.tv_title.setText(type);
+            ImageLoader.displayImage(holder.iv_img, categoryList.getData().get(position).getImgUrl());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,10 +93,12 @@ public class CategoryViewProvider
 
         static class SubViewHolder extends RecyclerView.ViewHolder {
             TextView tv_title;
+            ImageView iv_img;
 
             SubViewHolder(View itemView) {
                 super(itemView);
                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+                iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
             }
         }
     }

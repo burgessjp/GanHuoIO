@@ -46,7 +46,7 @@ public class DailyViewItemProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebViewActivity.openActivity(holder.itemView.getContext(), recently.getDesc(), recently.getUrl());
+                WebViewActivity.start(holder.itemView.getContext(), recently.getDesc(), recently.getUrl());
             }
         });
     }

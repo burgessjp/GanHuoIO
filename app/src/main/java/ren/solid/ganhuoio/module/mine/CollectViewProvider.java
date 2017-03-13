@@ -42,7 +42,7 @@ public class CollectViewProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebViewActivity.openActivity(holder.itemView.getContext()
+                WebViewActivity.start(holder.itemView.getContext()
                         , collect.getDesc(), collect.getUrl());
             }
         });

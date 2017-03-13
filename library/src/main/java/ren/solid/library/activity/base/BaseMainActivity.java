@@ -20,7 +20,6 @@ public abstract class BaseMainActivity extends BaseActivity {
                 lastBackKeyDownTick = currentTick;
             } else {
                 finish();
-                System.exit(0);
             }
         }
     }

@@ -37,18 +37,15 @@ public class PictureDialog extends Dialog {
         setContentView(R.layout.dialog_picture);
         setCanceledOnTouchOutside(true);
         mImageView = (ImageView) findViewById(R.id.iv_picture);
-        mImageView.setImageResource(R.drawable.avastar);
     }
 
     public void setPicture(final String url) {
-
-
         show();
         ImageLoader.displayImage(mImageView, url);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPicActivity.openActivity(view.getContext(), view, url);
+                ViewPicActivity.start(view.getContext(), view, url);
             }
         });
 

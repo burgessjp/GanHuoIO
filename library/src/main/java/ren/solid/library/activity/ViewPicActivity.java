@@ -2,7 +2,6 @@
 
 package ren.solid.library.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
@@ -21,6 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ren.solid.library.R;
+import ren.solid.library.SolidApplication;
 import ren.solid.library.activity.base.BaseActivity;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.rx.retrofit.ObservableProvider;
@@ -50,8 +50,7 @@ public class ViewPicActivity extends BaseActivity {
     private String mSavePath;
 
 
-
-    public static void openActivity(Context context, View view, ArrayList<String> urls, int position) {
+    public static void start(Context context, View view, ArrayList<String> urls, int position) {
         Intent intent = new Intent(context, ViewPicActivity.class);
         intent.putStringArrayListExtra(IMG_URLS, urls);
         intent.putExtra(IMG_INDEX, position);
@@ -61,10 +60,10 @@ public class ViewPicActivity extends BaseActivity {
                 compat.toBundle());
     }
 
-    public static void openActivity(Context context, View view, String url) {
+    public static void start(Context context, View view, String url) {
         ArrayList<String> urls = new ArrayList<>();
         urls.add(url);
-        openActivity(context, view, urls, 0);
+        start(context, view, urls, 0);
     }
 
     @Override
@@ -182,7 +181,7 @@ public class ViewPicActivity extends BaseActivity {
             public void onCompleted(File file) {
                 if (action == 0) {
                     SnackBarUtils.makeLong(mViewPager, "已保存至相册").info();
-                    MediaScannerConnection.scanFile(ViewPicActivity.this, new String[]{
+                    MediaScannerConnection.scanFile(SolidApplication.getInstance(), new String[]{
                                     mSavePath},
                             null, null);
                 } else {
@@ -192,14 +191,12 @@ public class ViewPicActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
-                //Log.i("ThreadInfo", "onError:" + Thread.currentThread().getName());
                 if (action == 0)
                     SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
             }
 
             @Override
             public void onProgress(double progress, long downloadByte, long totalByte) {
-                // Log.i("ThreadInfo", "onProgress:" + Thread.currentThread().getName());
                 SLog.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
 
             }
@@ -208,7 +205,7 @@ public class ViewPicActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         ActivityCompat.finishAfterTransition(this);
+        overridePendingTransition(0, R.anim.activity_close);
     }
 }

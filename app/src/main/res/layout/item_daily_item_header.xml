@@ -13,13 +13,13 @@
         android:textColor="@color/md_black_1000"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="Category"
-        tools:visibility="visible" />
+        android:visibility="gone"
+        tools:text="Category" />
 
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:src="@drawable/avastar" />
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar" />
 </LinearLayout>

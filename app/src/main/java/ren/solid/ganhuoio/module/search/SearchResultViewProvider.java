@@ -43,7 +43,7 @@ public class SearchResultViewProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebViewActivity.openActivity(holder.itemView.getContext()
+                WebViewActivity.start(holder.itemView.getContext()
                         , searchResult.getDesc(), searchResult.getUrl());
             }
         });

@@ -5,13 +5,6 @@ import android.content.res.TypedArray;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import ren.solid.library.fragment.base.BaseFragment;
 
 /**
@@ -21,49 +14,28 @@ import ren.solid.library.fragment.base.BaseFragment;
  */
 public class ViewUtils {
 
-    private static Map<String, BaseFragment> fragmentList = new HashMap<>();
-
     /**
      * 根据Class创建Fragment
      *
      * @param clazz the Fragment of create
      * @return
      */
-    public static BaseFragment createFragment(Class<?> clazz, boolean isObtain) {
+    public static BaseFragment createFragment(Class<?> clazz) {
         BaseFragment resultFragment = null;
         String className = clazz.getName();
-        if (fragmentList.containsKey(className)) {
-            resultFragment = fragmentList.get(className);
-        } else {
+        try {
             try {
-                try {
-                    resultFragment = (BaseFragment) Class.forName(className).newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } catch (ClassNotFoundException e) {
+                resultFragment = (BaseFragment) Class.forName(className).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            if (isObtain)
-                fragmentList.put(className, resultFragment);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         return resultFragment;
-    }
-
-    public static BaseFragment createFragment(Class<?> clazz) {
-        return createFragment(clazz, true);
-    }
-
-    public static List<BaseFragment> getFragments() {
-        Iterator<BaseFragment> ita = fragmentList.values().iterator();
-        List<BaseFragment> list = new ArrayList<>();
-        while (ita.hasNext()) {
-            list.add(ita.next());
-        }
-        return list;
     }
 
 

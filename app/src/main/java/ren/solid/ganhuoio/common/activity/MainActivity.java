@@ -4,6 +4,7 @@ package ren.solid.ganhuoio.common.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 
@@ -12,19 +13,14 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.module.home.fragment.HomeFragment;
 import ren.solid.ganhuoio.module.mine.CollectListFragment;
 import ren.solid.ganhuoio.module.read.ReadingFragment;
-import ren.solid.ganhuoio.utils.ShakePictureUtils;
 import ren.solid.library.activity.base.BaseMainActivity;
-import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.ViewUtils;
 
 public class MainActivity extends BaseMainActivity {
 
     private BottomNavigationView mBottomNavigationView;
     private FragmentManager mFragmentManager;
-    private BaseFragment mCurrentFragment;
-
-    //摇一摇相关
-    private ShakePictureUtils mShakePictureUtils;
+    private Fragment mCurrentFragment;
 
     @Override
     protected int setLayoutResourceID() {
@@ -35,13 +31,7 @@ public class MainActivity extends BaseMainActivity {
     protected void init(Bundle savedInstanceState) {
         BmobUpdateAgent.update(this);
         mFragmentManager = getSupportFragmentManager();
-        mCurrentFragment = (BaseFragment) mFragmentManager.findFragmentById(R.id.frame_content);
-        if (mCurrentFragment == null) {
-            mCurrentFragment = ViewUtils.createFragment(HomeFragment.class);
-            mFragmentManager.beginTransaction().add(R.id.frame_content, mCurrentFragment).commit();
-        }
-        //初始化摇一摇
-        mShakePictureUtils = new ShakePictureUtils(this);
+        switchFragment(0);
     }
 
     @Override
@@ -50,22 +40,18 @@ public class MainActivity extends BaseMainActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Class<?> clazz = null;
                 switch (item.getItemId()) {
                     case R.id.item_home:
-                        clazz = HomeFragment.class;
+                        switchFragment(0);
                         break;
                     case R.id.item_collect:
-                        clazz = CollectListFragment.class;
+                        switchFragment(2);
                         break;
                     case R.id.item_reading:
-                        clazz = ReadingFragment.class;
+                        switchFragment(1);
                         break;
                     default:
                         break;
-                }
-                if (clazz != null) {
-                    switchFragment(clazz);
                 }
                 return false;
             }
@@ -77,19 +63,29 @@ public class MainActivity extends BaseMainActivity {
     protected void setUpData() {
     }
 
-
-    private void switchFragment(Class<?> clazz) {
-        if (clazz == null) return;
-        BaseFragment to = ViewUtils.createFragment(clazz);
+    private void switchFragment(int index) {
+        Fragment to = mFragmentManager.findFragmentByTag(index + "");
+        if (to == null) {
+            if (index == 0)
+                to = ViewUtils.createFragment(HomeFragment.class);
+            else if (index == 1)
+                to = ViewUtils.createFragment(ReadingFragment.class);
+            else if (index == 2)
+                to = ViewUtils.createFragment(CollectListFragment.class);
+            else
+                to = ViewUtils.createFragment(HomeFragment.class);
+        }
         if (to.isAdded()) {
             mFragmentManager.beginTransaction().hide(mCurrentFragment).show(to).commit();
         } else {
             to.setUserVisibleHint(true);
-            mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.frame_content, to).commit();
+            if (mCurrentFragment != null)
+                mFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.frame_content, to, index + "").commit();
+            else
+                mFragmentManager.beginTransaction().add(R.id.frame_content, to, index + "").commit();
         }
         mCurrentFragment = to;
     }
-
 
     @Override
     protected boolean beforeOnBackPressed() {
@@ -101,18 +97,5 @@ public class MainActivity extends BaseMainActivity {
             }
         }
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mShakePictureUtils.registerSensor();
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mShakePictureUtils.unRegisterSensor();
     }
 }

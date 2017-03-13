@@ -38,7 +38,7 @@ public class DailyViewProvider
         ImageLoader.displayImage(holder.iv_img, daily.getImgUrl());
         holder.iv_img.setColorFilter(Color.parseColor("#5e000000"));
         holder.tv_date.setText(daily.getDate());
-        holder.tv_desc.setText(daily.getTitle());
+        holder.tv_desc.setText(daily.getTitle().replace("今日力推：", ""));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

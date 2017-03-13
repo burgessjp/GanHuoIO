@@ -36,11 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
+            android:gravity="center_horizontal"
             android:maxLines="2"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="今日力推：Alibaba 开源 iOS 高性能异构滚动视图构建方案 / 浅谈RxJava与多线程并发" />
+            tools:text="Alibaba 开源 iOS 高性能异构滚动视图构建方案 / 浅谈RxJava与多线程并发" />
     </LinearLayout>
 
 

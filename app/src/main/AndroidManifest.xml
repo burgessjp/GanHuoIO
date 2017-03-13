@@ -46,10 +46,10 @@
             android:name=".common.activity.SortActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".common.activity.AboutActivity"
+            android:name=".module.about.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".common.activity.LoginActivity"
+            android:name=".module.mine.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="ren.solid.library.activity.ViewPicActivity"

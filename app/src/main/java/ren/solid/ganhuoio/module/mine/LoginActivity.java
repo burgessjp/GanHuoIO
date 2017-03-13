@@ -1,4 +1,4 @@
-package ren.solid.ganhuoio.common.activity;
+package ren.solid.ganhuoio.module.mine;
 
 import android.content.Intent;
 import android.os.Bundle;

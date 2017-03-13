@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.module.mine.LoginActivity;
 import ren.solid.ganhuoio.utils.AppUtils;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.activity.base.BaseActivity;

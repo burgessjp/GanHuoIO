@@ -26,7 +26,7 @@ public class DailyActivity extends ToolbarActivity {
     @Override
     protected String getToolbarTitle() {
         String date = getIntent().getExtras().getString("date");
-        return getIntent().getExtras().getString("title").replace("今日", date);
+        return getIntent().getExtras().getString("title").replace("今日力推", date + "力推");
     }
 
     @Override

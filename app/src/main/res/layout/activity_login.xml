@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="ren.solid.ganhuoio.common.activity.LoginActivity">
+    tools:context="ren.solid.ganhuoio.module.mine.LoginActivity">
 
     <include layout="@layout/toolbar"></include>
 

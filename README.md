@@ -1,5 +1,5 @@
 
-**[新版改版中]**一个基于Gank.IO提供的API的第三方客户端，基于 Material Design，项目中覆盖了 MVP、RxJava、Retrofit、第三方登录以及很多第三方库的使用。App可以及时的查看gank.io的最新更新，还有可以很方便的对信息进行分类查看，可以对感觉有兴趣的信息进行在线收藏。
+**[新版重构中，需要之前版本的请点击[3.0.5](https://github.com/burgessjp/GanHuoIO/tree/v3.0.5end)]**一个基于Gank.IO提供的API的第三方客户端，基于 Material Design，项目中覆盖了 MVP、RxJava、Retrofit、第三方登录以及很多第三方库的使用。App可以及时的查看gank.io的最新更新，还有可以很方便的对信息进行分类查看，可以对感觉有兴趣的信息进行在线收藏。
 
 ###应用截图
 

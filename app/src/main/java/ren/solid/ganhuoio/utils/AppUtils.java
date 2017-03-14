@@ -1,6 +1,5 @@
 package ren.solid.ganhuoio.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -75,15 +74,15 @@ public class AppUtils {
                 }).show();
     }
 
-    public static void logOut(final Activity activity) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(activity)
+    public static void logOut(final Context context) {
+        if (!AuthorityUtils.isLogin()) return;
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title("提示")
                 .content("确定注销吗？")
                 .positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
                         AuthorityUtils.logout();
-                        activity.finish();
                     }
                 }).negativeText("取消").onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -96,8 +95,8 @@ public class AppUtils {
         dialog.show();
     }
 
-    public static void clearCache(final Activity activity, final SettingCenter.ClearCacheListener listener) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(activity)
+    public static void clearCache(Context context, final SettingCenter.ClearCacheListener listener) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title("温馨提示")
                 .content("确定清空缓存吗？如果你使用的是移动网络不建议清空缓存哦")
                 .positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -110,30 +109,4 @@ public class AppUtils {
         MaterialDialog dialog = builder.build();
         dialog.show();
     }
-
-//    public static int getResourseIDByUrl(String url) {
-//        int resId = R.drawable.web;
-//        if (url.contains("csdn.net")) {
-//            resId = R.drawable.csdn;
-//        } else if (url.contains("github.com")) {
-//            resId = R.drawable.github;
-//        } else if (url.contains("jianshu.com")) {
-//            resId = R.drawable.jianshu;
-//        } else if (url.contains("miaopai.com")) {
-//            resId = R.drawable.miaopai;
-//        } else if (url.contains("acfun.tv")) {
-//            resId = R.drawable.acfun;
-//        } else if (url.contains("bilibili.com")) {
-//            resId = R.drawable.bilibili;
-//        } else if (url.contains("youku.com")) {
-//            resId = R.drawable.youku;
-//        } else if (url.contains("weibo.com")) {
-//            resId = R.drawable.weibo;
-//        } else if (url.contains("weixin.qq")) {
-//            resId = R.drawable.weixin;
-//        }
-//
-//
-//        return resId;
-//    }
 }

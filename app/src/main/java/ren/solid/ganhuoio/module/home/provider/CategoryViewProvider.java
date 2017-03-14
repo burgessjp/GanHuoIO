@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
+import ren.solid.ganhuoio.common.activity.SubActivity;
 import ren.solid.ganhuoio.model.CategoryList;
 import ren.solid.ganhuoio.module.home.activity.CategoryActivity;
-import ren.solid.ganhuoio.module.home.activity.MeizhiActivity;
 import ren.solid.library.imageloader.ImageLoader;
 
 /**
@@ -78,7 +78,7 @@ public class CategoryViewProvider
                 @Override
                 public void onClick(View v) {
                     if ("福利".equals(type)) {
-                        MeizhiActivity.start(v.getContext());
+                        SubActivity.start(v.getContext(), "看妹纸", SubActivity.TYPE_MEIZHI);
                     } else {
                         CategoryActivity.start(v.getContext(), type);
                     }

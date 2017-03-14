@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ren.solid.library.widget.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.solidev.statusviewlayout.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/status_view_layout"
     android:layout_width="match_parent"
@@ -17,4 +17,4 @@
             app:layoutManager="LinearLayoutManager" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</ren.solid.library.widget.StatusViewLayout>
+</me.solidev.statusviewlayout.StatusViewLayout>

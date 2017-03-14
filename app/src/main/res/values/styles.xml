@@ -22,8 +22,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="ViewPicTheme" parent="AppTheme">
-    </style>
+    <style name="ViewPicTheme" parent="AppTheme"></style>
 
     <style name="SplashTheme" parent="FullScreen">
         <item name="android:windowBackground">@drawable/bg_splash_activity</item>
@@ -51,5 +50,17 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="MineItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/md_grey_700</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.common.constant.Apis;
+import ren.solid.ganhuoio.common.constant.Category;
 import ren.solid.ganhuoio.model.CategoryList;
 import ren.solid.ganhuoio.model.Daily;
 import ren.solid.library.fragment.base.AbsListFragment;
@@ -38,7 +38,7 @@ public class HomeFragment extends AbsListFragment {
         final List data = new ArrayList();
         if (pageIndex == getInitPageIndex()) {
             CategoryList categoryList = new CategoryList();
-            categoryList.setData(Apis.getGanHuoCateGory());
+            categoryList.setData(Category.getGanHuoCateGory());
             data.add(categoryList);
         }
 

@@ -17,7 +17,7 @@ public class SortActivity extends ToolbarActivity {
     }
 
     @Override
-    protected Fragment setFragment() {
+    protected Fragment getFragment() {
         return new SortFragment();
     }
 }

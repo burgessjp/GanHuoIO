@@ -1,5 +1,6 @@
 package ren.solid.ganhuoio.module.mine;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -18,7 +19,14 @@ import ren.solid.library.widget.LinearDecoration;
  * Date:2016/5/18
  * Time:14:23
  */
-public class CollectListFragment extends AbsListFragment {
+public class MyCollectFragment extends AbsListFragment {
+
+    public static MyCollectFragment newInstance() {
+        Bundle args = new Bundle();
+        MyCollectFragment fragment = new MyCollectFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected void customConfig() {
@@ -45,7 +53,7 @@ public class CollectListFragment extends AbsListFragment {
                 }
             });
         } else {
-            showError(new Exception(GanHuoIOApplication.getInstance().getResources().getString(R.string.no_login)));
+            showEmpty(getString(R.string.no_login));
         }
     }
 

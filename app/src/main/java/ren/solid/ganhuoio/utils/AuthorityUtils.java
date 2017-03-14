@@ -16,13 +16,12 @@ import ren.solid.library.utils.PrefUtils;
 public class AuthorityUtils {
 
 
-
     private static Context getContext() {
         return GanHuoIOApplication.getInstance();
     }
 
     public static boolean isLogin() {
-        return PrefUtils.getBoolean(GanHuoIOApplication.getInstance(), "isLogin", true);
+        return PrefUtils.getBoolean(GanHuoIOApplication.getInstance(), "isLogin", false);
     }
 
     public static void login(WeiboBean result) {
@@ -52,7 +51,7 @@ public class AuthorityUtils {
     }
 
     public static String getUserName() {
-        return PrefUtils.getString(getContext(), "UserName", "_SOLID");
+        return PrefUtils.getString(getContext(), "UserName", "");
     }
 
     public static void setDescription(String desc) {
@@ -126,7 +125,7 @@ public class AuthorityUtils {
     /**
      * 保存 Token 对象到 SharedPreferences。
      *
-     * @param token   Token 对象
+     * @param token Token 对象
      */
     public static void writeAccessToken(Oauth2AccessToken token) {
 

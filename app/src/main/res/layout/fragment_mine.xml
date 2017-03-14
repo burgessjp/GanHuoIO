@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@color/colorPrimaryDark"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/mine_click_login"
+        android:textColor="@color/md_black_1000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_margin="20dp"
+        android:background="@color/md_grey_700" />
+
+    <TextView
+        android:id="@+id/tv_my_collect"
+        style="@style/MineItem"
+        android:text="@string/mine_collect" />
+
+    <TextView
+        android:id="@+id/tv_clear_cache"
+        style="@style/MineItem"
+        android:text="@string/mine_cache_clear" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        style="@style/MineItem"
+        android:text="@string/mine_about" />
+
+    <TextView
+        android:id="@+id/tv_logout"
+        style="@style/MineItem"
+        android:text="@string/mine_exit" />
+</LinearLayout>

@@ -53,4 +53,5 @@ dependencies {
         exclude group: 'com.android.support'
     })
     compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'me.solidev.library:status-view-layout:0.2.2'
 }

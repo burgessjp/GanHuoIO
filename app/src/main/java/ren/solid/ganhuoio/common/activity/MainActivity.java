@@ -15,9 +15,10 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.module.home.activity.DailyActivity;
 import ren.solid.ganhuoio.module.home.fragment.HomeFragment;
-import ren.solid.ganhuoio.module.mine.CollectListFragment;
+import ren.solid.ganhuoio.module.mine.MineFragment;
 import ren.solid.ganhuoio.module.read.ReadingFragment;
 import ren.solid.library.activity.base.BaseMainActivity;
+import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.ViewUtils;
 
 public class MainActivity extends BaseMainActivity {
@@ -48,11 +49,11 @@ public class MainActivity extends BaseMainActivity {
                     case R.id.item_home:
                         switchFragment(0);
                         break;
-                    case R.id.item_collect:
-                        switchFragment(2);
-                        break;
                     case R.id.item_reading:
                         switchFragment(1);
+                        break;
+                    case R.id.item_collect:
+                        switchFragment(2);
                         break;
                     default:
                         break;
@@ -85,11 +86,13 @@ public class MainActivity extends BaseMainActivity {
             else if (index == 1)
                 to = ViewUtils.createFragment(ReadingFragment.class);
             else if (index == 2)
-                to = ViewUtils.createFragment(CollectListFragment.class);
+                to = ViewUtils.createFragment(MineFragment.class);
             else
                 to = ViewUtils.createFragment(HomeFragment.class);
         }
-        if (to.isAdded()) {
+        if (to == mCurrentFragment && mCurrentFragment instanceof BaseFragment) {
+            ((BaseFragment) mCurrentFragment).refresh();
+        } else if (to.isAdded()) {
             mFragmentManager.beginTransaction().hide(mCurrentFragment).show(to).commit();
         } else {
             to.setUserVisibleHint(true);

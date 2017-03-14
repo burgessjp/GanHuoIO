@@ -1,10 +1,15 @@
 package ren.solid.ganhuoio.module.mine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -33,34 +38,58 @@ public class LoginActivity extends AppCompatActivity {
     private AuthInfo mAuthInfo;
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mAccessToken;
+    private TextSwitcher mTextSwitcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        mToolbar.setTitle("登录");
-        setSupportActionBar(mToolbar);
-
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        setUpToolBar();
         findViewById(R.id.ll_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
+        setTitle(getString(R.string.mine_login));
     }
+
+    private void setUpToolBar() {
+        Toolbar mToolbar = (Toolbar) findViewById(ren.solid.library.R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        mTextSwitcher = (TextSwitcher) findViewById(ren.solid.library.R.id.textSwitcher);
+        mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public View makeView() {
+                Context context = LoginActivity.this;
+                TextView textView = new TextView(context);
+                textView.setTextAppearance(context, ren.solid.library.R.style.WebTitle);
+                textView.setSingleLine(true);
+                textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        v.setSelected(!v.isSelected());
+                    }
+                });
+                return textView;
+            }
+        });
+        mTextSwitcher.setInAnimation(this, android.R.anim.fade_in);
+        mTextSwitcher.setOutAnimation(this, android.R.anim.fade_out);
+    }
+
 
     private void login() {
         mAuthInfo = new AuthInfo(this, Constants.SINA_APP_KEY, Constants.SINA_REDIRECT_URL, Constants.SINA_SCOPE);
@@ -127,12 +156,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(WeiboBean result) {
-
-
                         if (result != null) {
                             AuthorityUtils.setUserName(result.getName());
                             AuthorityUtils.login(result);
-                            RxBus.getInstance().post(new LoginEvent());
+                            RxBus.getInstance().post(new LoginEvent(1));
                             BmobUser user = new BmobUser();
                             user.setUsername(result.getName());
                             user.setPassword("123456");
@@ -146,6 +173,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        mTextSwitcher.setText(title);
+        mTextSwitcher.setSelected(true);
     }
 
     @Override

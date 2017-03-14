@@ -47,7 +47,7 @@ public class SortFragment extends BaseFragment {
     protected void setUpView() {
         mRecyclerView = $(R.id.recyclerview);
 
-      //  mList = Apis.getGanHuoCateGory();
+      //  mList = Category.getGanHuoCateGory();
         mAdapter = new SortAdapter(getMContext(), mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
         mRecyclerView.setAdapter(mAdapter);

@@ -65,7 +65,7 @@ public class AboutActivity extends BaseActivity {
         mTvToolbarTitle = $(R.id.tv_toolbar_title);
         mCollapsingToolbarLayout = $(R.id.collapsing_toolbar_layout);
         tv_version = $(R.id.tv_version);
-        tv_version.setText("version:" + SystemUtils.getAppVersion(this));
+        tv_version.setText("v" + SystemUtils.getAppVersion(this));
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     // 设置渐变的动画
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
+    public void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);

@@ -29,10 +29,9 @@ public class CategoryActivity extends ToolbarActivity {
     }
 
     @Override
-    protected Fragment setFragment() {
+    protected Fragment getFragment() {
         CategoryListFragment fragment =
                 CategoryListFragment.newInstance(getIntent().getExtras().getString("type"));
-        //由于在之前使用了懒加载，所以加上这个才会显示
         fragment.setUserVisibleHint(true);
         return fragment;
     }

@@ -28,18 +28,17 @@ import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
  */
 public class RecentlyListFragment extends AbsListFragment {
 
-    public static final String DATE_STRING = "dateString";
-    public static final String TITLE = "fragment_index";
 
     private String date;
 
     private RecentlyHeader mRecentlyHeader;
 
-    public static RecentlyListFragment newInstance(String date, String title) {
-        Bundle args = new Bundle();
-        args.putString(RecentlyListFragment.DATE_STRING, date);
-        args.putString(RecentlyListFragment.TITLE, title);
+    public static RecentlyListFragment newInstance(int year, int month, int day) {
         RecentlyListFragment fragment = new RecentlyListFragment();
+        Bundle args = new Bundle();
+        args.putInt("year", year);
+        args.putInt("month", month);
+        args.putInt("day", day);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,13 +46,10 @@ public class RecentlyListFragment extends AbsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = getArguments().getString(DATE_STRING);
-        if (!TextUtils.isEmpty(date)) {
-            date = date.replace('-', '/');
-        }
-        String title = getArguments().getString(TITLE);
+        date = getArguments().getInt("year") + "/"
+                + getArguments().getInt("month") + "/"
+                + getArguments().getInt("day");
         mRecentlyHeader = new RecentlyHeader();
-        mRecentlyHeader.setTitle(title.replace("今日力推", date));
     }
 
     @Override
@@ -127,5 +123,11 @@ public class RecentlyListFragment extends AbsListFragment {
                         onDataSuccessReceived(pageIndex, list);
                     }
                 });
+    }
+
+    @NonNull
+    @Override
+    protected String getEmptyMsg() {
+        return "今日暂无干货";
     }
 }

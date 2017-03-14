@@ -5,15 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import ren.solid.library.rx.RxBus;
-import ren.solid.library.utils.SLog;
-import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -64,6 +58,9 @@ public abstract class BaseFragment extends Fragment {
 
     public Context getMContext() {
         return mContext;
+    }
+
+    public void refresh() {
     }
 
     protected ProgressDialog getProgressDialog() {

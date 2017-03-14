@@ -3,20 +3,20 @@
     <string name="app_site">Gank.IO</string>
     <string name="app_desc">在这里阅读最新的高质量的技术干货</string>
 
-    <!--MainActivity-->
+
     <string name="main_home">首页</string>
-    <string name="main_category">分类浏览</string>
     <string name="main_mine">我的</string>
     <string name="main_reading">闲读</string>
-    <string name="main_meizhi">妹纸</string>
-    <string name="main_offline">离线缓存</string>
     <string name="main_only_wifi">仅WIFI加载图片</string>
-    <string name="main_shake_picture">图片摇一摇</string>
-    <string name="main_share">分享</string>
-    <string name="main_feedback">反馈</string>
-    <string name="main_setting">设置</string>
-    <string name="main_exit">注销账户</string>
-    <string name="main_cache_clear">缓存清理</string>
+
+    <string name="mine_login">用户登录</string>
+    <string name="mine_click_login">点我登录</string>
+    <string name="mine_collect">我的收藏</string>
+    <string name="mine_cache_clear">缓存清理</string>
+    <string name="mine_exit">退出登录</string>
+    <string name="mine_about">关于应用</string>
+    <string name="mine_share">分享</string>
+    <string name="mine_feedback">反馈</string>
 
     <string name="feedback_dialog_title">您宝贵的反馈建议</string>
     <string name="feedback_input_hint">可直接到Github提Issues</string>

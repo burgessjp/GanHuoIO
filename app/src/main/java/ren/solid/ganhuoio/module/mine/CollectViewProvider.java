@@ -33,10 +33,9 @@ public class CollectViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull final ViewHolder holder, @NonNull final CollectTable collect) {
-        String date = collect.getCreatedAt();//bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
-
-        holder.tv_people.setText("via " + collect.getWho());
-        holder.tv_time.setText("收藏时间:" + DateUtils.friendlyTime(date));
+        String date = collect.getPublishedAt().replace('T', ' ').replace('Z', ' ');//bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
+        holder.tv_people.setText(collect.getWho());
+        holder.tv_time.setText(DateUtils.friendlyTime(date));
         holder.tv_tag.setText(collect.getType());
         holder.tv_desc.setText(collect.getDesc());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

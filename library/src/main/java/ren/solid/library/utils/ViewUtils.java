@@ -38,6 +38,9 @@ public class ViewUtils {
         return resultFragment;
     }
 
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        return context.getResources().getDisplayMetrics();
+    }
 
     /**
      * 获取屏幕的宽度

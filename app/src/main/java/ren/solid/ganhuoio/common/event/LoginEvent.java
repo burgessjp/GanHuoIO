@@ -1,3 +1,4 @@
+
 package ren.solid.ganhuoio.common.event;
 
 /**
@@ -8,4 +9,13 @@ package ren.solid.ganhuoio.common.event;
  */
 
 public class LoginEvent {
+
+    int type = 1;//1:登录成功 0:登出
+    public LoginEvent(int type) {
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
 }

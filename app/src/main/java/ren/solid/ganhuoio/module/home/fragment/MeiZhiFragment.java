@@ -2,7 +2,8 @@ package ren.solid.ganhuoio.module.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -31,15 +32,21 @@ public class MeiZhiFragment extends AbsListFragment {
         return fragment;
     }
 
+    @Override
+    protected void customConfig() {
+        new LinearSnapHelper().attachToRecyclerView(mRecyclerView);
+    }
+
     @NonNull
     @Override
     protected RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(getContext(), 1);
+        return new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
     }
 
     @Override
     public void loadData(final int pageIndex) {
-        ServiceFactory.getInstance().createService(GankService.class)
+        ServiceFactory.getInstance()
+                .createService(GankService.class)
                 .getGanHuo("福利", pageIndex)
                 .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {

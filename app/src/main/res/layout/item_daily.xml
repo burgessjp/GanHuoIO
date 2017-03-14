@@ -25,7 +25,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="#d5ffffff"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="2017-03-10" />
@@ -38,10 +38,10 @@
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:maxLines="2"
-            android:textColor="#ffffff"
+            android:textColor="#d5ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Alibaba 开源 iOS 高性能异构滚动视图构建方案 / 浅谈RxJava与多线程并发" />
+            tools:text="# Alibaba 开源 iOS 高性能异构滚动视图构建方案 / 浅谈RxJava与多线程并发" />
     </LinearLayout>
 
 

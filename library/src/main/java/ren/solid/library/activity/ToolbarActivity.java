@@ -25,7 +25,6 @@ import ren.solid.library.activity.base.BaseActivity;
  */
 public abstract class ToolbarActivity extends BaseActivity {
 
-    protected Toolbar mToolbar;
     protected AppBarLayout mAppBarLayout;
     protected TextSwitcher mTextSwitcher;
     protected FragmentManager mFragmentManager;
@@ -38,6 +37,27 @@ public abstract class ToolbarActivity extends BaseActivity {
     @Override
     protected void setUpView() {
         mAppBarLayout = $(R.id.appbar_layout);
+        setUpToolBar();
+        if (!isHaveTitle()) {
+            mAppBarLayout.setVisibility(View.GONE);
+        }
+        setTitle(getToolbarTitle());
+
+    }
+
+    private void setUpToolBar() {
+        Toolbar mToolbar = $(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mTextSwitcher = $(R.id.textSwitcher);
         mTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @SuppressWarnings("deprecation")
@@ -59,33 +79,15 @@ public abstract class ToolbarActivity extends BaseActivity {
         });
         mTextSwitcher.setInAnimation(this, android.R.anim.fade_in);
         mTextSwitcher.setOutAnimation(this, android.R.anim.fade_out);
-        setUpToolBar();
-        if (!isHaveTitle()) {
-            mAppBarLayout.setVisibility(View.GONE);
-        }
-        setTitle(getToolbarTitle());
-
-    }
-
-    private void setUpToolBar() {
-        mToolbar = $(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     protected abstract String getToolbarTitle();
 
     @Override
     protected void setUpData() {
-        mFragmentManager.beginTransaction().replace(R.id.fl_content, setFragment()).commit();
+        Fragment fragment = getFragment();
+        if (fragment != null)
+            mFragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit();
     }
 
     @Override
@@ -100,7 +102,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mTextSwitcher.setSelected(true);
     }
 
-    protected abstract Fragment setFragment();
+    protected abstract Fragment getFragment();
 
     protected boolean isHaveTitle() {
         return true;

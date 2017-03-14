@@ -1,8 +1,11 @@
 package ren.solid.ganhuoio.common.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -33,22 +36,18 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
-//        ObjectAnimator animatorX = ObjectAnimator.ofFloat($(R.id.iv_logo), "scaleX", 1.0f, 1.5f);
-//        ObjectAnimator animatorY = ObjectAnimator.ofFloat($(R.id.iv_logo), "scaleY", 1.0f, 1.5f);
-//        ObjectAnimator animatorAlpha = ObjectAnimator.ofFloat($(R.id.iv_logo), "alpha", 0.1f, 1);
-//        ObjectAnimator animatorTv = ObjectAnimator.ofFloat($(R.id.tv_appname), "translationY", 0, ViewUtils.dp2px(this, 30));
-//
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.playTogether(animatorX, animatorY, animatorAlpha, animatorTv);
-//        animatorSet.setDuration(2000).start();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        ObjectAnimator rotate = ObjectAnimator.ofFloat($(R.id.iv_logo), "rotationY", 180, 360);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(rotate);
+        animatorSet.setDuration(2000);
+        animatorSet.start();
+        animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void run() {
+            public void onAnimationEnd(Animator animation) {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
             }
-        }, 2000);
+        });
     }
 
     private void checkLogin() {

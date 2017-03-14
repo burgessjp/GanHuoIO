@@ -26,15 +26,28 @@ public class DailyActivity extends ToolbarActivity {
     @Override
     protected String getToolbarTitle() {
         String date = getIntent().getExtras().getString("date");
-        return getIntent().getExtras().getString("title").replace("今日力推", date + "力推");
+        String title = getIntent().getExtras().getString("title");
+        return title.replace("今日力推", date + " 力推");
     }
 
     @Override
-    protected Fragment setFragment() {
-        RecentlyListFragment fragment = RecentlyListFragment.newInstance(
-                getIntent().getExtras().getString("date").replace("-", "/"),
-                getIntent().getExtras().getString("title"));
-        fragment.setUserVisibleHint(true);
+    protected Fragment getFragment() {
+        String date = getIntent().getExtras().getString("date");
+        String[] dates = null;
+        if (date.contains("-")) {
+            dates = getIntent().getExtras().getString("date").split("-");
+        } else if (date.contains("/")) {
+            dates = getIntent().getExtras().getString("date").split("/");
+        }
+
+        RecentlyListFragment fragment = null;
+        if (dates != null && dates.length == 3) {
+            fragment = RecentlyListFragment.newInstance(
+                    Integer.parseInt(dates[0]),
+                    Integer.parseInt(dates[1]),
+                    Integer.parseInt(dates[2]));
+            fragment.setUserVisibleHint(true);
+        }
         return fragment;
     }
 

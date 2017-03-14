@@ -68,7 +68,7 @@
             android:name=".module.home.activity.DailyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.home.activity.MeizhiActivity"
+            android:name=".common.activity.SubActivity"
             android:screenOrientation="portrait" />
         <!-- 新浪微博账号登录页面 -->
         <activity

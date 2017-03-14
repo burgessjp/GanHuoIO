@@ -13,7 +13,7 @@ import ren.solid.ganhuoio.model.CategoryList;
  * Date:2016/5/16
  * Time:16:13
  */
-public class Apis {
+public class Category {
 
     static Map<String, String> cateMaps = new ArrayMap<>();
     static String[] ganHuoCateGory = new String[]{

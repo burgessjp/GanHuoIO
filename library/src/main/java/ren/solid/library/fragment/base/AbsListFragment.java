@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
+import me.solidev.statusviewlayout.StatusViewLayout;
 import ren.solid.library.R;
 import ren.solid.library.utils.ToastUtils;
-import ren.solid.library.widget.StatusViewLayout;
 import ren.solid.library.widget.loadmore.LoadMoreWrapper;
 
 /**
@@ -24,15 +24,15 @@ import ren.solid.library.widget.loadmore.LoadMoreWrapper;
 
 public abstract class AbsListFragment extends LazyLoadFragment implements IList {
 
-    private StatusViewLayout mStatusViewLayout;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    protected StatusViewLayout mStatusViewLayout;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected RecyclerView mRecyclerView;
 
-    private LoadMoreWrapper mLoadMoreWrapper;
-    private int mCurrentPageIndex;
-    private List mItems;
+    protected LoadMoreWrapper mLoadMoreWrapper;
+    protected int mCurrentPageIndex;
+    protected List mItems;
 
-    private boolean isCanLoadMore = true;
+    protected boolean isCanLoadMore = true;
 
     public void disAbleLoadMore() {
         isCanLoadMore = false;
@@ -66,7 +66,7 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
     }
 
     @Override
-    protected final void setUpView() {
+    protected void setUpView() {
         mStatusViewLayout = $(R.id.status_view_layout);
         mSwipeRefreshLayout = $(R.id.swipe_refresh_layout);
         mRecyclerView = $(R.id.recyclerview);

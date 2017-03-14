@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/layout_appbar"/>
+    <include layout="@layout/layout_appbar" />
 
     <FrameLayout
         android:id="@+id/frame_content"
@@ -14,14 +13,27 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/main_tab_background"
-        app:itemIconTint="@color/bottom_item_color"
-        app:itemTextColor="@color/bottom_item_color"
-        app:layout_behavior="@string/bye_burger_bottom_behavior"
-        app:menu="@menu/menu_bottom_navigation" />
+        android:orientation="vertical"
+        app:layout_behavior="@string/bye_burger_bottom_behavior">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/md_grey_500"></View>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/main_tab_background"
+            app:itemIconTint="@color/bottom_item_color"
+            app:itemTextColor="@color/bottom_item_color"
+            app:menu="@menu/menu_bottom_navigation" />
+    </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>

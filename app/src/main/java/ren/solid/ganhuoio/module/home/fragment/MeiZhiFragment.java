@@ -48,6 +48,7 @@ public class MeiZhiFragment extends AbsListFragment {
         ServiceFactory.getInstance()
                 .createService(GankService.class)
                 .getGanHuo("福利", pageIndex)
+                .compose(this.<HttpResult<List<GanHuoDataBean>>>bindToLifecycle())
                 .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override

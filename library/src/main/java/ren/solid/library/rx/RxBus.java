@@ -30,7 +30,7 @@ public class RxBus {
         _bus.onNext(o);
     }
 
-    public <T> Observable<T> toObserverable(Class<T> eventType) {
+    public <T> Observable<T> toObservable(Class<T> eventType) {
         return _bus.ofType(eventType);
     }
 }

@@ -12,7 +12,7 @@ import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.SearchResult;
 import ren.solid.library.activity.WebViewActivity;
-import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.SpannableStringUtils;
 
 /**
  * Created by _SOLID
@@ -36,7 +36,7 @@ public class SearchResultViewProvider
             @NonNull final ViewHolder holder, @NonNull final SearchResult searchResult) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(
-                StringStyleUtils.format(holder.tv_title.getContext(), "[" + searchResult.getType() +
+                SpannableStringUtils.format(holder.tv_title.getContext(), "[" + searchResult.getType() +
                         "]", R.style.ByTextAppearance));
         builder.append(searchResult.getDesc());
         holder.tv_title.setText(builder.subSequence(0, builder.length()));

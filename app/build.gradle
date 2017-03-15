@@ -11,9 +11,13 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 310
-        versionName "3.1.0dev"
+        versionName "3.1.0"
     }
     buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

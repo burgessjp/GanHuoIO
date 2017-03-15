@@ -9,7 +9,7 @@ import android.text.style.TextAppearanceSpan;
  * Date:2016/5/18
  * Time:17:10
  */
-public class StringStyleUtils {
+public class SpannableStringUtils {
     public static SpannableString format(Context context, String text, int style) {
         SpannableString spannableString = new SpannableString(text);
         spannableString.setSpan(new TextAppearanceSpan(context, style), 0, text.length(),

@@ -3,9 +3,9 @@ package ren.solid.library.activity.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -13,7 +13,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:2016/3/30
  * Time:9:40
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
 
     @Override
@@ -25,7 +25,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setUpView();
         setUpData();
     }
-
 
 
     protected void setUpData() {

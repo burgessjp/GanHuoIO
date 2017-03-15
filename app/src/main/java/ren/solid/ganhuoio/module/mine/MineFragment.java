@@ -18,7 +18,7 @@ import ren.solid.library.SettingCenter;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.rx.RxBus;
-import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.SpannableStringUtils;
 import ren.solid.library.utils.ToastUtils;
 import rx.functions.Action1;
 
@@ -38,7 +38,8 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void init() {
         RxBus.getInstance()
-                .toObserverable(LoginEvent.class)
+                .toObservable(LoginEvent.class)
+                .compose(this.<LoginEvent>bindToLifecycle())
                 .subscribe(new Action1<LoginEvent>() {
                     @Override
                     public void call(LoginEvent loginEvent) {
@@ -115,7 +116,7 @@ public class MineFragment extends BaseFragment {
             public void onResult(long result) {
                 SpannableStringBuilder builder = new SpannableStringBuilder();
                 builder.append(getString(R.string.mine_cache_clear) + "\n");
-                builder.append(StringStyleUtils.format(getContext(), "(" + SettingCenter.formatFileSize(result) + ")", R.style.ByTextAppearance));
+                builder.append(SpannableStringUtils.format(getContext(), "(" + SettingCenter.formatFileSize(result) + ")", R.style.ByTextAppearance));
                 tv_clear_cache.setText(builder);
             }
         });

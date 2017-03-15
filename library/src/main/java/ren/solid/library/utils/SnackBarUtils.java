@@ -16,10 +16,10 @@ public class SnackBarUtils {
 
     private static final int color_action = 0XFFCDC5BF;
 
-    private Snackbar mSnackbar;
+    private Snackbar mSnackBar;
 
     private SnackBarUtils(Snackbar snackbar) {
-        mSnackbar = snackbar;
+        mSnackBar = snackbar;
     }
 
     public static SnackBarUtils makeShort(View view, String text) {
@@ -42,11 +42,11 @@ public class SnackBarUtils {
 
 
     private Snackbar setSnackBarBackColor(int colorId) {
-        View snackBarView = getSnackBarLayout(mSnackbar);
+        View snackBarView = getSnackBarLayout(mSnackBar);
         if (snackBarView != null) {
             snackBarView.setBackgroundColor(colorId);
         }
-        return mSnackbar;
+        return mSnackBar;
     }
 
     public void info() {
@@ -90,11 +90,11 @@ public class SnackBarUtils {
     }
 
     public void show() {
-        mSnackbar.show();
+        mSnackBar.show();
     }
 
     public void show(String actionText, View.OnClickListener listener) {
-        mSnackbar.setActionTextColor(color_action);
-        mSnackbar.setAction(actionText, listener).show();
+        mSnackBar.setActionTextColor(color_action);
+        mSnackBar.setAction(actionText, listener).show();
     }
 }

@@ -39,6 +39,7 @@ public class SearchResultListFragment extends AbsListFragment {
     public void loadData(final int pageIndex) {
         ServiceFactory.getInstance().createService(GankService.class)
                 .search(keyWord, pageIndex)
+                .compose(this.<HttpResult<List<SearchResult>>>bindToLifecycle())
                 .compose(RxUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<SearchResult>>() {
                     @Override

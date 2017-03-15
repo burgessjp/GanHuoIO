@@ -56,6 +56,7 @@ public class CategoryListFragment extends AbsListFragment {
         }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo(mType, pageIndex)
+                .compose(this.<HttpResult<List<GanHuoDataBean>>>bindToLifecycle())
                 .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
                     @Override

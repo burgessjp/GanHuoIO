@@ -13,7 +13,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.model.GanHuoDataBean;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
-import ren.solid.library.utils.StringStyleUtils;
+import ren.solid.library.utils.SpannableStringUtils;
 
 /**
  * Created by _SOLID
@@ -36,11 +36,11 @@ public class DailyViewItemProvider
             @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean recently) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(
-                StringStyleUtils.format(holder.tv_title.getContext(), "[" + DateUtils.friendlyTime(recently.getPublishedAt().replace('T', ' ').replace('Z', ' ')) +
+                SpannableStringUtils.format(holder.tv_title.getContext(), "[" + DateUtils.friendlyTime(recently.getPublishedAt().replace('T', ' ').replace('Z', ' ')) +
                         "]", R.style.ByTextAppearance));
         builder.append(recently.getDesc());
         builder.append(
-                StringStyleUtils.format(holder.tv_title.getContext(), " [via " +
+                SpannableStringUtils.format(holder.tv_title.getContext(), " [via " +
                         recently.getWho() + "]", R.style.ByTextAppearance));
         holder.tv_title.setText(builder.subSequence(0, builder.length()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {

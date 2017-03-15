@@ -14,8 +14,6 @@ import java.io.InputStream;
 import ren.solid.library.SettingCenter;
 import ren.solid.library.utils.NetworkUtil;
 
-import static com.bumptech.glide.Glide.with;
-
 
 /**
  * Created by _SOLID
@@ -43,13 +41,13 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
                 .error(img.getError())
-                .dontAnimate()
+                .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(img.getImageView());
     }
 
     private void loadCache(Context ctx, ImageRequest img) {
-        with(ctx)
+        Glide.with(ctx)
                 .using(new StreamModelLoader<String>() {
                     @Override
                     public DataFetcher<InputStream> getResourceFetcher(final String model, int i, int i1) {
@@ -79,7 +77,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
+                .crossFade()
                 .into(img.getImageView());
     }
 }

@@ -80,6 +80,7 @@ public class RecentlyListFragment extends AbsListFragment {
         }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getRecentlyGanHuo(date)
+                .compose(this.<HttpResult<GanHuoRecentlyBean>>bindToLifecycle())
                 .compose(RxUtils.<HttpResult<GanHuoRecentlyBean>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<GanHuoRecentlyBean>() {
 

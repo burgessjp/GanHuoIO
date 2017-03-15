@@ -41,6 +41,9 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.5'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile('com.trello:rxlifecycle-components:1.0', {
+        exclude group: 'io.reactivex'
+    })
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'

@@ -28,8 +28,8 @@ public class ImageLoader {
         ImageRequest request = new ImageRequest.Builder()
                 .url(url)
                 .imgView(iv)
-                .placeHolder(R.color.md_grey_500)
-                .error(R.color.md_red_500)
+                .placeHolder(R.color.md_grey_300)
+                .error(R.color.md_red_300)
                 .create();
         getProvider().loadImage(request);
     }

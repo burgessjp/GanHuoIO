@@ -1,9 +1,11 @@
 package ren.solid.ganhuoio.module.home.provider;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -37,7 +39,7 @@ public class DailyViewProvider
     protected void onBindViewHolder(@NonNull final ViewHolder holder, @NonNull final Daily daily) {
         ImageLoader.displayImage(holder.iv_img, daily.getImgUrl());
         holder.iv_img.setColorFilter(Color.parseColor("#5e000000"));
-        holder.tv_date.setText(daily.getDate());
+        holder.tv_date.setText("#" + daily.getDate());
         holder.tv_desc.setText(daily.getTitle().replace("今日力推：", ""));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +47,10 @@ public class DailyViewProvider
                 DailyActivity.start(v.getContext(), daily.getTitle(), daily.getDate());
             }
         });
+
+        holder.itemView.setOnTouchListener(new OnTapListener(holder));
+
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +65,47 @@ public class DailyViewProvider
             tv_date = (TextView) itemView.findViewById(R.id.tv_date);
             tv_desc = (TextView) itemView.findViewById(R.id.tv_desc);
 
+        }
+    }
+
+    static class OnTapListener implements View.OnTouchListener {
+        ViewHolder holder;
+
+        public OnTapListener(ViewHolder holder) {
+            this.holder = holder;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    holder.iv_img.setColorFilter(null);
+                    hide(holder.tv_date);
+                    hide(holder.tv_desc);
+                    View parent = (View) holder.itemView.getParent();
+                    if (parent != null)
+                        parent.setOnTouchListener(this);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    holder.iv_img.setColorFilter(Color.parseColor("#5e000000"));
+                    show(holder.tv_date);
+                    show(holder.tv_desc);
+                    break;
+
+            }
+            return false;
+        }
+
+        void show(View v) {
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(v, "alpha", 0, 1);
+            alpha.setDuration(300);
+            alpha.start();
+        }
+
+        void hide(View v) {
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(v, "alpha", 1, 0);
+            alpha.setDuration(300);
+            alpha.start();
         }
     }
 }

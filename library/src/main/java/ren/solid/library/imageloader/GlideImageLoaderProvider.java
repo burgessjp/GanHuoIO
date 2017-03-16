@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.stream.StreamModelLoader;
 import java.io.IOException;
 import java.io.InputStream;
 
+import ren.solid.library.R;
 import ren.solid.library.SettingCenter;
 import ren.solid.library.utils.NetworkUtil;
 
@@ -41,7 +42,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
                 .error(img.getError())
-                .crossFade()
+                .animate(R.anim.fade_in)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(img.getImageView());
     }
@@ -77,7 +78,7 @@ public class GlideImageLoaderProvider implements IImageLoaderProvider {
                 .load(img.getUrl())
                 .placeholder(img.getPlaceHolder())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
+                .animate(R.anim.fade_in)
                 .into(img.getImageView());
     }
 }

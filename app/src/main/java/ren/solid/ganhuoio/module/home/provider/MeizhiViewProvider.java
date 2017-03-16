@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.utils.ViewUtils;
@@ -23,7 +23,7 @@ import ren.solid.library.utils.ViewUtils;
  * Desc:
  */
 public class MeizhiViewProvider
-        extends ItemViewProvider<GanHuoDataBean, MeizhiViewProvider.ViewHolder> {
+        extends ItemViewProvider<GanHuoData, MeizhiViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -43,7 +43,7 @@ public class MeizhiViewProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean bean) {
+            @NonNull final ViewHolder holder, @NonNull final GanHuoData bean) {
         ImageLoader.displayImage(holder.iv_img, bean.getUrl());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

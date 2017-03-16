@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.ganhuoio.model.bomb.CollectTable;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.WebViewActivity;
@@ -22,7 +22,7 @@ import ren.solid.library.utils.DateUtils;
  * Desc:
  */
 public class GanHuoTextViewProvider
-        extends ItemViewProvider<GanHuoDataBean, GanHuoTextViewProvider.ViewHolder> {
+        extends ItemViewProvider<GanHuoData, GanHuoTextViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -34,7 +34,7 @@ public class GanHuoTextViewProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean bean) {
+            @NonNull final ViewHolder holder, @NonNull final GanHuoData bean) {
         String date = bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
         holder.tv_title.setText(bean.getDesc());
         holder.tv_time.setText(DateUtils.friendlyTime(date));

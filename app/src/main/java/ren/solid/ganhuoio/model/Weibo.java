@@ -1,7 +1,5 @@
 package ren.solid.ganhuoio.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -11,7 +9,7 @@ import java.util.List;
  *
  * https://api.weibo.com/2/users/show.json?access_token=2.00JwC2SDeD9sZB0d8848d507QcZEKE&uid=3019388725
  */
-public class WeiboBean {
+public class Weibo {
 
 
     /**

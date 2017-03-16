@@ -5,7 +5,7 @@ import android.content.Context;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import ren.solid.ganhuoio.GanHuoIOApplication;
-import ren.solid.ganhuoio.model.WeiboBean;
+import ren.solid.ganhuoio.model.Weibo;
 import ren.solid.library.utils.PrefUtils;
 
 /**
@@ -24,7 +24,7 @@ public class AuthorityUtils {
         return PrefUtils.getBoolean(GanHuoIOApplication.getInstance(), "isLogin", false);
     }
 
-    public static void login(WeiboBean result) {
+    public static void login(Weibo result) {
 
         setUserName(result.getScreen_name());
         setDescription(result.getDescription());

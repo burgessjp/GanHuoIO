@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.RecentlyHeader;
+import ren.solid.ganhuoio.model.DailyHeader;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 
@@ -20,7 +20,7 @@ import ren.solid.library.imageloader.ImageLoader;
  * Time:22:23
  */
 public class DailyViewItemHeaderProvider
-        extends ItemViewProvider<RecentlyHeader, DailyViewItemHeaderProvider.ViewHolder> {
+        extends ItemViewProvider<DailyHeader, DailyViewItemHeaderProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -32,7 +32,7 @@ public class DailyViewItemHeaderProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull final ViewHolder holder, @NonNull final RecentlyHeader recentlyHeader) {
+            @NonNull final ViewHolder holder, @NonNull final DailyHeader recentlyHeader) {
         //holder.tv_title.setText(recentlyHeader.getTitle());
         ImageLoader.displayImage(holder.iv_img, recentlyHeader.getImgUrl());
         holder.iv_img.setOnClickListener(new View.OnClickListener() {

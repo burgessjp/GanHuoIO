@@ -17,7 +17,7 @@ import java.util.List;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.ganhuoio.model.bomb.CollectTable;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.ViewPicActivity;
@@ -32,7 +32,7 @@ import ren.solid.library.utils.DateUtils;
  * Desc:
  */
 public class GanHuoImageViewProvider
-        extends ItemViewProvider<GanHuoDataBean, GanHuoImageViewProvider.ViewHolder> {
+        extends ItemViewProvider<GanHuoData, GanHuoImageViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -44,7 +44,7 @@ public class GanHuoImageViewProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean bean) {
+            @NonNull final ViewHolder holder, @NonNull final GanHuoData bean) {
         final Context context = holder.itemView.getContext();
         String date = bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
         holder.tv_title.setText(bean.getDesc());

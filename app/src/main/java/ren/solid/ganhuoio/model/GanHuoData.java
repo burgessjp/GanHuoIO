@@ -9,7 +9,20 @@ import java.util.List;
  * Date:2016/5/16
  * Time:16:41
  */
-public class GanHuoDataBean implements Serializable {
+public class GanHuoData implements Serializable {
+
+    public abstract static class Image {
+    }
+
+    public abstract static class Text {
+    }
+
+    public abstract static class Meizhi {
+    }
+
+    public abstract static class DailyItem {
+    }
+
 
     private String _id;
     private String createdAt;

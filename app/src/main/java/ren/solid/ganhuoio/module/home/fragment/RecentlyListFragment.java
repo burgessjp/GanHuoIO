@@ -10,11 +10,10 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
-import ren.solid.ganhuoio.model.GanHuoRecentlyBean;
-import ren.solid.ganhuoio.model.Recently;
-import ren.solid.ganhuoio.model.RecentlyHeader;
-import ren.solid.ganhuoio.model.RecentlyTitle;
+import ren.solid.ganhuoio.model.DailyHeader;
+import ren.solid.ganhuoio.model.DailyList;
+import ren.solid.ganhuoio.model.DailyTitle;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
@@ -31,7 +30,7 @@ public class RecentlyListFragment extends AbsListFragment {
 
     private String date;
 
-    private RecentlyHeader mRecentlyHeader;
+    private DailyHeader mRecentlyHeader;
 
     public static RecentlyListFragment newInstance(int year, int month, int day) {
         RecentlyListFragment fragment = new RecentlyListFragment();
@@ -49,7 +48,7 @@ public class RecentlyListFragment extends AbsListFragment {
         date = getArguments().getInt("year") + "/"
                 + getArguments().getInt("month") + "/"
                 + getArguments().getInt("day");
-        mRecentlyHeader = new RecentlyHeader();
+        mRecentlyHeader = new DailyHeader();
     }
 
     @Override
@@ -63,8 +62,8 @@ public class RecentlyListFragment extends AbsListFragment {
             @NonNull
             @Override
             public Class onFlattenClass(@NonNull Object item) {
-                if (item instanceof GanHuoDataBean) {
-                    return Recently.class;
+                if (item instanceof GanHuoData) {
+                    return GanHuoData.DailyItem.class;
                 }
                 return super.onFlattenClass(item);
             }
@@ -80,9 +79,9 @@ public class RecentlyListFragment extends AbsListFragment {
         }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getRecentlyGanHuo(date)
-                .compose(this.<HttpResult<GanHuoRecentlyBean>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<GanHuoRecentlyBean>>defaultSchedulers())
-                .subscribe(new HttpResultSubscriber<GanHuoRecentlyBean>() {
+                .compose(this.<HttpResult<DailyList>>bindToLifecycle())
+                .compose(RxUtils.<HttpResult<DailyList>>defaultSchedulers())
+                .subscribe(new HttpResultSubscriber<DailyList>() {
 
                     @Override
                     public void _onError(Throwable e) {
@@ -90,7 +89,7 @@ public class RecentlyListFragment extends AbsListFragment {
                     }
 
                     @Override
-                    public void onSuccess(GanHuoRecentlyBean recentlyBean) {
+                    public void onSuccess(DailyList recentlyBean) {
                         List list = new ArrayList<>();
 
                         if (recentlyBean != null) {
@@ -99,23 +98,23 @@ public class RecentlyListFragment extends AbsListFragment {
                                 list.add(mRecentlyHeader);
                             }
                             if (recentlyBean.get休息视频() != null) {
-                                list.add(new RecentlyTitle("休息视频"));
+                                list.add(new DailyTitle("休息视频"));
                                 list.addAll(recentlyBean.get休息视频());
                             }
                             if (recentlyBean.getAndroid() != null) {
-                                list.add(new RecentlyTitle("Android"));
+                                list.add(new DailyTitle("Android"));
                                 list.addAll(recentlyBean.getAndroid());
                             }
                             if (recentlyBean.getIOS() != null) {
-                                list.add(new RecentlyTitle("iOS"));
+                                list.add(new DailyTitle("iOS"));
                                 list.addAll(recentlyBean.getIOS());
                             }
                             if (recentlyBean.get前端() != null) {
-                                list.add(new RecentlyTitle("前端"));
+                                list.add(new DailyTitle("前端"));
                                 list.addAll(recentlyBean.get前端());
                             }
                             if (recentlyBean.get瞎推荐() != null) {
-                                list.add(new RecentlyTitle("瞎推荐"));
+                                list.add(new DailyTitle("瞎推荐"));
                                 list.addAll(recentlyBean.get瞎推荐());
                             }
 

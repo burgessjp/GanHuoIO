@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.api;
 
-import ren.solid.ganhuoio.model.RandomPictureBean;
+import ren.solid.ganhuoio.model.RandomPicture;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -13,5 +13,5 @@ public interface PictureService {
     String BASE_URL = "http://lelouchcrgallery.tk/";
 
     @GET("rand")
-    Observable<RandomPictureBean> getRandomPicture();
+    Observable<RandomPicture> getRandomPicture();
 }

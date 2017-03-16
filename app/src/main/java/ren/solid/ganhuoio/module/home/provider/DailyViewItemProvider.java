@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.SpannableStringUtils;
@@ -21,7 +21,7 @@ import ren.solid.library.utils.SpannableStringUtils;
  * Time:22:26
  */
 public class DailyViewItemProvider
-        extends ItemViewProvider<GanHuoDataBean, DailyViewItemProvider.ViewHolder> {
+        extends ItemViewProvider<GanHuoData, DailyViewItemProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -33,7 +33,7 @@ public class DailyViewItemProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull final ViewHolder holder, @NonNull final GanHuoDataBean recently) {
+            @NonNull final ViewHolder holder, @NonNull final GanHuoData recently) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(
                 SpannableStringUtils.format(holder.tv_title.getContext(), "[" + DateUtils.friendlyTime(recently.getPublishedAt().replace('T', ' ').replace('Z', ' ')) +

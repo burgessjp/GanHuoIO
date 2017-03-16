@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.RecentlyTitle;
+import ren.solid.ganhuoio.model.DailyTitle;
 
 /**
  * Created by _SOLID
@@ -17,7 +17,7 @@ import ren.solid.ganhuoio.model.RecentlyTitle;
  * Time:22:20
  */
 public class DailyViewItemTitleProvider
-        extends ItemViewProvider<RecentlyTitle, DailyViewItemTitleProvider.ViewHolder> {
+        extends ItemViewProvider<DailyTitle, DailyViewItemTitleProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -29,7 +29,7 @@ public class DailyViewItemTitleProvider
 
     @Override
     protected void onBindViewHolder(
-            @NonNull ViewHolder holder, @NonNull RecentlyTitle recentlyTitle) {
+            @NonNull ViewHolder holder, @NonNull DailyTitle recentlyTitle) {
         holder.tv_title.setText(recentlyTitle.getTitle());
     }
 

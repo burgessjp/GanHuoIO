@@ -10,8 +10,8 @@ import android.os.Vibrator;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.PictureService;
-import ren.solid.ganhuoio.model.RandomPictureBean;
 import ren.solid.ganhuoio.common.PictureDialog;
+import ren.solid.ganhuoio.model.RandomPicture;
 import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.utils.ToastUtils;
@@ -123,7 +123,7 @@ public class ShakePictureUtils implements SensorEventListener {
 
     private void requestPicture() {
         PictureService pictureService = ServiceFactory.getNoCacheInstance().createService(PictureService.class);
-        pictureService.getRandomPicture().compose(RxUtils.<RandomPictureBean>defaultSchedulers()).subscribe(new Subscriber<RandomPictureBean>() {
+        pictureService.getRandomPicture().compose(RxUtils.<RandomPicture>defaultSchedulers()).subscribe(new Subscriber<RandomPicture>() {
             @Override
             public void onStart() {
                 unRegisterSensor();
@@ -140,7 +140,7 @@ public class ShakePictureUtils implements SensorEventListener {
             }
 
             @Override
-            public void onNext(RandomPictureBean result) {
+            public void onNext(RandomPicture result) {
                 mPictureDialog.setPicture(result.getP_ori());
             }
         });

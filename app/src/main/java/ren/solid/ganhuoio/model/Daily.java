@@ -9,8 +9,6 @@ package ren.solid.ganhuoio.model;
  */
 public class Daily {
 
-    private String imgUrl;
-    private String date;
     private String desc;
     private String _id;
     private String content;
@@ -26,17 +24,10 @@ public class Daily {
         return content.substring(start, end);
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
 
     public String getDate() {
         int end = publishedAt.indexOf("T");
         return publishedAt.substring(0, end);
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getDesc() {

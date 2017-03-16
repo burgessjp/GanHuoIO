@@ -5,7 +5,7 @@ package ren.solid.ganhuoio.model;
  * Date:2016/6/2
  * Time:17:20
  */
-public class RandomPictureBean {
+public class RandomPicture {
 
     /**
      * p_ori : http://ww1.sinaimg.cn/large/0062QthIjw1erbxhp6wlbj31b80pr79s.jpg

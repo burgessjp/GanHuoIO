@@ -10,8 +10,7 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
-import ren.solid.ganhuoio.model.GanHuoDataBeanMeizhi;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
@@ -48,16 +47,16 @@ public class MeiZhiFragment extends AbsListFragment {
         ServiceFactory.getInstance()
                 .createService(GankService.class)
                 .getGanHuo("福利", pageIndex)
-                .compose(this.<HttpResult<List<GanHuoDataBean>>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
-                .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
+                .compose(this.<HttpResult<List<GanHuoData>>>bindToLifecycle())
+                .compose(RxUtils.<HttpResult<List<GanHuoData>>>defaultSchedulers())
+                .subscribe(new HttpResultSubscriber<List<GanHuoData>>() {
                     @Override
                     public void _onError(Throwable e) {
                         showError(new Exception(e));
                     }
 
                     @Override
-                    public void onSuccess(List<GanHuoDataBean> ganHuoDataBeen) {
+                    public void onSuccess(List<GanHuoData> ganHuoDataBeen) {
                         onDataSuccessReceived(pageIndex, ganHuoDataBeen);
                     }
                 });
@@ -69,7 +68,7 @@ public class MeiZhiFragment extends AbsListFragment {
             @NonNull
             @Override
             public Class onFlattenClass(@NonNull Object item) {
-                return GanHuoDataBeanMeizhi.class;
+                return GanHuoData.Meizhi.class;
             }
         };
     }

@@ -5,7 +5,7 @@ package ren.solid.ganhuoio.model;
  * Date:2016/11/30
  * Time:22:23
  */
-public class RecentlyHeader {
+public class DailyHeader {
 
     public String getTitle() {
         return title;

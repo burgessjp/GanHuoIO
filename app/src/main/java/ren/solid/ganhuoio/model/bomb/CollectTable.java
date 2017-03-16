@@ -1,7 +1,7 @@
 package ren.solid.ganhuoio.model.bomb;
 
 import cn.bmob.v3.BmobObject;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
+import ren.solid.ganhuoio.model.GanHuoData;
 
 /**
  * Created by _SOLID
@@ -19,7 +19,7 @@ public class CollectTable extends BmobObject {
     private String publishedAt;
     private String username;
 
-    public CollectTable(GanHuoDataBean bean) {
+    public CollectTable(GanHuoData bean) {
         desc = bean.getDesc();
         source = bean.getSource();
         type = bean.getType();

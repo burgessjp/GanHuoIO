@@ -2,11 +2,10 @@ package ren.solid.ganhuoio.api;
 
 import java.util.List;
 
-import ren.solid.ganhuoio.model.GanHuoDataBean;
-import ren.solid.ganhuoio.model.GanHuoRecentlyBean;
-import ren.solid.ganhuoio.model.GanHuoTitleBean;
-import ren.solid.ganhuoio.model.SearchResult;
 import ren.solid.ganhuoio.model.Daily;
+import ren.solid.ganhuoio.model.DailyList;
+import ren.solid.ganhuoio.model.GanHuoData;
+import ren.solid.ganhuoio.model.SearchResult;
 import ren.solid.library.rx.retrofit.HttpResult;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -29,14 +28,6 @@ public interface GankService {
     @GET("day/history")
     Observable<HttpResult<List<String>>> getRecentlyDate();
 
-    /**
-     * 获取最近5日干货网站数据
-     *
-     * @return
-     */
-    @GET("history/content/5/1")
-    Observable<HttpResult<List<GanHuoTitleBean>>> getTitles();
-
     /***
      * 根据类别查询干货
      *
@@ -45,7 +36,7 @@ public interface GankService {
      * @return
      */
     @GET("data/{category}/20/{pageIndex}")
-    Observable<HttpResult<List<GanHuoDataBean>>> getGanHuo(@Path("category") String category
+    Observable<HttpResult<List<GanHuoData>>> getGanHuo(@Path("category") String category
             , @Path("pageIndex") int pageIndex);
 
     /**
@@ -55,7 +46,7 @@ public interface GankService {
      * @return
      */
     @GET("day/{date}")
-    Observable<HttpResult<GanHuoRecentlyBean>> getRecentlyGanHuo(@Path("date") String date);
+    Observable<HttpResult<DailyList>> getRecentlyGanHuo(@Path("date") String date);
 
     /**
      * 搜索

@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.api;
 
-import ren.solid.ganhuoio.model.WeiboBean;
+import ren.solid.ganhuoio.model.Weibo;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -13,5 +13,5 @@ import rx.Observable;
 public interface SinaApiService {
     String BASE_URL="https://api.weibo.com/2/";
     @GET("users/show.json")
-    Observable<WeiboBean> getUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
+    Observable<Weibo> getUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
 }

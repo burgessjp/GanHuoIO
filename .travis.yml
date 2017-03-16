@@ -9,6 +9,10 @@ android:
     - extra-android-m2repository
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - 1104160707@qq.com
+    on_success: never
+    on_failure: always
 
 script: ./gradlew build

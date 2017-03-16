@@ -10,9 +10,7 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.GanHuoDataBean;
-import ren.solid.ganhuoio.model.GanHuoDataBeanImage;
-import ren.solid.ganhuoio.model.GanHuoDataBeanText;
+import ren.solid.ganhuoio.model.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
@@ -56,11 +54,11 @@ public class CategoryListFragment extends AbsListFragment {
         }
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo(mType, pageIndex)
-                .compose(this.<HttpResult<List<GanHuoDataBean>>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<List<GanHuoDataBean>>>defaultSchedulers())
-                .subscribe(new HttpResultSubscriber<List<GanHuoDataBean>>() {
+                .compose(this.<HttpResult<List<GanHuoData>>>bindToLifecycle())
+                .compose(RxUtils.<HttpResult<List<GanHuoData>>>defaultSchedulers())
+                .subscribe(new HttpResultSubscriber<List<GanHuoData>>() {
                     @Override
-                    public void onSuccess(List<GanHuoDataBean> list) {
+                    public void onSuccess(List<GanHuoData> list) {
                         onDataSuccessReceived(pageIndex, list);
                     }
 
@@ -83,12 +81,12 @@ public class CategoryListFragment extends AbsListFragment {
             @NonNull
             @Override
             public Class onFlattenClass(@NonNull Object item) {
-                if (item instanceof GanHuoDataBean) {
-                    GanHuoDataBean bean = (GanHuoDataBean) item;
+                if (item instanceof GanHuoData) {
+                    GanHuoData bean = (GanHuoData) item;
                     if (bean.getImages() != null && bean.getImages().size() > 0) {
-                        return GanHuoDataBeanImage.class;
+                        return GanHuoData.Image.class;
                     } else {
-                        return GanHuoDataBeanText.class;
+                        return GanHuoData.Text.class;
                     }
                 }
 

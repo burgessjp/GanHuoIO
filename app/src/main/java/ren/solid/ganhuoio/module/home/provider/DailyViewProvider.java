@@ -44,7 +44,7 @@ public class DailyViewProvider
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DailyActivity.start(v.getContext(), daily.getTitle(), daily.getDate());
+                DailyActivity.start(v.getContext(), daily.getTitle(), daily.getDate(), daily.getImgUrl());
             }
         });
 

@@ -10,7 +10,6 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.DailyHeader;
 import ren.solid.ganhuoio.model.DailyList;
 import ren.solid.ganhuoio.model.DailyTitle;
 import ren.solid.ganhuoio.model.GanHuoData;
@@ -30,8 +29,6 @@ public class RecentlyListFragment extends AbsListFragment {
 
     private String date;
 
-    private DailyHeader mRecentlyHeader;
-
     public static RecentlyListFragment newInstance(int year, int month, int day) {
         RecentlyListFragment fragment = new RecentlyListFragment();
         Bundle args = new Bundle();
@@ -48,12 +45,12 @@ public class RecentlyListFragment extends AbsListFragment {
         date = getArguments().getInt("year") + "/"
                 + getArguments().getInt("month") + "/"
                 + getArguments().getInt("day");
-        mRecentlyHeader = new DailyHeader();
     }
 
     @Override
     protected void customConfig() {
         disAbleLoadMore();
+        disAbleRefresh();
     }
 
     @Override
@@ -93,10 +90,6 @@ public class RecentlyListFragment extends AbsListFragment {
                         List list = new ArrayList<>();
 
                         if (recentlyBean != null) {
-                            if (recentlyBean.get福利() != null) {
-                                mRecentlyHeader.setImgUrl(recentlyBean.get福利().get(0).getUrl());
-                                list.add(mRecentlyHeader);
-                            }
                             if (recentlyBean.get休息视频() != null) {
                                 list.add(new DailyTitle("休息视频"));
                                 list.addAll(recentlyBean.get休息视频());

@@ -39,6 +39,10 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
         mLoadMoreWrapper.disableLoadMore();
     }
 
+    public void disAbleRefresh() {
+        mSwipeRefreshLayout.setEnabled(false);
+    }
+
     @Override
     protected final int setLayoutResourceID() {
         return R.layout.fragment_base_recyclerview;

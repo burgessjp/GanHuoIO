@@ -17,7 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="今日干货"
+            android:text=""
             android:textColor="@color/md_grey_900"
             android:textSize="14sp" />
 

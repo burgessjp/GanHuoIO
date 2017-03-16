@@ -7,13 +7,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.Calendar;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.module.home.activity.DailyActivity;
 import ren.solid.ganhuoio.module.home.fragment.HomeFragment;
 import ren.solid.ganhuoio.module.mine.MineFragment;
 import ren.solid.ganhuoio.module.read.ReadingFragment;
@@ -61,17 +57,6 @@ public class MainActivity extends BaseMainActivity {
                 return false;
             }
         });
-        $(R.id.tv_today).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                DailyActivity.start(MainActivity.this, "今日干货", year + "/" + month + "/" + day);
-            }
-        });
-
     }
 
     @Override

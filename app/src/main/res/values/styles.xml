@@ -63,4 +63,24 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="DailyCollapsingToolbarTitleDark" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowDy">0.3</item>
+        <item name="android:shadowDx">0.3</item>
+        <item name="android:shadowRadius">0.3</item>
+        <item name="android:shadowColor">#000000</item>
+    </style>
+
+    <style name="DailyCollapsingToolbarTitleLight" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowDy">0.3</item>
+        <item name="android:shadowDx">0.3</item>
+        <item name="android:shadowRadius">0.3</item>
+        <item name="android:shadowColor">#ffffff</item>
+    </style>
 </resources>

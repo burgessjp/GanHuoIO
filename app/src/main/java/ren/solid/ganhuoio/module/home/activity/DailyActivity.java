@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.lang.reflect.Field;
+
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.module.home.fragment.RecentlyListFragment;
+import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.base.BaseActivity;
 import ren.solid.library.imageloader.ImageLoader;
 
@@ -33,9 +37,8 @@ public class DailyActivity extends BaseActivity {
     }
 
     protected String getToolbarTitle() {
-        String date = getIntent().getExtras().getString("date");
         String title = getIntent().getExtras().getString("title");
-        return title.replace("今日力推", date + " 力推");
+        return title.replace("今日力推：", "");
     }
 
     protected String getImageUrl() {
@@ -75,12 +78,17 @@ public class DailyActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fl_content, getFragment())
                 .commit();
-
+        iv_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPicActivity.start(DailyActivity.this, v, getImageUrl());
+            }
+        });
 
     }
 
     private void setUpToolbar() {
-        CollapsingToolbarLayout collapsing_toolbar_layout = $(R.id.collapsing_toolbar_layout);
+        CollapsingToolbarLayout collapsing_toolbar = $(R.id.collapsing_toolbar_layout);
         Toolbar toolbar = $(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -89,8 +97,36 @@ public class DailyActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        collapsing_toolbar_layout.setTitle(getToolbarTitle());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        collapsing_toolbar.setTitle(getToolbarTitle());
+
+        boldTitleText(collapsing_toolbar);
+    }
+
+    /**
+     * 加粗CollapsingToolbarLayout的标题文字
+     *
+     * @param collapsing_toolbar CollapsingToolbarLayout
+     */
+    private void boldTitleText(CollapsingToolbarLayout collapsing_toolbar) {
+        try {
+            Class<?> clazz = collapsing_toolbar.getClass();
+            Field field = clazz.getDeclaredField("mCollapsingTextHelper");
+            field.setAccessible(true);
+            //二次反射
+            Object textHelper = field.get(collapsing_toolbar);
+            clazz = textHelper.getClass();
+            field = clazz.getDeclaredField("mTextPaint");
+            field.setAccessible(true);
+            TextPaint textPaint = (TextPaint) field.get(textHelper);
+            textPaint.setFakeBoldText(true);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

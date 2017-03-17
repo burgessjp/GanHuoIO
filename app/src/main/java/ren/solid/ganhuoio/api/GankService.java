@@ -2,10 +2,10 @@ package ren.solid.ganhuoio.api;
 
 import java.util.List;
 
-import ren.solid.ganhuoio.model.Daily;
-import ren.solid.ganhuoio.model.DailyList;
-import ren.solid.ganhuoio.model.GanHuoData;
-import ren.solid.ganhuoio.model.SearchResult;
+import ren.solid.ganhuoio.bean.Daily;
+import ren.solid.ganhuoio.bean.DailyList;
+import ren.solid.ganhuoio.bean.GanHuoData;
+import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.rx.retrofit.HttpResult;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

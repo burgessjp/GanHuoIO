@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoData;
+import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.SpannableStringUtils;

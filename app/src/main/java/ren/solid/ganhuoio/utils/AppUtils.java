@@ -11,7 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.bomb.FeedBack;
+import ren.solid.ganhuoio.bean.bomb.FeedBack;
 import ren.solid.library.SettingCenter;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.PrefUtils;

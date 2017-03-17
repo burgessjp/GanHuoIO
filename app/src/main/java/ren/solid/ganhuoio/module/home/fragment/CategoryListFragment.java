@@ -10,7 +10,7 @@ import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.GanHuoData;
+import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;

@@ -5,7 +5,7 @@ import android.content.Context;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import ren.solid.ganhuoio.GanHuoIOApplication;
-import ren.solid.ganhuoio.model.Weibo;
+import ren.solid.ganhuoio.bean.Weibo;
 import ren.solid.library.utils.PrefUtils;
 
 /**

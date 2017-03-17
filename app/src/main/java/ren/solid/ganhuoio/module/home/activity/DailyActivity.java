@@ -1,8 +1,11 @@
 package ren.solid.ganhuoio.module.home.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
@@ -34,6 +37,20 @@ public class DailyActivity extends BaseActivity {
         intent.putExtra("date", date);
         intent.putExtra("imageUrl", imageUrl);
         context.startActivity(intent);
+    }
+
+    public static void start(Activity activity, View v, String title, String date, String imageUrl) {
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,
+                v,
+                activity.getResources().getString(R.string.image_transition));
+
+        Intent intent = new Intent(activity, DailyActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("date", date);
+        intent.putExtra("imageUrl", imageUrl);
+
+        ActivityCompat.startActivity(activity, intent, compat.toBundle());
     }
 
     protected String getToolbarTitle() {

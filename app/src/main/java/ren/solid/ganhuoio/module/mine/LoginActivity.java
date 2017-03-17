@@ -25,7 +25,7 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.SinaApiService;
 import ren.solid.ganhuoio.common.constant.Constants;
 import ren.solid.ganhuoio.common.event.LoginEvent;
-import ren.solid.ganhuoio.model.Weibo;
+import ren.solid.ganhuoio.bean.Weibo;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.rx.retrofit.RxUtils;

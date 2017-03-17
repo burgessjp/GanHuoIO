@@ -1,4 +1,4 @@
-package ren.solid.ganhuoio.model;
+package ren.solid.ganhuoio.bean;
 
 import java.util.List;
 

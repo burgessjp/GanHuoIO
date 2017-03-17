@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ren.solid.ganhuoio.model.CategoryList;
+import ren.solid.ganhuoio.bean.CategoryList;
 
 /**
  * Created by _SOLID

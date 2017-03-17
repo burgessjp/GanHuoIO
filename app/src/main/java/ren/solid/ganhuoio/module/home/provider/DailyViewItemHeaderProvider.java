@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.DailyHeader;
+import ren.solid.ganhuoio.bean.DailyHeader;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 

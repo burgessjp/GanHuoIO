@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.DailyTitle;
+import ren.solid.ganhuoio.bean.DailyTitle;
 
 /**
  * Created by _SOLID

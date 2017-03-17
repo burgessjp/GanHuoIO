@@ -12,7 +12,7 @@ import android.widget.TextView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.common.activity.SubActivity;
-import ren.solid.ganhuoio.model.CategoryList;
+import ren.solid.ganhuoio.bean.CategoryList;
 import ren.solid.ganhuoio.module.home.activity.CategoryActivity;
 import ren.solid.library.imageloader.ImageLoader;
 

@@ -1,6 +1,7 @@
 package ren.solid.ganhuoio.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -8,7 +9,8 @@ import android.widget.PopupMenu;
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.common.event.CollectChangeEvent;
-import ren.solid.ganhuoio.model.bomb.CollectTable;
+import ren.solid.ganhuoio.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.module.mine.LoginActivity;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
 
@@ -45,7 +47,7 @@ public class DialogUtils {
         popupMenu.show();
     }
 
-    private static void doCollect(CollectTable bean, Context context, final View view) {
+    private static void doCollect(CollectTable bean, final Context context, final View view) {
         if (AuthorityUtils.isLogin()) {
             bean.setUsername(AuthorityUtils.getUserName());
             bean.save(context, new SaveListener() {
@@ -65,7 +67,14 @@ public class DialogUtils {
                 }
             });
         } else {
-            SnackBarUtils.makeShort(view, context.getResources().getString(R.string.no_login)).warning();
+            SnackBarUtils.makeLong(view, context.getResources().getString(R.string.mine_no_login))
+                    .warning(context.getString(R.string.mine_click_login)
+                            , new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    context.startActivity(new Intent(context, LoginActivity.class));
+                                }
+                            });
         }
     }
 }

@@ -1,13 +1,13 @@
 package ren.solid.ganhuoio;
 
 import me.drakeet.multitype.GlobalMultiTypePool;
-import ren.solid.ganhuoio.model.CategoryList;
-import ren.solid.ganhuoio.model.Daily;
-import ren.solid.ganhuoio.model.DailyHeader;
-import ren.solid.ganhuoio.model.DailyTitle;
-import ren.solid.ganhuoio.model.GanHuoData;
-import ren.solid.ganhuoio.model.SearchResult;
-import ren.solid.ganhuoio.model.bomb.CollectTable;
+import ren.solid.ganhuoio.bean.CategoryList;
+import ren.solid.ganhuoio.bean.Daily;
+import ren.solid.ganhuoio.bean.DailyHeader;
+import ren.solid.ganhuoio.bean.DailyTitle;
+import ren.solid.ganhuoio.bean.GanHuoData;
+import ren.solid.ganhuoio.bean.SearchResult;
+import ren.solid.ganhuoio.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.module.home.provider.CategoryViewProvider;
 import ren.solid.ganhuoio.module.home.provider.DailyViewItemHeaderProvider;
 import ren.solid.ganhuoio.module.home.provider.DailyViewItemProvider;

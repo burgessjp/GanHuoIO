@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.bomb.CollectTable;
+import ren.solid.ganhuoio.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.widget.LinearDecoration;
@@ -53,7 +53,7 @@ public class MyCollectFragment extends AbsListFragment {
                 }
             });
         } else {
-            showEmpty(getString(R.string.no_login));
+            showEmpty(getString(R.string.mine_no_login));
         }
     }
 

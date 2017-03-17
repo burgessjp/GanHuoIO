@@ -1,6 +1,7 @@
 package ren.solid.ganhuoio.module.home.provider;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +14,10 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.Daily;
+import ren.solid.ganhuoio.bean.Daily;
 import ren.solid.ganhuoio.module.home.activity.DailyActivity;
 import ren.solid.library.imageloader.ImageLoader;
+import ren.solid.library.utils.DateUtils;
 
 /**
  * Created by _SOLID
@@ -37,19 +39,20 @@ public class DailyViewProvider
 
     @Override
     protected void onBindViewHolder(@NonNull final ViewHolder holder, @NonNull final Daily daily) {
+        boolean isToday = DateUtils.isToday(DateUtils.parseDate(daily.getDate()));
+        String showDate = isToday ? "#今日推荐" : "#" + daily.getDate();
         ImageLoader.displayImage(holder.iv_img, daily.getImgUrl());
         holder.iv_img.setColorFilter(Color.parseColor("#5e000000"));
-        holder.tv_date.setText("#" + daily.getDate());
+        holder.tv_date.setText(showDate);
         holder.tv_desc.setText(daily.getTitle().replace("今日力推：", ""));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DailyActivity.start(v.getContext(), daily.getTitle(), daily.getDate(), daily.getImgUrl());
+                DailyActivity.start((Activity) v.getContext(), v, daily.getTitle(), daily.getDate(), daily.getImgUrl());
             }
         });
 
         holder.itemView.setOnTouchListener(new OnTapListener(holder));
-
 
     }
 

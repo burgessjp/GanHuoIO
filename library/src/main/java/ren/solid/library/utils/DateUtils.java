@@ -13,8 +13,6 @@ import java.util.Locale;
  */
 public class DateUtils {
     public static SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    public static SimpleDateFormat formatDay = new SimpleDateFormat("d", Locale.getDefault());
-    public static SimpleDateFormat formatMonthDay = new SimpleDateFormat("M-d", Locale.getDefault());
     public static SimpleDateFormat formatDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
     /**
@@ -38,10 +36,28 @@ public class DateUtils {
     }
 
     /**
+     * 判断是不是今天
+     *
+     * @param date
+     * @return
+     */
+    public static boolean isToday(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        calendar.setTime(date);
+        return year == calendar.get(Calendar.YEAR)
+                && month == calendar.get(Calendar.MONTH)
+                && day == calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
      * 将时间戳解析成日期
      *
      * @param timeInMillis
-     * @return 年月日
+     * @return 年-月-日
      */
     public static String parseDate(long timeInMillis) {
         Calendar calendar = Calendar.getInstance();
@@ -54,7 +70,7 @@ public class DateUtils {
      * 将时间戳解析成日期
      *
      * @param timeInMillis
-     * @return 年月日 时分秒
+     * @return 年-月-日 时:分:秒
      */
     public static String parseDateTime(long timeInMillis) {
         Calendar calendar = Calendar.getInstance();
@@ -66,7 +82,7 @@ public class DateUtils {
     /**
      * 解析日期
      *
-     * @param date
+     * @param date 年-月-日
      * @return
      */
     public static Date parseDate(String date) {

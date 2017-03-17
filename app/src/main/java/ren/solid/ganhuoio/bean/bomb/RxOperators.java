@@ -1,4 +1,4 @@
-package ren.solid.ganhuoio.model.bomb;
+package ren.solid.ganhuoio.bean.bomb;
 
 import cn.bmob.v3.BmobObject;
 

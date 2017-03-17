@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoData;
+import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.utils.ViewUtils;

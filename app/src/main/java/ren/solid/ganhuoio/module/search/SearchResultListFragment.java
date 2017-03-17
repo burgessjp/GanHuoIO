@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.model.SearchResult;
+import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;

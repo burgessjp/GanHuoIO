@@ -17,8 +17,8 @@ import java.util.List;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.GanHuoData;
-import ren.solid.ganhuoio.model.bomb.CollectTable;
+import ren.solid.ganhuoio.bean.GanHuoData;
+import ren.solid.ganhuoio.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.ViewPicActivity;
 import ren.solid.library.activity.WebViewActivity;

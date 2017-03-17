@@ -3,10 +3,12 @@ package ren.solid.ganhuoio.common.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
@@ -22,6 +24,7 @@ public class MainActivity extends BaseMainActivity {
     private BottomNavigationView mBottomNavigationView;
     private FragmentManager mFragmentManager;
     private Fragment mCurrentFragment;
+    private AppBarLayout mAppBarLayout;
 
     @Override
     protected int setLayoutResourceID() {
@@ -37,18 +40,22 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     protected void setUpView() {
+        mAppBarLayout = $(R.id.appbar_layout);
         mBottomNavigationView = $(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_home:
+                        showAppBar();
                         switchFragment(0);
                         break;
                     case R.id.item_reading:
+                        showAppBar();
                         switchFragment(1);
                         break;
                     case R.id.item_collect:
+                        hideAppBar();
                         switchFragment(2);
                         break;
                     default:
@@ -57,6 +64,18 @@ public class MainActivity extends BaseMainActivity {
                 return false;
             }
         });
+    }
+
+    private void hideAppBar() {
+        ViewGroup.LayoutParams layoutParams = mAppBarLayout.getLayoutParams();
+        layoutParams.height = 0;
+        mAppBarLayout.setLayoutParams(layoutParams);
+    }
+
+    private void showAppBar() {
+        ViewGroup.LayoutParams layoutParams = mAppBarLayout.getLayoutParams();
+        layoutParams.height = getResources().getDimensionPixelSize(R.dimen.app_bar_height);
+        mAppBarLayout.setLayoutParams(layoutParams);
     }
 
     @Override

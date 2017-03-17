@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.model.SearchResult;
+import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.SpannableStringUtils;
 

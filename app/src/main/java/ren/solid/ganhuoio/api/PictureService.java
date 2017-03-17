@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.api;
 
-import ren.solid.ganhuoio.model.RandomPicture;
+import ren.solid.ganhuoio.bean.RandomPicture;
 import retrofit2.http.GET;
 import rx.Observable;
 

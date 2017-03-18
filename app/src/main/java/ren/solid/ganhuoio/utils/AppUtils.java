@@ -18,6 +18,8 @@ import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemUtils;
 
+import static u.aly.x.O;
+
 /**
  * Created by _SOLID
  * Date:2016/5/20
@@ -74,7 +76,7 @@ public class AppUtils {
                 }).show();
     }
 
-    public static void logOut(final Context context) {
+    public static void logOut(final Context context, final OnSuccessListener listener) {
         if (!AuthorityUtils.isLogin()) return;
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title("提示")
@@ -83,6 +85,7 @@ public class AppUtils {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
                         AuthorityUtils.logout();
+                        listener.onSuccess();
                     }
                 }).negativeText("取消").onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -93,6 +96,10 @@ public class AppUtils {
 
         MaterialDialog dialog = builder.build();
         dialog.show();
+    }
+
+    public interface OnSuccessListener {
+        void onSuccess();
     }
 
     public static void clearCache(Context context, final SettingCenter.ClearCacheListener listener) {

@@ -1,5 +1,6 @@
 package ren.solid.library.fragment;
 
+import android.os.Bundle;
 import android.widget.TextView;
 
 import ren.solid.library.R;
@@ -13,6 +14,14 @@ import ren.solid.library.fragment.base.BaseFragment;
 public class StringFragment extends BaseFragment {
     private String mText;
     private TextView mTvText;
+
+    public static StringFragment newInstance(String text) {
+        Bundle args = new Bundle();
+        args.putString("text", text);
+        StringFragment fragment = new StringFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int setLayoutResourceID() {

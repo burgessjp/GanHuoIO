@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import ren.solid.ganhuoio.module.home.fragment.MeiZhiFragment;
-import ren.solid.ganhuoio.module.mine.MyCollectFragment;
+import ren.solid.ganhuoio.module.mine.CollectListFragment;
 import ren.solid.library.activity.ToolbarActivity;
 
 /**
@@ -38,7 +38,7 @@ public class SubActivity extends ToolbarActivity {
         if (type == TYPE_MEIZHI) {
             fragment = MeiZhiFragment.newInstance();
         } else if (type == TYPE_COLLECT) {
-            fragment = MyCollectFragment.newInstance();
+            fragment = CollectListFragment.newInstance();
         }
         //由于在之前使用了懒加载，所以加上这个才会显示
         if (fragment != null) fragment.setUserVisibleHint(true);

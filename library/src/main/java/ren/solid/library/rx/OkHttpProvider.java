@@ -73,7 +73,7 @@ public class OkHttpProvider {
 
             Response response = chain.proceed(request);
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
-                int maxAge = 60 * 60;
+                int maxAge = 30 * 60;//默认缓存半个小时
                 String cacheControl = request.cacheControl().toString();
                 if (TextUtils.isEmpty(cacheControl)) {
                     cacheControl = "public, max-age=" + maxAge;

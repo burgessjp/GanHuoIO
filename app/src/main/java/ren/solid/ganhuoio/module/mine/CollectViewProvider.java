@@ -7,11 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import cn.bmob.v3.listener.DeleteListener;
 import me.drakeet.multitype.ItemViewProvider;
+import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
+import ren.solid.library.utils.SnackBarUtils;
 
 /**
  * Created by _SOLID
@@ -21,6 +25,12 @@ import ren.solid.library.utils.DateUtils;
  */
 public class CollectViewProvider
         extends ItemViewProvider<CollectTable, CollectViewProvider.ViewHolder> {
+
+    private RecyclerView recyclerView;
+
+    public CollectViewProvider(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
 
     @NonNull
     @Override
@@ -33,9 +43,7 @@ public class CollectViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull final ViewHolder holder, @NonNull final CollectTable collect) {
-        String date = collect.getPublishedAt().replace('T', ' ').replace('Z', ' ');//bean.getPublishedAt().replace('T', ' ').replace('Z', ' ');
-        holder.tv_people.setText(collect.getWho());
-        holder.tv_time.setText(DateUtils.friendlyTime(date));
+        holder.tv_time.setText(DateUtils.friendlyTime(collect.getCreatedAt()));
         holder.tv_tag.setText(collect.getType());
         holder.tv_desc.setText(collect.getDesc());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +51,29 @@ public class CollectViewProvider
             public void onClick(View view) {
                 WebViewActivity.start(holder.itemView.getContext()
                         , collect.getDesc(), collect.getUrl());
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                CollectTable deleteBean = new CollectTable();
+                deleteBean.setObjectId(collect.getObjectId());
+                DialogUtils.showUnDoCollectDialog(v, deleteBean, new DeleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        int position = getPosition(holder);
+                        MultiTypeAdapter adapter = (MultiTypeAdapter) getAdapter();
+                        adapter.getItems().remove(position);
+                        recyclerView.getAdapter().notifyItemRemoved(position);
+                        recyclerView.getAdapter().notifyItemChanged(position, adapter.getItemCount());
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        SnackBarUtils.makeShort(holder.itemView, "删除失败").danger();
+                    }
+                });
+                return true;
             }
         });
     }

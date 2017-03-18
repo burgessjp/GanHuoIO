@@ -10,7 +10,7 @@ import android.view.View;
  */
 public class SnackBarUtils {
     private static final int color_danger = 0XFFA94442;
-    private static final int color_success = 0XFF3C763D;
+    private static final int color_success = 0XFF00CD00;
     private static final int color_info = 0XFF31708F;
     private static final int color_warning = 0XFFFF8247;
 

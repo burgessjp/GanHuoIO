@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.solidev.statusviewlayout.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_tab" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="14dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_corner" />
+    </LinearLayout>
+</me.solidev.statusviewlayout.StatusViewLayout>

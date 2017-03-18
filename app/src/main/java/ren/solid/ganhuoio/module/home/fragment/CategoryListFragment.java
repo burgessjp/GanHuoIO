@@ -43,7 +43,7 @@ public class CategoryListFragment extends AbsListFragment {
 
     @Override
     protected void customConfig() {
-        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL, 2));
+        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL, 1));
     }
 
     @Override

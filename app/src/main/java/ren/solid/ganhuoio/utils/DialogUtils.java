@@ -2,14 +2,15 @@ package ren.solid.ganhuoio.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.SaveListener;
 import ren.solid.ganhuoio.R;
-import ren.solid.ganhuoio.common.event.CollectChangeEvent;
 import ren.solid.ganhuoio.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.common.event.CollectChangeEvent;
 import ren.solid.ganhuoio.module.mine.LoginActivity;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SnackBarUtils;
@@ -21,30 +22,24 @@ import ren.solid.library.utils.SnackBarUtils;
  */
 public class DialogUtils {
 
-    public static void showActionPopWindow(final Context context, final View view, final CollectTable bean) {
-        PopupMenu popupMenu = new PopupMenu(context, view);
-        popupMenu.getMenuInflater()
-                .inflate(R.menu.menu_action, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.item_collect:
-                        doCollect(bean, context, view);
-                        break;
-                    case R.id.item_share_sina:
-                        SinaWeiBoShareUtil share = new SinaWeiBoShareUtil(context);
-                        share.setTextObj(bean.getDesc() + "\n" + "【干货IO下载地址:\n" +
-                                "http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio】");
-                        share.setWebpageObj("来自干货IO的分享", bean.getUrl(), bean.getDesc());
-                        share.sendMultiMessage();
-                        break;
-                }
-                return false;
-            }
-        });
-        popupMenu.show();
+    public static void showActionDialog(final Context context, final View itemView, final CollectTable bean) {
+        new MaterialDialog.Builder(context)
+                .items(R.array.action)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        CharSequence[] action = context.getResources().getTextArray(R.array.action);
+                        if (text.equals(action[0])) {
+                            SinaWeiBoShareUtil share = new SinaWeiBoShareUtil(context);
+                            share.setTextObj(bean.getDesc() + "\n" + context.getString(R.string.app_download_url));
+                            share.setWebpageObj("来自干货IO的分享", bean.getUrl(), bean.getDesc());
+                            share.sendMultiMessage();
+                        } else if (text.equals(action[1])) {
+                            doCollect(bean, context, itemView);
+                        }
+                    }
+                })
+                .show();
     }
 
     private static void doCollect(CollectTable bean, final Context context, final View view) {
@@ -53,7 +48,7 @@ public class DialogUtils {
             bean.save(context, new SaveListener() {
                 @Override
                 public void onSuccess() {
-                    SnackBarUtils.makeShort(view, "收藏成功").info();
+                    SnackBarUtils.makeShort(view, "收藏成功").success();
                     RxBus.getInstance().post(new CollectChangeEvent());
                 }
 
@@ -62,7 +57,7 @@ public class DialogUtils {
                     if (i == 401) {
                         SnackBarUtils.makeShort(view, "你已经收藏过了").info();
                     } else {
-                        SnackBarUtils.makeShort(view, "收藏失败").info();
+                        SnackBarUtils.makeShort(view, "收藏失败").danger();
                     }
                 }
             });
@@ -76,5 +71,24 @@ public class DialogUtils {
                                 }
                             });
         }
+    }
+
+    public static void showUnDoCollectDialog(final View itemView
+            , final CollectTable bean, final DeleteListener listener) {
+        new MaterialDialog.Builder(itemView.getContext())
+                .items(R.array.deleteCollect)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        unDoCollect(bean, itemView, listener);
+                    }
+                })
+                .show();
+
+    }
+
+    private static void unDoCollect(CollectTable bean, final View view
+            , final DeleteListener listener) {
+        bean.delete(view.getContext(), listener);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+import me.drakeet.multitype.MultiTypeAdapter;
 import ren.solid.ganhuoio.GanHuoIOApplication;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.bean.bomb.CollectTable;
@@ -19,18 +20,23 @@ import ren.solid.library.widget.LinearDecoration;
  * Date:2016/5/18
  * Time:14:23
  */
-public class MyCollectFragment extends AbsListFragment {
+public class CollectListFragment extends AbsListFragment {
 
-    public static MyCollectFragment newInstance() {
+    public static CollectListFragment newInstance() {
         Bundle args = new Bundle();
-        MyCollectFragment fragment = new MyCollectFragment();
+        CollectListFragment fragment = new CollectListFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    protected void registerItemProvider(MultiTypeAdapter adapter) {
+        adapter.register(CollectTable.class, new CollectViewProvider(mRecyclerView));
+    }
+
+    @Override
     protected void customConfig() {
-        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL));
+        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL, 1));
     }
 
     @Override

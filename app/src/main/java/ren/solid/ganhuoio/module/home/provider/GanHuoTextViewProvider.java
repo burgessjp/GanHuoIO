@@ -48,7 +48,8 @@ public class GanHuoTextViewProvider
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                DialogUtils.showActionPopWindow(view.getContext(), holder.itemView, new CollectTable(bean));
+                DialogUtils.showActionDialog(view.getContext(), holder.itemView
+                        , new CollectTable(bean.getDesc(), bean.getUrl(), bean.getType()));
                 return false;
             }
         });

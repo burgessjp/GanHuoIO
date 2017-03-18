@@ -72,4 +72,28 @@
     <style name="DailyCollapsingToolbarTitleLight" parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/transparent</item>
     </style>
+
+    <style name="ListItem" />
+
+    <style name="ListItem.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/item_title</item>
+        <item name="android:textSize">@dimen/item_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ListItem.Source">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/item_desc</item>
+        <item name="android:textSize">@dimen/item_desc</item>
+    </style>
+
+    <style name="ListItem.Time">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/item_time</item>
+        <item name="android:textSize">@dimen/item_time</item>
+    </style>
 </resources>

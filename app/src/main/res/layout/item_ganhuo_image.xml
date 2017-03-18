@@ -31,31 +31,25 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
+                style="@style/ListItem.Title"
                 android:textColor="@color/white"
-                android:textSize="@dimen/item_title"
                 tools:text="基于material design support的开源学习项目(Github)" />
 
             <TextView
                 android:id="@+id/tv_people"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ListItem.Source"
                 android:layout_below="@+id/tv_title"
                 android:textColor="@color/white"
-                android:textSize="@dimen/item_desc"
                 tools:text="via SOLID" />
 
             <TextView
                 android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ListItem.Time"
                 android:layout_alignBaseline="@+id/tv_people"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/item_desc"
                 tools:text="2016-04-18" />
         </RelativeLayout>
     </FrameLayout>

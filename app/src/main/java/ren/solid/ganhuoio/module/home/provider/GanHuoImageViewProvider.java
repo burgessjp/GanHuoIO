@@ -1,6 +1,5 @@
 package ren.solid.ganhuoio.module.home.provider;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -61,8 +60,10 @@ public class GanHuoImageViewProvider
         holder.rl_bottom.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                DialogUtils.showActionPopWindow(view.getContext(), holder.itemView, new CollectTable(bean));
-                return false;
+                DialogUtils.showActionDialog(view.getContext()
+                        , holder.itemView
+                        , new CollectTable(bean.getDesc(),bean.getUrl(), bean.getType()));
+                return true;
             }
         });
 
@@ -81,12 +82,13 @@ public class GanHuoImageViewProvider
         public Object instantiateItem(ViewGroup container, int position) {
             final ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                    , ViewGroup.LayoutParams.MATCH_PARENT));
             ImageLoader.displayImage(imageView, images.get(position));
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ViewPicActivity.start((Activity) context, imageView, (ArrayList<String>) images, 0);
+                    ViewPicActivity.start(context, imageView, (ArrayList<String>) images, 0);
                 }
             });
             container.addView(imageView);

@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
@@ -14,8 +15,10 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.module.home.fragment.HomeFragment;
 import ren.solid.ganhuoio.module.mine.MineFragment;
-import ren.solid.ganhuoio.module.read.ReadingFragment;
+import ren.solid.ganhuoio.module.read.ReadingListFragment;
+import ren.solid.ganhuoio.module.read.ReadingTabFragment;
 import ren.solid.library.activity.base.BaseMainActivity;
+import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.utils.ViewUtils;
 
@@ -51,7 +54,7 @@ public class MainActivity extends BaseMainActivity {
                         switchFragment(0);
                         break;
                     case R.id.item_reading:
-                        showAppBar();
+                        hideAppBar();
                         switchFragment(1);
                         break;
                     case R.id.item_collect:
@@ -64,16 +67,19 @@ public class MainActivity extends BaseMainActivity {
                 return false;
             }
         });
+        ViewCompat.setElevation(mAppBarLayout, ViewUtils.dp2px(this, 4));
     }
 
     private void hideAppBar() {
         ViewGroup.LayoutParams layoutParams = mAppBarLayout.getLayoutParams();
+        if (layoutParams.height == 0) return;
         layoutParams.height = 0;
         mAppBarLayout.setLayoutParams(layoutParams);
     }
 
     private void showAppBar() {
         ViewGroup.LayoutParams layoutParams = mAppBarLayout.getLayoutParams();
+        if (layoutParams.height != 0) return;
         layoutParams.height = getResources().getDimensionPixelSize(R.dimen.app_bar_height);
         mAppBarLayout.setLayoutParams(layoutParams);
     }
@@ -88,7 +94,7 @@ public class MainActivity extends BaseMainActivity {
             if (index == 0)
                 to = ViewUtils.createFragment(HomeFragment.class);
             else if (index == 1)
-                to = ViewUtils.createFragment(ReadingFragment.class);
+                to = ViewUtils.createFragment(ReadingTabFragment.class);
             else if (index == 2)
                 to = ViewUtils.createFragment(MineFragment.class);
             else
@@ -110,13 +116,14 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     protected boolean beforeOnBackPressed() {
-        if (mCurrentFragment instanceof ReadingFragment) {
-            ReadingFragment fragment = (ReadingFragment) mCurrentFragment;
-            if (fragment.canGoBack()) {
-                fragment.goBack();
-                return false;
-            }
+        if (mCurrentFragment instanceof AbsListFragment) {
+            AbsListFragment listFragment = (AbsListFragment) mCurrentFragment;
+            return listFragment.scrollToTop();
+        } else if (mCurrentFragment instanceof ReadingTabFragment) {
+            ReadingTabFragment readingTabFragment = (ReadingTabFragment) mCurrentFragment;
+            return readingTabFragment.scrollToTop();
         }
+
         return true;
     }
 }

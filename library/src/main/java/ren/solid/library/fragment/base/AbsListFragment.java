@@ -33,6 +33,7 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
     protected List mItems;
 
     protected boolean isCanLoadMore = true;
+    private MultiTypeAdapter mMultiTypeAdapter;
 
     public void disAbleLoadMore() {
         isCanLoadMore = false;
@@ -52,9 +53,9 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
     protected final void init() {
         mCurrentPageIndex = getInitPageIndex();
         mItems = new ArrayList<>();
-        MultiTypeAdapter mAdapter = getAdapter();
-        mAdapter.applyGlobalMultiTypePool();
-        mLoadMoreWrapper = new LoadMoreWrapper(getContext(), mAdapter);
+        mMultiTypeAdapter = getAdapter();
+        mMultiTypeAdapter.applyGlobalMultiTypePool();
+        mLoadMoreWrapper = new LoadMoreWrapper(getContext(), mMultiTypeAdapter);
         mLoadMoreWrapper.setOnLoadListener(new LoadMoreWrapper.OnLoadListener() {
             @Override
             public void onRetry() {
@@ -67,6 +68,10 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
                     AbsListFragment.this.loadMore();
             }
         });
+    }
+
+    protected void registerItemProvider(MultiTypeAdapter adapter) {
+
     }
 
     @Override
@@ -91,6 +96,8 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
                 loadData(getInitPageIndex());
             }
         });
+
+        registerItemProvider(mMultiTypeAdapter);
 
 
     }
@@ -227,4 +234,23 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
         mSwipeRefreshLayout.setRefreshing(false);
     }
     //endregion
+
+    public boolean isTop() {
+        if (mRecyclerView != null && mRecyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+            int firstVisiblePosition = linearLayoutManager.findFirstVisibleItemPosition();
+            if (firstVisiblePosition != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean scrollToTop() {
+        if (!isTop()) {
+            mRecyclerView.smoothScrollToPosition(0);
+            return false;
+        }
+        return true;
+    }
 }

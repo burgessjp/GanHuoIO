@@ -19,14 +19,13 @@ public class CollectTable extends BmobObject {
     private String publishedAt;
     private String username;
 
-    public CollectTable(GanHuoData bean) {
-        desc = bean.getDesc();
-        source = bean.getSource();
-        type = bean.getType();
-        url = bean.getUrl();
-        used = bean.isUsed();
-        who = bean.getWho();
-        publishedAt = bean.getPublishedAt();
+    public CollectTable() {
+    }
+
+    public CollectTable(String desc, String url, String type) {
+        this.desc = desc;
+        this.type = type;
+        this.url = url;
     }
 
     public String getDesc() {

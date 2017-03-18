@@ -6,6 +6,7 @@
 
     <dimen name="item_title">14sp</dimen>
     <dimen name="item_desc">12sp</dimen>
+    <dimen name="item_time">10sp</dimen>
     <dimen name="item_padding">10dp</dimen>
     <dimen name="app_bar_height">45dp</dimen>
 </resources>

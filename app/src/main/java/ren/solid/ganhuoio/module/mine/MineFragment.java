@@ -86,7 +86,12 @@ public class MineFragment extends BaseFragment {
         $(R.id.tv_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppUtils.logOut(getContext());
+                AppUtils.logOut(getContext(), new AppUtils.OnSuccessListener() {
+                    @Override
+                    public void onSuccess() {
+                        setUserInfo();
+                    }
+                });
             }
         });
         tv_clear_cache.setOnClickListener(new View.OnClickListener() {

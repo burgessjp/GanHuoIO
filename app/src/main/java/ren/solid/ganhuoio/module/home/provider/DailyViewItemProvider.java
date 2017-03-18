@@ -11,6 +11,8 @@ import android.widget.TextView;
 import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.bean.GanHuoData;
+import ren.solid.ganhuoio.bean.bomb.CollectTable;
+import ren.solid.ganhuoio.utils.DialogUtils;
 import ren.solid.library.activity.WebViewActivity;
 import ren.solid.library.utils.DateUtils;
 import ren.solid.library.utils.SpannableStringUtils;
@@ -47,6 +49,14 @@ public class DailyViewItemProvider
             @Override
             public void onClick(View view) {
                 WebViewActivity.start(holder.itemView.getContext(), recently.getDesc(), recently.getUrl());
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                DialogUtils.showActionDialog(v.getContext(), v
+                        , new CollectTable(recently.getDesc(), recently.getUrl(), recently.getType()));
+                return true;
             }
         });
     }

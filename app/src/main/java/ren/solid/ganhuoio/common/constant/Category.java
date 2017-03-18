@@ -17,13 +17,13 @@ public class Category {
 
     static Map<String, String> cateMaps = new ArrayMap<>();
     static String[] ganHuoCateGory = new String[]{
-            "休息视频",
             "Android",
             "iOS",
             "前端",
             "拓展资源",
             "瞎推荐",
-            "福利"};
+            "福利",
+            "休息视频"};
 
     static {
         cateMaps.put("休息视频", "http://omqomam0q.bkt.clouddn.com/video.png");

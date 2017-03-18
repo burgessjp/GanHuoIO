@@ -35,4 +35,5 @@
         \n项目地址:https://github.com/burgessjp/GanHuoIO
      </string>
     <string name="image_transition">image_trans_name</string>
+    <string name="app_download_url">http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio</string>
 </resources>

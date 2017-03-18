@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/app_bar_height"
-    app:elevation="0dp">
+    android:layout_height="@dimen/app_bar_height">
 
     <RelativeLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,10 +40,10 @@
             android:textColor="@color/md_grey_900"
             android:textSize="14sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/md_grey_500"></View>
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="@color/md_grey_500"></View>-->
     </RelativeLayout>
 </android.support.design.widget.AppBarLayout>

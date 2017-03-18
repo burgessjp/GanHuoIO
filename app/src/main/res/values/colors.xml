@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/md_grey_400</color>
+    <color name="colorPrimaryDark">@color/md_grey_300</color>
     <color name="colorAccent">@color/md_black_1000</color>
 
     <color name="app_text">#000000</color>
     <color name="transparent_background">#e5ffffff</color>
-    <color name="main_tab_selected">@color/md_blue_grey_800</color>
+    <color name="main_tab_selected">@color/md_black_1000</color>
     <color name="main_tab_unselected">#ccc</color>
     <color name="main_tab_background">@color/colorPrimary</color>
     <color name="item_title">#000000</color>
-    <color name="item_desc">#49494957</color>
+    <color name="item_desc">@color/material_grey_800</color>
+    <color name="item_time">#49494957</color>
 </resources>

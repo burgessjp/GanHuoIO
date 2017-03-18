@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_source"
+                style="@style/ListItem.Source"
+                tools:text="知乎日报" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/ListItem.Time"
+                android:layout_marginTop="2dp"
+                tools:text="50分钟前" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/ListItem.Title"
+        android:layout_marginTop="10dp"
+        tools:text="2017 年 Pwn2Own 大赛结束了，但 360 和腾讯都说自己是“黑客技术界老大”" />
+
+
+</LinearLayout>

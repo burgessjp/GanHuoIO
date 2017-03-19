@@ -16,7 +16,7 @@
     <string name="mine_exit">退出登录</string>
     <string name="mine_about">关于应用</string>
     <string name="mine_share">分享</string>
-    <string name="mine_feedback">反馈</string>
+    <string name="mine_feedback">意见反馈</string>
 
     <string name="feedback_dialog_title">您宝贵的反馈建议</string>
     <string name="feedback_input_hint">可直接到Github提Issues</string>
@@ -36,4 +36,6 @@
      </string>
     <string name="image_transition">image_trans_name</string>
     <string name="app_download_url">http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio</string>
+    <string name="cache_clear_success">清理成功</string>
+    <string name="tips_keyword_cannot_null">请输入搜索关键词</string>
 </resources>

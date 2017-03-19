@@ -9,14 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 
 import cn.bmob.v3.update.BmobUpdateAgent;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.module.home.fragment.HomeFragment;
 import ren.solid.ganhuoio.module.mine.MineFragment;
-import ren.solid.ganhuoio.module.read.ReadingListFragment;
 import ren.solid.ganhuoio.module.read.ReadingTabFragment;
+import ren.solid.ganhuoio.module.search.SearchActivity;
 import ren.solid.library.activity.base.BaseMainActivity;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.fragment.base.BaseFragment;
@@ -68,6 +69,13 @@ public class MainActivity extends BaseMainActivity {
             }
         });
         ViewCompat.setElevation(mAppBarLayout, ViewUtils.dp2px(this, 4));
+
+        $(R.id.tv_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.start(MainActivity.this);
+            }
+        });
     }
 
     private void hideAppBar() {

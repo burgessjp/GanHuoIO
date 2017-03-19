@@ -9,7 +9,11 @@
     <item
         android:id="@+id/action_copy"
         android:icon="@drawable/ic_content_copy_black_24dp"
-        android:orderInCategory="101"
         android:title="复制链接"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_browser"
+        android:icon="@drawable/ic_browser_black_24dp"
+        android:title="在浏览器中打开"
+        app:showAsAction="never" />
 </menu>

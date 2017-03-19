@@ -2,6 +2,7 @@ package ren.solid.library.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -117,6 +118,11 @@ public class WebViewActivity extends BaseActivity {
             return true;
         } else if (id == R.id.action_share) {
             SystemShareUtils.shareText(this, "【" + mTitle + "】链接:" + mUrl);
+        } else if (id == R.id.action_browser) {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setData(Uri.parse(mUrl));
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

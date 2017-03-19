@@ -22,12 +22,20 @@ import ren.solid.library.widget.LinearDecoration;
 
 public class SearchResultListFragment extends AbsListFragment {
     private String keyWord = "Android";
+    private String category = "all";
 
     public static SearchResultListFragment newInstance(String keyWord) {
 
         SearchResultListFragment fragment = new SearchResultListFragment();
         fragment.keyWord = keyWord;
         return fragment;
+    }
+
+    public void refresh(String category, String keyWord) {
+        this.category = category;
+        this.keyWord = keyWord;
+        showLoading();
+        refreshData();
     }
 
     @Override
@@ -38,7 +46,7 @@ public class SearchResultListFragment extends AbsListFragment {
     @Override
     public void loadData(final int pageIndex) {
         ServiceFactory.getInstance().createService(GankService.class)
-                .search(keyWord, pageIndex)
+                .search(category, keyWord, pageIndex)
                 .compose(this.<HttpResult<List<SearchResult>>>bindToLifecycle())
                 .compose(RxUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
                 .subscribe(new HttpResultSubscriber<List<SearchResult>>() {

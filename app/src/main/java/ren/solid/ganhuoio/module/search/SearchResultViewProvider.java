@@ -2,7 +2,6 @@ package ren.solid.ganhuoio.module.search;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import me.drakeet.multitype.ItemViewProvider;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.activity.WebViewActivity;
-import ren.solid.library.utils.SpannableStringUtils;
 
 /**
  * Created by _SOLID
@@ -34,12 +32,7 @@ public class SearchResultViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull final ViewHolder holder, @NonNull final SearchResult searchResult) {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(
-                SpannableStringUtils.format(holder.tv_title.getContext(), "[" + searchResult.getType() +
-                        "]", R.style.ByTextAppearance));
-        builder.append(searchResult.getDesc());
-        holder.tv_title.setText(builder.subSequence(0, builder.length()));
+        holder.tv_title.setText(searchResult.getDesc());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

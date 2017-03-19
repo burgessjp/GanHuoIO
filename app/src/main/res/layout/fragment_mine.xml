@@ -42,6 +42,11 @@
         android:text="@string/mine_cache_clear" />
 
     <TextView
+        android:id="@+id/tv_feedback"
+        style="@style/MineItem"
+        android:text="@string/mine_feedback" />
+
+    <TextView
         android:id="@+id/tv_about"
         style="@style/MineItem"
         android:text="@string/mine_about" />

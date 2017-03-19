@@ -77,6 +77,12 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
+        $(R.id.tv_feedback).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.feedBack(getContext(), v);
+            }
+        });
         $(R.id.tv_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +106,7 @@ public class MineFragment extends BaseFragment {
                 AppUtils.clearCache(getContext(), new SettingCenter.ClearCacheListener() {
                     @Override
                     public void onResult() {
-                        ToastUtils.getInstance().showToast("清理成功");
+                        ToastUtils.getInstance().showToast(getString(R.string.cache_clear_success));
                         tv_clear_cache.setText(getString(R.string.mine_cache_clear));
                     }
                 });
@@ -132,7 +138,7 @@ public class MineFragment extends BaseFragment {
             tv_username.setText(AuthorityUtils.getUserName());
             ImageLoader.displayImage(iv_avatar, AuthorityUtils.getAvatar());
         } else {
-            tv_username.setText("点我登录");
+            tv_username.setText(getString(R.string.mine_click_login));
             iv_avatar.setImageDrawable(new ColorDrawable(ContextCompat.getColor(getContext(),
                     R.color.colorPrimaryDark)));
         }

@@ -2,9 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tv_title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/ListItem.Title"
+    android:background="?attr/selectableItemBackground"
     android:padding="10dp"
-    android:textColor="@color/md_grey_900"
-    android:textSize="16sp"
     tools:text="YLListView仿IOS弹簧效果的ListView" />

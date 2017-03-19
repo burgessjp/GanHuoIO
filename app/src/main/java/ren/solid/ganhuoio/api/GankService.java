@@ -55,8 +55,11 @@ public interface GankService {
      * @param pageIndex
      * @return
      */
-    @GET("search/query/{keyword}/category/all/count/20/page/{pageIndex}")
-    Observable<HttpResult<List<SearchResult>>> search(@Path("keyword") String keyword, @Path("pageIndex") int pageIndex);
+    @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
+    Observable<HttpResult<List<SearchResult>>> search(
+            @Path("category") String category
+            , @Path("keyword") String keyword
+            , @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")
     Observable<HttpResult<List<Daily>>> getRecently(@Path("pageIndex") int pageIndex);

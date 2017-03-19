@@ -59,7 +59,7 @@
             android:name="ren.solid.library.activity.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.search.SearchResultActivity"
+            android:name=".module.search.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.home.activity.CategoryActivity"

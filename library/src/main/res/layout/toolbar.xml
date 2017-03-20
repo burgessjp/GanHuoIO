@@ -21,7 +21,7 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_toolbar_close_black_24dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/Theme.AppCompat.Light">
+        app:theme="@style/ToolBarTheme">
 
         <TextSwitcher
             android:id="@+id/textSwitcher"

@@ -9,4 +9,13 @@
         <item name="android:singleLine">true</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ToolBarTheme" parent="Theme.AppCompat.Light">
+        <item name="android:textColorSecondary">#000000</item>
+        <item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow.App</item>
+    </style>
+
+    <style name="ActionButton.Overflow.App" parent="Widget.AppCompat.Light.ActionButton.Overflow">
+        <!--<item name="android:src">@drawable/ic_more_vert_black_24dp</item>-->
+    </style>
 </resources>

@@ -1,6 +1,5 @@
 package ren.solid.library.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -163,7 +162,6 @@ public class WebViewFragment extends BaseFragment {
             if (newProgress == 0) {
                 loadStart();
             } else if (newProgress > 90) {
-                loadJs();//这种方式并不可取
                 mProgressBar.setVisibility(View.GONE);
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
@@ -218,11 +216,6 @@ public class WebViewFragment extends BaseFragment {
     protected void loadStart() {
 
     }
-
-    protected void loadJs() {
-
-    }
-
     protected void onPageLoadFinished(WebView view, String url) {
 
     }

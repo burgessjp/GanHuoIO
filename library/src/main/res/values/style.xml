@@ -12,10 +12,21 @@
 
     <style name="ToolBarTheme" parent="Theme.AppCompat.Light">
         <item name="android:textColorSecondary">#000000</item>
-        <item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow.App</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <!--<item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>-->
+        <item name="dropDownListViewStyle">@style/OverflowDropDownStyle</item>
     </style>
 
-    <style name="ActionButton.Overflow.App" parent="Widget.AppCompat.Light.ActionButton.Overflow">
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">true</item>
+    </style>
+
+    <style name="OverflowDropDownStyle" parent="Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:dividerHeight">0.5dp</item>
+        <item name="android:divider">@color/md_grey_200</item>
+    </style>
+
+    <style name="OverflowButtonStyle" parent="Widget.AppCompat.Light.ActionButton.Overflow">
         <!--<item name="android:src">@drawable/ic_more_vert_black_24dp</item>-->
     </style>
 </resources>

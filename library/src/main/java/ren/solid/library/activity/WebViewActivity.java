@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
+import java.lang.reflect.Method;
 
 import ren.solid.library.R;
 import ren.solid.library.SolidApplication;
@@ -30,7 +33,6 @@ import ren.solid.library.utils.SystemShareUtils;
  */
 public class WebViewActivity extends BaseActivity {
 
-    private static String TAG = "WebViewActivity";
     public static String WEB_URL = "webViewUrl";
     public static String TITLE = "webViewTitle";
 
@@ -109,6 +111,22 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        if (menu != null) {
+            if (menu.getClass() == MenuBuilder.class) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -117,7 +135,7 @@ public class WebViewActivity extends BaseActivity {
             Snackbar.make(mToolbar, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_share) {
-            SystemShareUtils.shareText(this, "【" + mTitle + "】链接:" + mUrl);
+            SystemShareUtils.shareText(this, "【" + mTitle + "】" + mUrl);
         } else if (id == R.id.action_browser) {
             Intent intent = new Intent();
             intent.setAction("android.intent.action.VIEW");

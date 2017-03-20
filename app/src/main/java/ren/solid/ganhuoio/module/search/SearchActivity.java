@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -11,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 
 import ren.solid.ganhuoio.R;
 import ren.solid.library.activity.base.BaseActivity;
 import ren.solid.library.utils.SnackBarUtils;
+
+import static u.aly.x.m;
 
 /**
  * Created by _SOLID
@@ -30,8 +34,7 @@ public class SearchActivity extends BaseActivity {
     private String mKeyWord;
     private SearchResultListFragment mSearchResultListFragment;
     private EditText mKeywordText;
-    private String[] mCategorys;
-    private String mSelectCategory;
+    private ImageView mIvSelectCate;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -50,6 +53,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
+        mIvSelectCate = $(R.id.iv_select_cate);
         mKeywordText = $(R.id.et_keyword);
         mToolbar = $(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -62,25 +66,27 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-
+        mIvSelectCate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(SearchActivity.this, mIvSelectCate);
+                popupMenu.getMenuInflater()
+                        .inflate(R.menu.menu_category, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        mKeywordText.setHint(item.getTitle());
+                        return true;
+                    }
+                });
+            }
+        });
     }
 
     @Override
     protected void setUpData() {
-        mCategorys = getResources().getStringArray(R.array.search_category);
-        mSelectCategory = mCategorys[0];
-        SpinnerAdapter adapter = ArrayAdapter.createFromResource(this, R.array.search_category,
-                android.R.layout.simple_spinner_dropdown_item);
-
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        getSupportActionBar().setListNavigationCallbacks(adapter, new ActionBar.OnNavigationListener() {
-            @Override
-            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                mSelectCategory = mCategorys[itemPosition];
-                return true;
-            }
-        });
-        mSearchResultListFragment = SearchResultListFragment.newInstance("android");
+        mSearchResultListFragment = SearchResultListFragment.newInstance(mKeywordText.getHint().toString(), "android");
         mSearchResultListFragment.setUserVisibleHint(true);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_result, mSearchResultListFragment).commit();
     }
@@ -94,10 +100,9 @@ public class SearchActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-
             mKeyWord = mKeywordText.getText().toString();
             if (!TextUtils.isEmpty(mKeyWord)) {
-                mSearchResultListFragment.refresh(mSelectCategory, mKeyWord);
+                mSearchResultListFragment.refresh(mKeywordText.getHint().toString(), mKeyWord);
             } else {
                 SnackBarUtils.makeShort(mToolbar, getString(R.string.tips_keyword_cannot_null)).info();
             }

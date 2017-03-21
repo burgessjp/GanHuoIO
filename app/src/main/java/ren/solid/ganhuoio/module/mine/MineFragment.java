@@ -126,7 +126,8 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onResult(long result) {
                 SpannableStringBuilder builder = new SpannableStringBuilder();
-                builder.append(getString(R.string.mine_cache_clear) + "\n");
+                builder.append(getString(R.string.mine_cache_clear));
+                builder.append("\n");
                 builder.append(SpannableStringUtils.format(getContext(), "(" + SettingCenter.formatFileSize(result) + ")", R.style.ByTextAppearance));
                 tv_clear_cache.setText(builder);
             }

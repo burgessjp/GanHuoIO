@@ -97,6 +97,7 @@
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
         <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"

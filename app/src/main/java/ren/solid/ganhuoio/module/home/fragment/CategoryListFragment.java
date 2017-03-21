@@ -3,12 +3,15 @@ package ren.solid.ganhuoio.module.home.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
+import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
@@ -16,7 +19,6 @@ import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
-import ren.solid.library.widget.LinearDecoration;
 
 /**
  * Created by _SOLID
@@ -43,7 +45,10 @@ public class CategoryListFragment extends AbsListFragment {
 
     @Override
     protected void customConfig() {
-        addItemDecoration(new LinearDecoration(getContext(), RecyclerView.VERTICAL, 1));
+        addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext())
+                .color(ContextCompat.getColor(getContext(), R.color.list_divider_color))
+                .sizeResId(R.dimen.list_divider_height)
+                .build());
     }
 
     @Override

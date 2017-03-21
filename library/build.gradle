@@ -61,4 +61,5 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'me.solidev.library:status-view-layout:0.2.2'
     compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 }

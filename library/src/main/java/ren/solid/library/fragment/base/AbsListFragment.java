@@ -30,6 +30,7 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
 
     protected LoadMoreWrapper mLoadMoreWrapper;
     protected int mCurrentPageIndex;
+    protected int mPageSize;
     protected List mItems;
 
     protected boolean isCanLoadMore = true;
@@ -145,6 +146,9 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
         } else if (pageIndex == getInitPageIndex()) {//刷新
             mItems.clear();
             mItems.addAll(items);
+            if (items.size() < mPageSize) {
+                mLoadMoreWrapper.showLoadComplete();
+            }
         } else if (items != null && items.size() != 0) {//加载更多
             mItems.addAll(items);
         } else {//没有更多数据了

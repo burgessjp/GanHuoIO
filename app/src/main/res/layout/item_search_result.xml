@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tv_title"
     style="@style/ListItem.Title"
+    android:layout_width="match_parent"
     android:background="?attr/selectableItemBackground"
     android:padding="10dp"
     tools:text="YLListView仿IOS弹簧效果的ListView" />

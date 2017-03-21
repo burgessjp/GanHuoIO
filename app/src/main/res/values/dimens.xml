@@ -9,4 +9,5 @@
     <dimen name="item_time">10sp</dimen>
     <dimen name="item_padding">10dp</dimen>
     <dimen name="app_bar_height">45dp</dimen>
+    <dimen name="list_divider_height">1dp</dimen>
 </resources>

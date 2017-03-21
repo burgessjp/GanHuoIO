@@ -26,16 +26,17 @@
 
     <string name="app_share">我正在使用[干货IO]这个App,还不错哦！应用下载地址：http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio</string>
     <string name="about_msg">
-        此应用是基于gank.io提供的api实现，能查看最新信息，也能对信息进行分类排序，
-        还可对感兴趣的信息收藏，妈妈再也不用担心我看到gank上的好东西而忘记了，最后感谢代码家的api。
+        此应用是基于gank.io提供的api实现，包括了最新干货查看、分类查看、闲读以及站内搜索，
+        还可对感兴趣的信息收藏。
         \n 作者:_SOLID
         \n 简书主页:http://www.jianshu.com/users/6725c8e8194f
         \n GitHub主页:https://github.com/burgessjp
-        \n 新浪微博ID:_SOLID(之后的新文章会第一时间分享到新浪微博，欢迎关注~~~)
+        \n 新浪微博ID:_SOLID(欢迎关注)
         \n项目地址:https://github.com/burgessjp/GanHuoIO
      </string>
     <string name="image_transition">image_trans_name</string>
     <string name="app_download_url">http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio</string>
     <string name="cache_clear_success">清理成功</string>
     <string name="tips_keyword_cannot_null">请输入搜索关键词</string>
+    <string name="tips_no_collect">暂无收藏</string>
 </resources>

@@ -88,7 +88,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mLoadMoreView = new TextView(mContext);
             mLoadMoreView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
             mLoadMoreView.setPadding(20, 20, 20, 20);
-            ((TextView) mLoadMoreView).setText("正在加载中");
+            ((TextView) mLoadMoreView).setText("正在努力加载中...");
             ((TextView) mLoadMoreView).setGravity(Gravity.CENTER);
         }
         return new ViewHolder(mLoadMoreView);
@@ -110,7 +110,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mNoMoreView = new TextView(mContext);
             mNoMoreView.setPadding(20, 20, 20, 20);
             mNoMoreView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
-            ((TextView) mNoMoreView).setText("--end--");
+            ((TextView) mNoMoreView).setText("-- end --");
             ((TextView) mNoMoreView).setGravity(Gravity.CENTER);
         }
         return new ViewHolder(mNoMoreView);

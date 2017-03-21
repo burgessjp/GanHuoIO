@@ -7,11 +7,4 @@
     <string-array name="deleteCollect">
         <item>删除这条收藏</item>
     </string-array>
-
-    <string-array name="search_category">
-        <item>all</item>
-        <item>Android</item>
-        <item>iOS</item>
-        <item>瞎推荐</item>
-    </string-array>
 </resources>

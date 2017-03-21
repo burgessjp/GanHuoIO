@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="all"></item>
+    <item android:title="Android"></item>
+    <item android:title="iOS"></item>
+    <item android:title="前端"></item>
+    <item android:title="瞎推荐"></item>
+    <item android:title="拓展资源"></item>
+
+
+</menu>

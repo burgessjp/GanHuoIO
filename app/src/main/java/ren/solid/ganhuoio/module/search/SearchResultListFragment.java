@@ -24,10 +24,11 @@ public class SearchResultListFragment extends AbsListFragment {
     private String keyWord = "Android";
     private String category = "all";
 
-    public static SearchResultListFragment newInstance(String keyWord) {
+    public static SearchResultListFragment newInstance(String category, String keyWord) {
 
         SearchResultListFragment fragment = new SearchResultListFragment();
         fragment.keyWord = keyWord;
+        fragment.category = category;
         return fragment;
     }
 

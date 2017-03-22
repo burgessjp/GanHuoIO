@@ -29,9 +29,9 @@ public class Category {
         cateMaps.put("休息视频", "http://omqomam0q.bkt.clouddn.com/video.png");
         cateMaps.put("Android", "http://omqomam0q.bkt.clouddn.com/android.png");
         cateMaps.put("iOS", "http://omqomam0q.bkt.clouddn.com/ios.png");
-        cateMaps.put("前端", "http://omqomam0q.bkt.clouddn.com/web.png");
-        cateMaps.put("拓展资源", "http://omqomam0q.bkt.clouddn.com/android.png");
-        cateMaps.put("瞎推荐", "http://omqomam0q.bkt.clouddn.com/android.png");
+        cateMaps.put("前端", "http://omqomam0q.bkt.clouddn.com/qianduan.png");
+        cateMaps.put("拓展资源", "http://omqomam0q.bkt.clouddn.com/tuozhan.png");
+        cateMaps.put("瞎推荐", "http://omqomam0q.bkt.clouddn.com/xiatuijian.png");
         cateMaps.put("福利", "http://omqomam0q.bkt.clouddn.com/meizhi.png");
     }
 

@@ -96,4 +96,10 @@
         <item name="android:textColor">@color/item_time</item>
         <item name="android:textSize">@dimen/item_time</item>
     </style>
+
+    <style name="AboutItemText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/material_grey_800</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

@@ -8,15 +8,14 @@ import ren.solid.ganhuoio.bean.DailyTitle;
 import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.ganhuoio.bean.XianDuItem;
-import ren.solid.ganhuoio.bean.bomb.CollectTable;
 import ren.solid.ganhuoio.module.home.provider.CategoryViewProvider;
 import ren.solid.ganhuoio.module.home.provider.DailyViewItemHeaderProvider;
 import ren.solid.ganhuoio.module.home.provider.DailyViewItemProvider;
 import ren.solid.ganhuoio.module.home.provider.DailyViewItemTitleProvider;
+import ren.solid.ganhuoio.module.home.provider.DailyViewProvider;
 import ren.solid.ganhuoio.module.home.provider.GanHuoImageViewProvider;
 import ren.solid.ganhuoio.module.home.provider.GanHuoTextViewProvider;
 import ren.solid.ganhuoio.module.home.provider.MeizhiViewProvider;
-import ren.solid.ganhuoio.module.mine.CollectViewProvider;
 import ren.solid.ganhuoio.module.read.XianDuViewProvider;
 import ren.solid.ganhuoio.module.search.SearchResultViewProvider;
 
@@ -36,10 +35,8 @@ public class MultiTypeInstaller {
         GlobalMultiTypePool.register(DailyTitle.class, new DailyViewItemTitleProvider());
         GlobalMultiTypePool.register(DailyHeader.class, new DailyViewItemHeaderProvider());
         GlobalMultiTypePool.register(SearchResult.class, new SearchResultViewProvider());
-        //新版
         GlobalMultiTypePool.register(CategoryList.class, new CategoryViewProvider());
-        GlobalMultiTypePool.register(Daily.class, new ren.solid.ganhuoio.module.home.provider.DailyViewProvider());
+        GlobalMultiTypePool.register(Daily.class, new DailyViewProvider());
         GlobalMultiTypePool.register(XianDuItem.class, new XianDuViewProvider());
-
     }
 }

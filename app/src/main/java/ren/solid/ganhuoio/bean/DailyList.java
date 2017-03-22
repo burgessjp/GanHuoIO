@@ -11,19 +11,12 @@ public class DailyList {
 
 
     private List<GanHuoData> Android;
-
     private List<GanHuoData> iOS;
-
     private List<GanHuoData> 休息视频;
-
     private List<GanHuoData> 拓展资源;
-
     private List<GanHuoData> 瞎推荐;
-
     private List<GanHuoData> 福利;
-
-
-
+    private List<GanHuoData> App;
     private List<GanHuoData> 前端;
 
     public List<GanHuoData> getAndroid() {
@@ -73,11 +66,20 @@ public class DailyList {
     public void set福利(List<GanHuoData> 福利) {
         this.福利 = 福利;
     }
+
     public List<GanHuoData> get前端() {
         return 前端;
     }
 
     public void set前端(List<GanHuoData> 前端) {
         this.前端 = 前端;
+    }
+
+    public List<GanHuoData> getApp() {
+        return App;
+    }
+
+    public void setApp(List<GanHuoData> app) {
+        App = app;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 
 import ren.solid.library.R;
 import ren.solid.library.fragment.base.BaseFragment;
+import ren.solid.library.utils.WebViewUtil;
 
 
 /**
@@ -49,7 +50,7 @@ public class WebViewFragment extends BaseFragment {
     protected void setUpView() {
         mProgressBar = (ProgressBar) getContentView().findViewById(R.id.progressbar);
         mWebView = (WebView) getContentView().findViewById(R.id.webView);
-        initWebViewSettings();
+        WebViewUtil.setWebViewOptions(mWebView);
         mWebView.setWebViewClient(new MyWebViewClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
 

@@ -27,7 +27,7 @@ import ren.solid.library.utils.SLog;
 
 public class OkHttpProvider {
 
-    private final static long DEFAULT_CONNECT_TIMEOUT = 30;
+    private final static long DEFAULT_CONNECT_TIMEOUT = 10;
     private final static long DEFAULT_WRITE_TIMEOUT = 30;
     private final static long DEFAULT_READ_TIMEOUT = 30;
 
@@ -73,7 +73,7 @@ public class OkHttpProvider {
 
             Response response = chain.proceed(request);
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
-                int maxAge = 30 * 60;//默认缓存半个小时
+                int maxAge = 60 * 60 * 2;//默认缓存两个小时
                 String cacheControl = request.cacheControl().toString();
                 if (TextUtils.isEmpty(cacheControl)) {
                     cacheControl = "public, max-age=" + maxAge;

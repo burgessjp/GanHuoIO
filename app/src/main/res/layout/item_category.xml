@@ -17,10 +17,10 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:textColor="#ffffff"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="Android" />
+        tools:text="Android"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

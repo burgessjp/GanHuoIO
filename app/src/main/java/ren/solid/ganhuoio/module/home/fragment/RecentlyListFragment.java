@@ -106,6 +106,10 @@ public class RecentlyListFragment extends AbsListFragment {
                                 list.add(new DailyTitle("前端"));
                                 list.addAll(recentlyBean.get前端());
                             }
+                            if (recentlyBean.getApp() != null) {
+                                list.add(new DailyTitle("App"));
+                                list.addAll(recentlyBean.getApp());
+                            }
                             if (recentlyBean.get瞎推荐() != null) {
                                 list.add(new DailyTitle("瞎推荐"));
                                 list.addAll(recentlyBean.get瞎推荐());

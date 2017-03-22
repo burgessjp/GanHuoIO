@@ -2,9 +2,9 @@
 [![Build Status](https://travis-ci.org/burgessjp/GanHuoIO.svg?branch=master)](https://travis-ci.org/burgessjp/GanHuoIO)
 
 
-**[新版重构中，需要之前版本的请点击[3.0.5](https://github.com/burgessjp/GanHuoIO/tree/v3.0.5end)]**
+**[目前已经更新到3.1.0版本，需要之前版本的请点击[3.0.5](https://github.com/burgessjp/GanHuoIO/tree/v3.0.5end)]**
 
-一个基于 gank 提供的API的第三方客户端，基于 Material Design，项目中覆盖了 RxJava、Retrofit、第三方登录以及很多第三方库的使用。App可以及时的查看gank.io的最新更新，还有可以很方便的对信息进行分类查看，可以对感觉有兴趣的信息进行在线收藏。
+一个基于 gank 提供的API的第三方客户端，基于 Material Design，项目中覆盖了 RxJava、Retrofit、第三方登录以及很多第三方库的使用。此应用是基于 gank.io 提供的 api 实现，包括了最新干货查看、分类查看、闲读以及站内搜索，还可对感兴趣的信息收藏。
 
 
 ###应用截图
@@ -13,6 +13,7 @@
 <img src="capture/p2.jpg" width="25%" />
 <img src="capture/p3.jpg" width="25%" />
 <img src="capture/p4.jpg" width="25%" />
+<img src="capture/p5.jpg" width="25%" />
 
 
 
@@ -21,6 +22,13 @@
 
 
 ###**更新日志**
+- 3.1.0 
+    - 去掉抽屉菜单
+    - 更换logo
+    - 优化闲读
+    - 优化搜索
+    - 全应用带缓存
+    - 建议在5.0以上系统使用
 - 3.0.5 修复首页显示不全以及部门小米机型异常退出问题
 - 3.0.2 优化
       - 减轻由于OOM引起的App异常退出

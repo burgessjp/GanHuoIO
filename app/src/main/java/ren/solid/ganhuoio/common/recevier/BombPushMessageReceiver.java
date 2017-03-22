@@ -46,6 +46,7 @@ public class BombPushMessageReceiver extends BroadcastReceiver {
                         .setTicker(message.getContent());
         if (!TextUtils.isEmpty(message.getUrl())) {
             Intent resultIntent = new Intent(context, WebViewActivity.class);
+            resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             resultIntent.putExtra(WebViewActivity.WEB_URL, message.getUrl());
             resultIntent.putExtra(WebViewActivity.TITLE, message.getTitle());
             PendingIntent pendingIntent =

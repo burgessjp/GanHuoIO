@@ -2,19 +2,20 @@
 [![Build Status](https://travis-ci.org/burgessjp/GanHuoIO.svg?branch=master)](https://travis-ci.org/burgessjp/GanHuoIO)
 
 
-###**[ 目前已经更新到3.1.0版本，需要之前版本的请点击[3.0.5](https://github.com/burgessjp/GanHuoIO/tree/v3.0.5end) ]**
+### **[ 目前已经更新到3.1.0版本，需要之前版本的请点击[3.0.5](https://github.com/burgessjp/GanHuoIO/tree/v3.0.5end) ]**
 
 一个基于 gank 提供的API的第三方客户端，基于 Material Design，项目中覆盖了 RxJava、Retrofit、第三方登录以及很多第三方库的使用。此应用是基于 gank.io 提供的 api 实现，包括了最新干货查看、分类查看、闲读以及站内搜索，还可对感兴趣的信息收藏。
 
 
 ### 应用截图
 
-<img src="capture/p1.jpg" width="25%" />
-<img src="capture/p2.jpg" width="25%" />
-<img src="capture/p3.jpg" width="25%" />
-<img src="capture/p4.jpg" width="25%" />
-<img src="capture/p5.jpg" width="25%" />
-
+<div>
+<img src="capture/p1.jpg" width="30%" />
+<img src="capture/p2.jpg" width="30%" />
+<img src="capture/p3.jpg" width="30%" />
+<img src="capture/p4.jpg" width="30%" />
+<img src="capture/p5.jpg" width="30%" />
+</div>
 
 
 下载地址: [Fir.im](http://fir.im/ganhuoio)、[应用宝](http://android.myapp.com/myapp/detail.htm?apkName=ren.solid.ganhuoio)

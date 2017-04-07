@@ -15,63 +15,58 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#-----------------------------项目中实体类区域 start------------------------------
+-keep class ren.solid.ganhuoio.bean.** { *; }
+##-keep class ren.solid.ganhuoio.bean.bomb** { *; }
+#-----------------------------项目中实体类区域 end------------------------------
 
+#-----------------------------第三方库混淆区域 start------------------------------
 
-
-
-#-------------------------------------------定制化区域----------------------------------------------
-#---------------------------------1.实体类---------------------------------
-
--keep class ren.solid.ganhuoio.model.bean.** { *; }
-
-#-------------------------------------------------------------------------
-
-#---------------------------------2.第三方包-------------------------------
-
-#eventBus
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
+# Rx
+-dontwarn sun.misc.**
+-dontwarn rx.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
 }
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
 }
-
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontnote rx.internal.util.PlatformDependent
+# retrofit
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Exceptions
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
-#okhttp
--dontwarn com.squareup.okhttp.**
--keep class com.squareup.okhttp.** { *;}
+# OkHttp3
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
 -dontwarn okio.**
 
-#log4j
--libraryjars log4j-1.2.17.jar
--dontwarn org.apache.log4j.**
--keep class  org.apache.log4j.** { *;}
-
-#-------------------------------------------------------------------------
-
-#---------------------------------3.与js互相调用的类------------------------
-
--keepclasseswithmembers class com.demo.login.bean.ui.MainActivity$JSInterface {
-      <methods>;
+# umeng
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
 }
+# BmobSDK
+-dontwarn cn.bmob.v3.**
+-keep class cn.bmob.v3.** {*;}
+-keep class * extends cn.bmob.v3.BmobObject {
+    *;
+}
+-dontwarn  cn.bmob.push.**
+-keep class cn.bmob.push.** {*;}
 
-#-------------------------------------------------------------------------
+#-----------------------------第三方库混淆区域 end------------------------------
 
-#---------------------------------4.反射相关的类和方法-----------------------
-
-#TODO 我的工程里没有。。。
-
-#----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-
-#-------------------------------------------基本不用动区域--------------------------------------------
 #---------------------------------基本指令区----------------------------------
 -optimizationpasses 5
 -dontusemixedcaseclassnames
@@ -150,4 +145,3 @@
     public void *(android.webkit.webView, jav.lang.String);
 }
 #----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------

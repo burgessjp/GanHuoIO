@@ -18,8 +18,6 @@ import ren.solid.library.utils.PrefUtils;
 import ren.solid.library.utils.SnackBarUtils;
 import ren.solid.library.utils.SystemUtils;
 
-import static u.aly.x.O;
-
 /**
  * Created by _SOLID
  * Date:2016/5/20

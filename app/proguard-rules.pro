@@ -15,12 +15,27 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-#-----------------------------项目中实体类区域 start------------------------------
+#-----------------------------项目中不能混淆的 start------------------------------
 -keep class ren.solid.ganhuoio.bean.** { *; }
-##-keep class ren.solid.ganhuoio.bean.bomb** { *; }
+-keep class ren.solid.library.rx.retrofit.HttpResult{*;}
+-keepclassmembers interface *  {
+  <fields>;
+}
 #-----------------------------项目中实体类区域 end------------------------------
 
+#保留行号(调试用)
+#-keepattributes SourceFile,LineNumberTable
 #-----------------------------第三方库混淆区域 start------------------------------
+
+# Gson
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+
+#jsoup
+-keep class org.jsoup.** { *; }
+-dontwarn org.jsoup.**
 
 # Rx
 -dontwarn sun.misc.**
@@ -36,11 +51,13 @@
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 -dontnote rx.internal.util.PlatformDependent
+
 # retrofit
 -dontnote retrofit2.Platform
 -dontnote retrofit2.Platform$IOS$MainThreadExecutor
 -dontwarn retrofit2.Platform$Java8
 -keepattributes Exceptions
+
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {

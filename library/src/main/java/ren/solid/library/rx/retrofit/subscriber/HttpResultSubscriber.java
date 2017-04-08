@@ -1,7 +1,6 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
 import ren.solid.library.rx.retrofit.HttpResult;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
 /**

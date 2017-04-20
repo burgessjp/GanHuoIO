@@ -14,10 +14,10 @@ import ren.solid.ganhuoio.bean.DailyList;
 import ren.solid.ganhuoio.bean.DailyTitle;
 import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
-import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.ServiceFactory;
-import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
+import ren.solid.library.http.HttpResult;
+import ren.solid.library.http.ServiceFactory;
+import ren.solid.library.http.subscriber.HttpResultSubscriber;
+import ren.solid.library.rx.RxUtils;
 
 /**
  * Created by _SOLID
@@ -77,7 +77,7 @@ public class RecentlyListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getRecentlyGanHuo(date)
                 .compose(this.<HttpResult<DailyList>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<DailyList>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<DailyList>>defaultSchedulers_single())
                 .subscribe(new HttpResultSubscriber<DailyList>() {
 
                     @Override
@@ -86,7 +86,7 @@ public class RecentlyListFragment extends AbsListFragment {
                     }
 
                     @Override
-                    public void onSuccess(DailyList recentlyBean) {
+                    public void _onSuccess(DailyList recentlyBean) {
                         List list = new ArrayList<>();
 
                         if (recentlyBean != null) {

@@ -1,4 +1,4 @@
-package ren.solid.library.rx.retrofit;
+package ren.solid.library.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import java.lang.reflect.Field;
 
 import okhttp3.OkHttpClient;
-import ren.solid.library.rx.OkHttpProvider;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -17,7 +17,7 @@
 #}
 #-----------------------------项目中不能混淆的 start------------------------------
 -keep class ren.solid.ganhuoio.bean.** { *; }
--keep class ren.solid.library.rx.retrofit.HttpResult{*;}
+-keep class ren.solid.library.http.HttpResult{*;}
 -keepclassmembers interface *  {
   <fields>;
 }

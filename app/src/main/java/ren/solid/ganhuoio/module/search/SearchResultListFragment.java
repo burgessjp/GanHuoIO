@@ -7,10 +7,10 @@ import java.util.List;
 import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.fragment.base.AbsListFragment;
-import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.ServiceFactory;
-import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
+import ren.solid.library.http.HttpResult;
+import ren.solid.library.http.ServiceFactory;
+import ren.solid.library.http.subscriber.HttpResultSubscriber;
+import ren.solid.library.rx.RxUtils;
 import ren.solid.library.widget.LinearDecoration;
 
 /**
@@ -49,7 +49,7 @@ public class SearchResultListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .search(category, keyWord, pageIndex)
                 .compose(this.<HttpResult<List<SearchResult>>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<List<SearchResult>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<SearchResult>>>defaultSchedulers_single())
                 .subscribe(new HttpResultSubscriber<List<SearchResult>>() {
                     @Override
                     public void _onError(Throwable e) {
@@ -57,7 +57,7 @@ public class SearchResultListFragment extends AbsListFragment {
                     }
 
                     @Override
-                    public void onSuccess(List<SearchResult> searchResults) {
+                    public void _onSuccess(List<SearchResult> searchResults) {
                         onDataSuccessReceived(pageIndex, searchResults);
                     }
 

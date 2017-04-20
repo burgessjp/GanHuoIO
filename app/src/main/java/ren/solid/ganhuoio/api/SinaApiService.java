@@ -1,6 +1,6 @@
 package ren.solid.ganhuoio.api;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import ren.solid.ganhuoio.bean.Weibo;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -14,5 +14,5 @@ public interface SinaApiService {
     String BASE_URL = "https://api.weibo.com/2/";
 
     @GET("users/show.json")
-    Flowable<Weibo> getUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
+    Single<Weibo> getUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
 }

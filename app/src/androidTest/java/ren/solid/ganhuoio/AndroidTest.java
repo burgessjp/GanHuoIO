@@ -5,9 +5,9 @@ import android.util.Log;
 
 import java.io.File;
 
-import ren.solid.library.rx.retrofit.CommonService;
-import ren.solid.library.rx.retrofit.ServiceFactory;
-import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
+import ren.solid.library.http.CommonService;
+import ren.solid.library.http.ServiceFactory;
+import ren.solid.library.http.subscriber.DownLoadSubscribe;
 
 /**
  * Created by _SOLID

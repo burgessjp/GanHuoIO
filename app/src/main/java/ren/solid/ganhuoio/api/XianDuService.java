@@ -10,13 +10,13 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 import ren.solid.ganhuoio.bean.XianDuCategory;
 import ren.solid.ganhuoio.bean.XianDuItem;
-import ren.solid.library.rx.retrofit.CommonService;
-import ren.solid.library.rx.retrofit.ServiceFactory;
+import ren.solid.library.http.CommonService;
+import ren.solid.library.http.ServiceFactory;
 
 /**
  * Created by _SOLID
@@ -30,7 +30,7 @@ public class XianDuService {
 
     private final static String BASE_URL = "http://gank.io/xiandu";
 
-    public static Flowable<List<XianDuCategory>> getCategorys() {
+    public static Single<List<XianDuCategory>> getCategorys() {
 
         return getDocumentObservable(BASE_URL)
                 .map(new Function<Document, List<XianDuCategory>>() {
@@ -50,7 +50,7 @@ public class XianDuService {
                 });
     }
 
-    public static Flowable<List<XianDuItem>> getData(String category, int pageIndex) {
+    public static Single<List<XianDuItem>> getData(String category, int pageIndex) {
         if ("xiandu".equals(category)) {//处理默认页
             category = "wow";
         }
@@ -82,7 +82,7 @@ public class XianDuService {
     }
 
     @NonNull
-    private static Flowable<Document> getDocumentObservable(String requestUrl) {
+    private static Single<Document> getDocumentObservable(String requestUrl) {
         return ServiceFactory.getInstance()
                 .createService(CommonService.class)
                 .loadString(requestUrl)

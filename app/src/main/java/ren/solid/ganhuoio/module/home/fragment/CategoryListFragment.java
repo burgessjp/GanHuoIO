@@ -15,10 +15,10 @@ import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.GankService;
 import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.library.fragment.base.AbsListFragment;
-import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.ServiceFactory;
-import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
+import ren.solid.library.http.HttpResult;
+import ren.solid.library.http.ServiceFactory;
+import ren.solid.library.http.subscriber.HttpResultSubscriber;
+import ren.solid.library.rx.RxUtils;
 
 /**
  * Created by _SOLID
@@ -60,10 +60,10 @@ public class CategoryListFragment extends AbsListFragment {
         ServiceFactory.getInstance().createService(GankService.class)
                 .getGanHuo(mType, pageIndex)
                 .compose(this.<HttpResult<List<GanHuoData>>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<List<GanHuoData>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<GanHuoData>>>defaultSchedulers_single())
                 .subscribe(new HttpResultSubscriber<List<GanHuoData>>() {
                     @Override
-                    public void onSuccess(List<GanHuoData> list) {
+                    public void _onSuccess(List<GanHuoData> list) {
                         onDataSuccessReceived(pageIndex, list);
                     }
 

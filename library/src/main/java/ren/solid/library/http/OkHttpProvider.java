@@ -1,4 +1,4 @@
-package ren.solid.library.rx;
+package ren.solid.library.http;
 
 import android.text.TextUtils;
 
@@ -27,9 +27,9 @@ import ren.solid.library.utils.SLog;
 
 public class OkHttpProvider {
 
-    private final static long DEFAULT_CONNECT_TIMEOUT = 10;
-    private final static long DEFAULT_WRITE_TIMEOUT = 30;
-    private final static long DEFAULT_READ_TIMEOUT = 30;
+    private final static long DEFAULT_CONNECT_TIMEOUT = 5;
+    private final static long DEFAULT_WRITE_TIMEOUT = 20;
+    private final static long DEFAULT_READ_TIMEOUT = 10;
 
     public static OkHttpClient getDefaultOkHttpClient() {
         return getOkHttpClient(new CacheControlInterceptor());
@@ -73,7 +73,7 @@ public class OkHttpProvider {
 
             Response response = chain.proceed(request);
             if (NetworkUtil.isConnected(SolidApplication.getInstance())) {
-                int maxAge = 60 * 60 * 2;//默认缓存两个小时
+                int maxAge = 60;//在有网络连接的情况下，一分钟内不再请求网络
                 String cacheControl = request.cacheControl().toString();
                 if (TextUtils.isEmpty(cacheControl)) {
                     cacheControl = "public, max-age=" + maxAge;

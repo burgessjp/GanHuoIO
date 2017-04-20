@@ -2,12 +2,12 @@ package ren.solid.ganhuoio.api;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import ren.solid.ganhuoio.bean.Daily;
 import ren.solid.ganhuoio.bean.DailyList;
 import ren.solid.ganhuoio.bean.GanHuoData;
 import ren.solid.ganhuoio.bean.SearchResult;
-import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.library.http.HttpResult;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -26,7 +26,7 @@ public interface GankService {
      * @return
      */
     @GET("day/history")
-    Flowable<HttpResult<List<String>>> getRecentlyDate();
+    Single<HttpResult<List<String>>> getRecentlyDate();
 
     /***
      * 根据类别查询干货
@@ -36,7 +36,7 @@ public interface GankService {
      * @return
      */
     @GET("data/{category}/20/{pageIndex}")
-    Flowable<HttpResult<List<GanHuoData>>> getGanHuo(@Path("category") String category
+    Single<HttpResult<List<GanHuoData>>> getGanHuo(@Path("category") String category
             , @Path("pageIndex") int pageIndex);
 
     /**
@@ -46,7 +46,7 @@ public interface GankService {
      * @return
      */
     @GET("day/{date}")
-    Flowable<HttpResult<DailyList>> getRecentlyGanHuo(@Path("date") String date);
+    Single<HttpResult<DailyList>> getRecentlyGanHuo(@Path("date") String date);
 
     /**
      * 搜索
@@ -56,11 +56,11 @@ public interface GankService {
      * @return
      */
     @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
-    Flowable<HttpResult<List<SearchResult>>> search(
+    Single<HttpResult<List<SearchResult>>> search(
             @Path("category") String category
             , @Path("keyword") String keyword
             , @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")
-    Flowable<HttpResult<List<Daily>>> getRecently(@Path("pageIndex") int pageIndex);
+    Single<HttpResult<List<Daily>>> getRecently(@Path("pageIndex") int pageIndex);
 }

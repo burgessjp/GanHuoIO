@@ -141,7 +141,7 @@ public abstract class AbsListFragment extends LazyLoadFragment implements IList 
     @SuppressWarnings("unchecked")
     protected final void onDataSuccessReceived(int pageIndex, List items) {
         showContent();
-        if (pageIndex == getInitPageIndex() && items.size() <= 0) {//无数据
+        if (pageIndex == getInitPageIndex() && (items == null || items.size() <= 0)) {//无数据
             showEmpty(getEmptyMsg());
         } else if (pageIndex == getInitPageIndex()) {//刷新
             mItems.clear();

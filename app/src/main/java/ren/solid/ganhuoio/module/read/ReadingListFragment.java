@@ -6,16 +6,16 @@ import android.support.v4.content.ContextCompat;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.XianDuService;
 import ren.solid.ganhuoio.bean.XianDuItem;
 import ren.solid.library.fragment.base.AbsListFragment;
-import ren.solid.library.rx.retrofit.RxUtils;
+import ren.solid.library.rx.RxUtils;
 
 /**
  * Created by _SOLID
@@ -55,26 +55,21 @@ public class ReadingListFragment extends AbsListFragment {
     @Override
     public void loadData(final int pageIndex) {
         XianDuService.getData(category, pageIndex)
-                .compose(RxUtils.<List<XianDuItem>>defaultSchedulers())
-                .subscribe(new Subscriber<List<XianDuItem>>() {
+                .compose(RxUtils.<List<XianDuItem>>defaultSchedulers_single())
+                .subscribe(new SingleObserver<List<XianDuItem>>() {
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(1);
+                    public void onSubscribe(@NonNull Disposable d) {
+
                     }
 
                     @Override
-                    public void onNext(List<XianDuItem> xianDuItems) {
+                    public void onSuccess(@NonNull List<XianDuItem> xianDuItems) {
                         onDataSuccessReceived(pageIndex, xianDuItems);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         showError(new Exception(e));
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }

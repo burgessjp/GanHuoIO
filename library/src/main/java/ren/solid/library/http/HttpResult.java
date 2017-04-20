@@ -1,4 +1,4 @@
-package ren.solid.library.rx.retrofit;
+package ren.solid.library.http;
 
 /**
  * Created by _SOLID

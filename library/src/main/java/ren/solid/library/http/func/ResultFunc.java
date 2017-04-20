@@ -1,8 +1,8 @@
-package ren.solid.library.rx.retrofit.func;
+package ren.solid.library.http.func;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
-import ren.solid.library.rx.retrofit.HttpResult;
+import ren.solid.library.http.HttpResult;
 import ren.solid.library.utils.json.JsonConvert;
 
 /**

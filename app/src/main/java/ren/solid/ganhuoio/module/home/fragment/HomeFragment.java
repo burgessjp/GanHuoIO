@@ -12,10 +12,10 @@ import ren.solid.ganhuoio.bean.CategoryList;
 import ren.solid.ganhuoio.bean.Daily;
 import ren.solid.ganhuoio.common.constant.Category;
 import ren.solid.library.fragment.base.AbsListFragment;
-import ren.solid.library.rx.retrofit.HttpResult;
-import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.ServiceFactory;
-import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
+import ren.solid.library.http.HttpResult;
+import ren.solid.library.http.ServiceFactory;
+import ren.solid.library.http.subscriber.HttpResultSubscriber;
+import ren.solid.library.rx.RxUtils;
 
 /**
  * Created by _SOLID
@@ -46,10 +46,10 @@ public class HomeFragment extends AbsListFragment {
                 .createService(GankService.class)
                 .getRecently(pageIndex)
                 .compose(this.<HttpResult<List<Daily>>>bindToLifecycle())
-                .compose(RxUtils.<HttpResult<List<Daily>>>defaultSchedulers())
+                .compose(RxUtils.<HttpResult<List<Daily>>>defaultSchedulers_single())
                 .subscribe(new HttpResultSubscriber<List<Daily>>() {
                     @Override
-                    public void onSuccess(List<Daily> dailies) {
+                    public void _onSuccess(List<Daily> dailies) {
                         data.addAll(dailies);
                         onDataSuccessReceived(pageIndex, data);
                     }

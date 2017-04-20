@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import ren.solid.library.R;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.activity.base.BaseActivity;
+import ren.solid.library.http.ObservableProvider;
+import ren.solid.library.http.subscriber.DownLoadSubscribe;
 import ren.solid.library.imageloader.ImageLoader;
-import ren.solid.library.rx.retrofit.ObservableProvider;
-import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 import ren.solid.library.utils.FileUtils;
 import ren.solid.library.utils.SLog;
 import ren.solid.library.utils.SnackBarUtils;
@@ -190,15 +190,14 @@ public class ViewPicActivity extends BaseActivity {
             }
 
             @Override
-            public void onError(Throwable e) {
+            protected void onFailed(Throwable e) {
                 if (action == 0)
                     SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
             }
 
             @Override
             public void onProgress(double progress, long downloadByte, long totalByte) {
-                SLog.i(this, "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
-
+                // SLog.i("PicDownload", "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
             }
         });
     }

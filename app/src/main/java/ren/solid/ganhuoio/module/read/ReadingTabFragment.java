@@ -6,17 +6,17 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import me.solidev.statusviewlayout.StatusViewLayout;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.XianDuService;
 import ren.solid.ganhuoio.bean.XianDuCategory;
 import ren.solid.library.fragment.base.BaseFragment;
-import ren.solid.library.rx.retrofit.RxUtils;
+import ren.solid.library.rx.RxUtils;
 import ren.solid.library.utils.ViewUtils;
 
 /**
@@ -56,29 +56,24 @@ public class ReadingTabFragment extends BaseFragment {
     protected void setUpData() {
         status_view_layout.showLoading();
         XianDuService.getCategorys()
-                .compose(RxUtils.<List<XianDuCategory>>defaultSchedulers())
-                .subscribe(new Subscriber<List<XianDuCategory>>() {
+                .compose(RxUtils.<List<XianDuCategory>>defaultSchedulers_single())
+                .subscribe(new SingleObserver<List<XianDuCategory>>() {
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(1);
+                    public void onSubscribe(@NonNull Disposable d) {
+
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        status_view_layout.showError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<XianDuCategory> list) {
+                    public void onSuccess(@NonNull List<XianDuCategory> xianDuCategories) {
                         status_view_layout.showContent();
-                        mAdapter = new XianDuTabAdapter(getChildFragmentManager(), list);
+                        mAdapter = new XianDuTabAdapter(getChildFragmentManager(), xianDuCategories);
                         view_pager.setAdapter(mAdapter);
                         tab_layout.setupWithViewPager(view_pager);
                     }
 
                     @Override
-                    public void onComplete() {
-
+                    public void onError(@NonNull Throwable e) {
+                        status_view_layout.showError(e.getMessage());
                     }
                 });
     }

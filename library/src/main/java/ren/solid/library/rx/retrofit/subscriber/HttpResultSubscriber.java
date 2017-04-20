@@ -1,17 +1,24 @@
 package ren.solid.library.rx.retrofit.subscriber;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import ren.solid.library.rx.retrofit.HttpResult;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
  * Date:2016/7/27
  * Time:21:27
  */
-public abstract class HttpResultSubscriber<T> extends Subscriber<HttpResult<T>> {
+public abstract class HttpResultSubscriber<T> implements Subscriber<HttpResult<T>> {
 
     @Override
-    public void onCompleted() {
+    public void onSubscribe(Subscription s) {
+        s.request(1);
+    }
+
+    @Override
+    public void onComplete() {
 
     }
 

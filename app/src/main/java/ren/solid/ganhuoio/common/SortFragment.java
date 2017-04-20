@@ -127,7 +127,7 @@ public class SortFragment extends BaseFragment {
                 Collections.swap(beans, fromPosition, toPosition);
                 notifyItemMoved(fromPosition, toPosition);
                 saveCategoryString();
-                RxBus.getInstance().post(new SortChangeEvent());
+                RxBus.getInstance().send(new SortChangeEvent());
             } else {
                 SnackBarUtils.makeLong(mRecyclerView, "第一个条目不允许拖动").info();
             }

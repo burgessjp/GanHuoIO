@@ -6,6 +6,9 @@ import android.support.v4.content.ContextCompat;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
 import ren.solid.ganhuoio.R;
@@ -13,7 +16,6 @@ import ren.solid.ganhuoio.api.XianDuService;
 import ren.solid.ganhuoio.bean.XianDuItem;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.RxUtils;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -56,8 +58,13 @@ public class ReadingListFragment extends AbsListFragment {
                 .compose(RxUtils.<List<XianDuItem>>defaultSchedulers())
                 .subscribe(new Subscriber<List<XianDuItem>>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Subscription s) {
+                        s.request(1);
+                    }
 
+                    @Override
+                    public void onNext(List<XianDuItem> xianDuItems) {
+                        onDataSuccessReceived(pageIndex, xianDuItems);
                     }
 
                     @Override
@@ -66,8 +73,8 @@ public class ReadingListFragment extends AbsListFragment {
                     }
 
                     @Override
-                    public void onNext(List<XianDuItem> list) {
-                        onDataSuccessReceived(pageIndex, list);
+                    public void onComplete() {
+
                     }
                 });
     }

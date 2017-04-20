@@ -2,7 +2,7 @@ package ren.solid.library.rx;
 
 import android.text.TextUtils;
 
-import com.jakewharton.rxbinding.internal.Preconditions;
+import com.trello.rxlifecycle2.internal.Preconditions;
 
 import java.io.File;
 import java.io.IOException;

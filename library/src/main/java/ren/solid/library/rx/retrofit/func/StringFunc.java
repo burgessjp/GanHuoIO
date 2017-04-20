@@ -2,17 +2,19 @@ package ren.solid.library.rx.retrofit.func;
 
 import java.io.IOException;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
-import rx.functions.Func1;
 
 /**
  * Created by _SOLID
  * Date:2016/7/27
  * Time:20:54
  */
-public class StringFunc implements Func1<ResponseBody, String> {
+public class StringFunc implements Function<ResponseBody, String> {
+   
     @Override
-    public String call(ResponseBody responseBody) {
+    public String apply(@NonNull ResponseBody responseBody) throws Exception {
         String result = null;
         try {
             result = responseBody.string();

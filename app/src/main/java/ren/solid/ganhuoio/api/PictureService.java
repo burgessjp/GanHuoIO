@@ -1,8 +1,8 @@
 package ren.solid.ganhuoio.api;
 
+import io.reactivex.Flowable;
 import ren.solid.ganhuoio.bean.RandomPicture;
 import retrofit2.http.GET;
-import rx.Observable;
 
 /**
  * Created by _SOLID
@@ -13,5 +13,5 @@ public interface PictureService {
     String BASE_URL = "http://lelouchcrgallery.tk/";
 
     @GET("rand")
-    Observable<RandomPicture> getRandomPicture();
+    Flowable<RandomPicture> getRandomPicture();
 }

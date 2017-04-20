@@ -7,17 +7,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 import ren.solid.ganhuoio.bean.XianDuCategory;
 import ren.solid.ganhuoio.bean.XianDuItem;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.rx.retrofit.service.CommonService;
-import rx.Observable;
-import rx.functions.Func1;
+import ren.solid.library.rx.retrofit.CommonService;
+import ren.solid.library.rx.retrofit.ServiceFactory;
 
 /**
  * Created by _SOLID
@@ -31,12 +30,12 @@ public class XianDuService {
 
     private final static String BASE_URL = "http://gank.io/xiandu";
 
-    public static Observable<List<XianDuCategory>> getCategorys() {
+    public static Flowable<List<XianDuCategory>> getCategorys() {
 
         return getDocumentObservable(BASE_URL)
-                .map(new Func1<Document, List<XianDuCategory>>() {
+                .map(new Function<Document, List<XianDuCategory>>() {
                     @Override
-                    public List<XianDuCategory> call(Document document) {
+                    public List<XianDuCategory> apply(@io.reactivex.annotations.NonNull Document document) throws Exception {
                         List<XianDuCategory> list = new ArrayList<>();
                         Elements elements = document.body().getElementById("xiandu_cat").getElementsByTag("a");
                         for (Element element : elements) {
@@ -51,15 +50,15 @@ public class XianDuService {
                 });
     }
 
-    public static Observable<List<XianDuItem>> getData(String category, int pageIndex) {
+    public static Flowable<List<XianDuItem>> getData(String category, int pageIndex) {
         if ("xiandu".equals(category)) {//处理默认页
             category = "wow";
         }
         final String requestUrl = BASE_URL + "/" + category + "/" + "page" + "/" + pageIndex;
         return getDocumentObservable(requestUrl)
-                .map(new Func1<Document, List<XianDuItem>>() {
+                .map(new Function<Document, List<XianDuItem>>() {
                     @Override
-                    public List<XianDuItem> call(Document document) {
+                    public List<XianDuItem> apply(@io.reactivex.annotations.NonNull Document document) throws Exception {
                         List<XianDuItem> list = new ArrayList<>();
                         Elements items = document.body().getElementsByClass("xiandu_item");
                         for (Element element : items) {
@@ -83,24 +82,14 @@ public class XianDuService {
     }
 
     @NonNull
-    private static Observable<Document> getDocumentObservable(String requestUrl) {
+    private static Flowable<Document> getDocumentObservable(String requestUrl) {
         return ServiceFactory.getInstance()
                 .createService(CommonService.class)
                 .loadString(requestUrl)
-                .map(new Func1<ResponseBody, String>() {
+                .map(new Function<ResponseBody, Document>() {
                     @Override
-                    public String call(ResponseBody responseBody) {
-                        try {
-                            return responseBody.string();
-                        } catch (IOException e) {
-                            return "";
-                        }
-                    }
-                })
-                .map(new Func1<String, Document>() {
-                    @Override
-                    public Document call(String s) {
-                        return Jsoup.parse(s);
+                    public Document apply(@io.reactivex.annotations.NonNull ResponseBody responseBody) throws Exception {
+                        return Jsoup.parse(responseBody.string());
                     }
                 });
     }

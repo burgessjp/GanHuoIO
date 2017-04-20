@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.2'
     }
 }
@@ -13,8 +13,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()//appIntro
-        maven { url "https://jitpack.io" }//photoview required
+        maven { url "https://jitpack.io" }
     }
 }
 

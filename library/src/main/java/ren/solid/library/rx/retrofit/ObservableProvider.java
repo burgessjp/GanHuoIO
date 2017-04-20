@@ -1,17 +1,17 @@
 
 package ren.solid.library.rx.retrofit;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
 import ren.solid.library.rx.retrofit.func.ResultFunc;
-import ren.solid.library.rx.retrofit.func.RetryWhenNetworkException;
 import ren.solid.library.rx.retrofit.func.StringFunc;
-import ren.solid.library.rx.retrofit.service.CommonService;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -35,15 +35,13 @@ public class ObservableProvider {
         return DefaultHolder.INSTANCE;
     }
 
-    public Observable<String> loadString(String url) {
+    public Flowable<String> loadString(String url) {
         return mCommonService
                 .loadString(url)
-                .compose(RxUtils.<ResponseBody>defaultSchedulers())
-                .retryWhen(new RetryWhenNetworkException())
                 .map(new StringFunc());
     }
 
-    public <T> Observable<HttpResult<T>> loadResult(String url) {
+    public <T> Flowable<HttpResult<T>> loadResult(String url) {
         return loadString(url).map(new ResultFunc<T>());
     }
 
@@ -51,27 +49,32 @@ public class ObservableProvider {
         mCommonService
                 .download(url)
                 .compose(RxUtils.<ResponseBody>all_io())
-                .doOnNext(new Action1<ResponseBody>() {
+                .doOnNext(new Consumer<ResponseBody>() {
                     @Override
-                    public void call(ResponseBody responseBody) {
+                    public void accept(@NonNull ResponseBody responseBody) throws Exception {
                         subscribe.writeResponseBodyToDisk(responseBody);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ResponseBody>() {
                     @Override
-                    public void onCompleted() {
-                        subscribe.onCompleted();
+                    public void onSubscribe(Subscription s) {
+                        s.request(1);
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        subscribe.onComplete();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         subscribe.onError(e);
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        //do nothing
                     }
                 });
 

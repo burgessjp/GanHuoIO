@@ -5,8 +5,8 @@ import android.util.Log;
 
 import java.io.File;
 
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
-import ren.solid.library.rx.retrofit.service.CommonService;
+import ren.solid.library.rx.retrofit.CommonService;
+import ren.solid.library.rx.retrofit.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.DownLoadSubscribe;
 
 /**

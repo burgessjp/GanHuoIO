@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.common.activity.SubActivity;
 import ren.solid.ganhuoio.common.event.LoginEvent;
@@ -20,7 +22,6 @@ import ren.solid.library.imageloader.ImageLoader;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.utils.SpannableStringUtils;
 import ren.solid.library.utils.ToastUtils;
-import rx.functions.Action1;
 
 /**
  * Created by _SOLID
@@ -40,9 +41,9 @@ public class MineFragment extends BaseFragment {
         RxBus.getInstance()
                 .toObservable(LoginEvent.class)
                 .compose(this.<LoginEvent>bindToLifecycle())
-                .subscribe(new Action1<LoginEvent>() {
+                .subscribe(new Consumer<LoginEvent>() {
                     @Override
-                    public void call(LoginEvent loginEvent) {
+                    public void accept(@NonNull LoginEvent loginEvent) throws Exception {
                         setUserInfo();
                     }
                 });

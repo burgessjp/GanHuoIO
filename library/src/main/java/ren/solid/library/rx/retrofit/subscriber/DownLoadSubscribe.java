@@ -4,6 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,15 +16,13 @@ import java.io.OutputStream;
 import okhttp3.ResponseBody;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.utils.FileUtils;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
  * Date:2016/8/1
  * Time:16:40
  */
-public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
-
+public abstract class DownLoadSubscribe implements Subscriber<ResponseBody> {
     private static String TAG = "DownLoadSubscribe";
     private String mSaveFilePath;
     private File mFile;
@@ -37,7 +38,12 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
     }
 
     @Override
-    public void onCompleted() {
+    public void onSubscribe(Subscription s) {
+        s.request(1);
+    }
+
+    @Override
+    public void onComplete() {
         onCompleted(mFile);
     }
 
@@ -63,6 +69,7 @@ public abstract class DownLoadSubscribe extends Subscriber<ResponseBody> {
     Handler handler = new Handler(Looper.getMainLooper());
     long fileSizeDownloaded = 0;
     long fileSize = 0;
+
     public boolean writeResponseBodyToDisk(ResponseBody body) {
         try {
             InputStream inputStream = null;

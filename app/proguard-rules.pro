@@ -37,7 +37,7 @@
 -keep class org.jsoup.** { *; }
 -dontwarn org.jsoup.**
 
-# Rx
+# RxJava1
 -dontwarn sun.misc.**
 -dontwarn rx.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {

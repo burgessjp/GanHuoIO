@@ -1,4 +1,4 @@
-package ren.solid.library.rx.retrofit.factory;
+package ren.solid.library.rx.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import okhttp3.OkHttpClient;
 import ren.solid.library.rx.OkHttpProvider;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -59,7 +59,7 @@ public class ServiceFactory {
                 .baseUrl(baseUrl)
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(mGson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit.create(serviceClass);
     }

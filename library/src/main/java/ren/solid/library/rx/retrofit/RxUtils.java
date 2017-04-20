@@ -1,8 +1,12 @@
 package ren.solid.library.rx.retrofit;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Publisher;
+
+import io.reactivex.Flowable;
+import io.reactivex.FlowableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by _SOLID
@@ -10,21 +14,22 @@ import rx.schedulers.Schedulers;
  * Time:21:17
  */
 public class RxUtils {
-
-    public static <T> Observable.Transformer<T, T> defaultSchedulers() {
-        return new Observable.Transformer<T, T>() {
+    public static <T> FlowableTransformer<T, T> defaultSchedulers() {
+        return new FlowableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
+            public Publisher<T> apply(@NonNull Flowable<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
+
             }
         };
     }
 
-    public static <T> Observable.Transformer<T, T> all_io() {
-        return new Observable.Transformer<T, T>() {
+    public static <T> FlowableTransformer<T, T> all_io() {
+        return new FlowableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.observeOn(Schedulers.io()).subscribeOn(Schedulers.io());
+            public Publisher<T> apply(@NonNull Flowable<T> upstream) {
+                return upstream.observeOn(Schedulers.io()).subscribeOn(Schedulers.io());
+
             }
         };
     }

@@ -6,6 +6,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
 import me.solidev.statusviewlayout.StatusViewLayout;
@@ -15,7 +18,6 @@ import ren.solid.ganhuoio.bean.XianDuCategory;
 import ren.solid.library.fragment.base.BaseFragment;
 import ren.solid.library.rx.retrofit.RxUtils;
 import ren.solid.library.utils.ViewUtils;
-import rx.Subscriber;
 
 /**
  * Created by _SOLID
@@ -57,8 +59,8 @@ public class ReadingTabFragment extends BaseFragment {
                 .compose(RxUtils.<List<XianDuCategory>>defaultSchedulers())
                 .subscribe(new Subscriber<List<XianDuCategory>>() {
                     @Override
-                    public void onCompleted() {
-
+                    public void onSubscribe(Subscription s) {
+                        s.request(1);
                     }
 
                     @Override
@@ -72,6 +74,11 @@ public class ReadingTabFragment extends BaseFragment {
                         mAdapter = new XianDuTabAdapter(getChildFragmentManager(), list);
                         view_pager.setAdapter(mAdapter);
                         tab_layout.setupWithViewPager(view_pager);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

@@ -1,9 +1,9 @@
 package ren.solid.library.rx;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * Created by _SOLID
@@ -12,21 +12,21 @@ import rx.subjects.Subject;
  */
 public class RxBus {
 
-    private final Subject<Object, Object> _bus;
+    private final Subject<Object> _bus;
 
     private static class RxBusHolder {
         private static final RxBus instance = new RxBus();
     }
 
     private RxBus() {
-        _bus = new SerializedSubject<>(PublishSubject.create());
+        _bus = PublishSubject.create();
     }
 
     public static synchronized RxBus getInstance() {
         return RxBusHolder.instance;
     }
 
-    public void post(Object o) {
+    public void send(Object o) {
         _bus.onNext(o);
     }
 

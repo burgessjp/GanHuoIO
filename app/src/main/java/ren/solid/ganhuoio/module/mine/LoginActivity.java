@@ -21,17 +21,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.bmob.v3.BmobUser;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import ren.solid.ganhuoio.R;
 import ren.solid.ganhuoio.api.SinaApiService;
+import ren.solid.ganhuoio.bean.Weibo;
 import ren.solid.ganhuoio.common.constant.Constants;
 import ren.solid.ganhuoio.common.event.LoginEvent;
-import ren.solid.ganhuoio.bean.Weibo;
 import ren.solid.ganhuoio.utils.AuthorityUtils;
 import ren.solid.library.rx.RxBus;
 import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.ServiceFactory;
 import ren.solid.library.utils.ToastUtils;
-import rx.Subscriber;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -144,22 +145,13 @@ public class LoginActivity extends AppCompatActivity {
 
         SinaApiService service = ServiceFactory.getInstance().createService(SinaApiService.class);
         service.getUserInfo(AuthorityUtils.getAccessToken(), AuthorityUtils.getUid()).compose(RxUtils.<Weibo>defaultSchedulers())
-                .subscribe(new Subscriber<Weibo>() {
+                .subscribe(new Consumer<Weibo>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(Weibo result) {
+                    public void accept(@NonNull Weibo result) throws Exception {
                         if (result != null) {
                             AuthorityUtils.setUserName(result.getName());
                             AuthorityUtils.login(result);
-                            RxBus.getInstance().post(new LoginEvent(1));
+                            RxBus.getInstance().send(new LoginEvent(1));
                             BmobUser user = new BmobUser();
                             user.setUsername(result.getName());
                             user.setPassword("123456");

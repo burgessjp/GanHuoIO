@@ -49,7 +49,7 @@ public class DialogUtils {
                 @Override
                 public void onSuccess() {
                     SnackBarUtils.makeShort(view, "收藏成功").success();
-                    RxBus.getInstance().post(new CollectChangeEvent());
+                    RxBus.getInstance().send(new CollectChangeEvent());
                 }
 
                 @Override

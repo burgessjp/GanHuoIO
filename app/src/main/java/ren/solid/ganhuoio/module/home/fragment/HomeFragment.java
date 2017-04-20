@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ren.solid.ganhuoio.api.GankService;
-import ren.solid.ganhuoio.common.constant.Category;
 import ren.solid.ganhuoio.bean.CategoryList;
 import ren.solid.ganhuoio.bean.Daily;
+import ren.solid.ganhuoio.common.constant.Category;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 
 /**

@@ -9,7 +9,7 @@ import ren.solid.ganhuoio.bean.SearchResult;
 import ren.solid.library.fragment.base.AbsListFragment;
 import ren.solid.library.rx.retrofit.HttpResult;
 import ren.solid.library.rx.retrofit.RxUtils;
-import ren.solid.library.rx.retrofit.factory.ServiceFactory;
+import ren.solid.library.rx.retrofit.ServiceFactory;
 import ren.solid.library.rx.retrofit.subscriber.HttpResultSubscriber;
 import ren.solid.library.widget.LinearDecoration;
 

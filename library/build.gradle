@@ -47,7 +47,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
     compile "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-    //compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile('com.trello.rxlifecycle2:rxlifecycle-components:2.0.1', {
         exclude group: 'com.android.support'
         exclude group: 'io.reactivex.rxjava2'

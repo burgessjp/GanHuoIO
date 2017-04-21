@@ -2,6 +2,7 @@
 
 package ren.solid.library.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
@@ -16,9 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import java.io.File;
 import java.util.ArrayList;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import ren.solid.library.R;
 import ren.solid.library.SolidApplication;
 import ren.solid.library.activity.base.BaseActivity;
@@ -91,6 +97,22 @@ public class ViewPicActivity extends BaseActivity {
                 downloadPicture(0);
             }
         });
+        RxPermissions rxPermissions = new RxPermissions(this);
+        RxView.clicks(mIvDownload)
+                .compose(rxPermissions.ensureEach(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                .subscribe(new Consumer<com.tbruyelle.rxpermissions2.Permission>() {
+                    @Override
+                    public void accept(@NonNull com.tbruyelle.rxpermissions2.Permission permission) throws Exception {
+                        if (permission.granted) {
+                            downloadPicture(0);
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+
+                        } else {
+                            SnackBarUtils.makeShort(mViewPager,getString(R.string.no_permisstion_write))
+                                    .info();
+                        }
+                    }
+                });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -176,30 +198,35 @@ public class ViewPicActivity extends BaseActivity {
     public void downloadPicture(final int action) {
         mSavePath = FileUtils.getSaveImagePath(this) + File.separator + FileUtils.getFileName(mUrlList.get(0));
         SLog.i(this, mSavePath);
-        ObservableProvider.getDefault().download(mUrlList.get(0), new DownLoadSubscribe(FileUtils.getSaveImagePath(this), FileUtils.getFileName(mUrlList.get(0))) {
-            @Override
-            public void onCompleted(File file) {
-                if (action == 0) {
-                    SnackBarUtils.makeLong(mViewPager, "已保存至相册").info();
-                    MediaScannerConnection.scanFile(SolidApplication.getInstance(), new String[]{
-                                    mSavePath},
-                            null, null);
-                } else {
-                    SystemShareUtils.shareImage(ViewPicActivity.this, Uri.parse(file.getAbsolutePath()));
-                }
-            }
+        ObservableProvider.getDefault()
+                .download(mUrlList.get(0)
+                        , new DownLoadSubscribe(
+                                FileUtils.getSaveImagePath(getApplication()),
+                                FileUtils.getFileName(mUrlList.get(0))) {
+                            @Override
+                            public void onCompleted(File file) {
+                                if (action == 0) {
+                                    SnackBarUtils.makeLong(mViewPager, "已保存至相册").info();
+                                    MediaScannerConnection.scanFile(SolidApplication.getInstance(), new String[]{
+                                                    mSavePath},
+                                            null, null);
+                                } else {
+                                    SystemShareUtils.shareImage(ViewPicActivity.this, Uri.parse(file.getAbsolutePath()));
+                                }
+                            }
 
-            @Override
-            protected void onFailed(Throwable e) {
-                if (action == 0)
-                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
-            }
+                            @Override
+                            protected void onFailed(Throwable e) {
+                                if (action == 0)
+                                    SnackBarUtils.makeLong(mViewPager, "保存失败:" + e).danger();
+                            }
 
-            @Override
-            public void onProgress(double progress, long downloadByte, long totalByte) {
-                // SLog.i("PicDownload", "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
-            }
-        });
+                            @Override
+                            public void onProgress(double progress, long downloadByte, long totalByte) {
+                                // SLog.i("PicDownload", "totalByte:" + totalByte + " downloadedByte:" + downloadByte + " progress:" + progress);
+                            }
+                        });
+
     }
 
     @Override

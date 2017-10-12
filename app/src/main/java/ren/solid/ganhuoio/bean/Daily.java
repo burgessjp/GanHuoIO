@@ -20,8 +20,21 @@ public class Daily {
 
     public String getImgUrl() {
         int start = content.indexOf("src=\"") + 5;
-        int end = content.indexOf(".jpg") + 4;
-        return content.substring(start, end);
+
+        int jpgEnd = content.indexOf(".jpg");
+        int end = jpgEnd + 4;
+        if (jpgEnd == -1) {
+            jpgEnd = content.indexOf(".jpeg");
+            end = jpgEnd + 5;
+        }
+        if (jpgEnd == -1) {
+            jpgEnd = content.indexOf(".png");
+            end = jpgEnd + 4;
+        }
+        if (end > start)
+            return content.substring(start, end);
+        else
+            return "";
     }
 
 
